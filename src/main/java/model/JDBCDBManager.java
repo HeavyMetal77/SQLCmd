@@ -1,0 +1,251 @@
+package model;
+
+import java.sql.*;
+import java.util.ArrayList;
+
+public class JDBCDBManager implements DBManager {
+    private Connection connection;
+
+    //получить соединение с БД
+    @Override
+    public void connect(String database, String login, String password) {
+
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Where is your PostgreSQL JDBC Driver? "
+                    + "Include in your library path!");
+            e.printStackTrace();
+            return;
+        }
+        try {
+            connection = DriverManager.getConnection(
+                    "jdbc:postgresql://localhost:5432/" +
+                            database, login, password);
+        } catch (SQLException e) {
+            connection = null;
+            throw new RuntimeException("\nОшибка вводимых данных!", e);
+        }
+    }
+
+    //получить названия всех таблиц БД и вывести их на консоль
+    @Override
+    public ArrayList<String> getTables() {
+        String request = "SELECT * FROM information_schema.tables " +
+                "WHERE table_schema='public' AND table_type='BASE TABLE'";
+        Statement stmt = null;
+        ResultSet resultSet = null;
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            stmt = connection.createStatement();
+            resultSet = stmt.executeQuery(request);
+            while (resultSet.next()) {
+                list.add(resultSet.getString("table_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //выводим список таблиц
+//        String listTables = "[";
+//        for (String string : list) {
+//            listTables += string + ", ";
+//        }
+//        listTables = listTables.substring(0, listTables.length() - 2) + "]";
+//        System.out.println(listTables);
+        return list;
+    }
+
+    //создать таблицу с названием nameTable
+     @Override
+     public void createTable(String nameTable, String... nameColumns) {
+        String requestSql = "CREATE TABLE IF NOT EXISTS " +
+                nameTable + " (ID INT PRIMARY KEY NOT NULL,";
+        String textNameColumn = "";
+        for (String text : nameColumns) {
+            textNameColumn += " " + text + " TEXT NOT NULL,";
+        }
+
+        textNameColumn = textNameColumn.substring(0, (textNameColumn.length() - 1));
+        requestSql += textNameColumn + ")";
+
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            stmt.executeUpdate(requestSql);
+            stmt.close();
+            System.out.println("TABLE " + nameTable + " was successfully created!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //удалить таблицу
+    @Override
+    public void drop(String nameTable) {
+        String requestSql = "DROP TABLE IF EXISTS " + nameTable;
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            stmt.executeUpdate(requestSql);
+            stmt.close();
+            System.out.println("TABLE " + nameTable + " was successfully deleted!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //очистить таблицу
+    @Override
+    public void clear(String nameTable) {
+        String requestSql = "DELETE FROM " + nameTable;
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            stmt.executeUpdate(requestSql);
+            stmt.close();
+            System.out.println("TABLE " + nameTable + " was successfully clear!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //получение содержимого указанной таблицы
+    @Override
+    public void find(String nameTable) {
+        String requestSql = "SELECT * FROM " + nameTable;
+        Statement stmt = null;
+        ResultSet resultSet = null;
+        try {
+            stmt = connection.createStatement();
+            resultSet = stmt.executeQuery(requestSql);
+
+            //рисуем верхнюю границу таблицы (+--+--+)
+            System.out.print("+");
+            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                //ширина колонки
+                int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
+
+                //если ширина колонки меньше чем длинна ее заголовка - увеличить ширину
+                if(lengthColumn < resultSet.getMetaData().getColumnName(i).length())
+                    lengthColumn = resultSet.getMetaData().getColumnName(i).length();
+
+                System.out.print(String.format("%0" + lengthColumn + "d", 0).replace("0", "-"));
+                System.out.print("+");
+            }
+            System.out.println();
+
+            //рисуем заглавие таблицы
+            System.out.print("+");
+            //итерируемся по списку названий таблиц (i)
+                for (int i = 0, j = 1; i < resultSet.getMetaData().getColumnCount(); i++, j++) {
+                    //ширина колонки
+                    int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(j);
+                    System.out.print(resultSet.getMetaData().getColumnName(j));
+                    //остаток пробелов
+                    int countSpace = lengthColumn - resultSet.getMetaData().getColumnName(j).length();
+                    //если кол-во пробелов больше 0
+                    if (countSpace > 0) {
+                        System.out.print(String.format("%0" + countSpace + "d", 0).replace("0", " "));
+                    }
+                    System.out.print("+");
+                }
+                System.out.println();
+
+            //рисуем нижнюю границу заглавия таблицы (+--+--+)
+            System.out.print("+");
+            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                //ширина колонки
+                int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
+                //если ширина колонки меньше чем длинна ее заголовка - увеличить ширину
+                if(lengthColumn < resultSet.getMetaData().getColumnName(i).length())
+                    lengthColumn = resultSet.getMetaData().getColumnName(i).length();
+                System.out.print(String.format("%0" + lengthColumn + "d", 0).replace("0", "-"));
+                System.out.print("+");
+            }
+            System.out.println();
+
+            //выводим содержимое кортежей таблицы
+            while (resultSet.next()) {
+                System.out.print("+");
+                int indexColumn = 0;
+                //resultSet.getMetaData().getColumnCount() - возвращает количество столбцов
+                for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
+                    System.out.print(resultSet.getString(++indexColumn));
+                    //ширина колонки
+                    int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(indexColumn);
+                    int countSpace;//кол-во пробелов
+                    //если значение в таблице не null
+                    if (resultSet.getString(indexColumn) != null) {
+                        //кол-во пробелов
+                        countSpace = lengthColumn - resultSet.getString(indexColumn).length();
+                    }else {//4 - длинна слова 'null'
+                        countSpace = lengthColumn - 4;
+                    }
+                    //если в ячейке булевое значение (занимает 1 позицию)- кол-во пробелов изменяем
+                    if (resultSet.getMetaData().getColumnTypeName(indexColumn).equals("bool")) {
+                        countSpace = resultSet.getMetaData().getColumnName(indexColumn).length() - lengthColumn;
+                    }
+                    //если кол-во пробелов больше 0
+                    if (countSpace > 0) {
+                        System.out.print(String.format("%0" + countSpace + "d", 0).replace("0", " "));
+                    }
+
+
+                    System.out.print("+");
+                }
+                System.out.println();
+            }
+
+            //рисуем нижнюю границу всей таблицы (+--+--+)
+            System.out.print("+");
+            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                //ширина колонки
+                int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
+                //если ширина колонки меньше чем длинна ее заголовка - увеличить ширину
+                if(lengthColumn < resultSet.getMetaData().getColumnName(i).length())
+                    lengthColumn = resultSet.getMetaData().getColumnName(i).length();
+                System.out.print(String.format("%0" + lengthColumn + "d", 0).replace("0", "-"));
+                System.out.print("+");
+            }
+            System.out.println();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void insert(String tableName, String column1, String value1) {
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    /*
+    insert
+Команда для вставки одной строки в заданную таблицу
+Формат: insert | tableName | column1 | value1 | column2 | value2 | ... | columnN | valueN
+где: tableName - имя таблицы
+column1 - имя первого столбца записи
+value1 - значение первого столбца записи
+column2 - имя второго столбца записи
+value2 - значение второго столбца записи
+columnN - имя n-го столбца записи
+valueN - значение n-го столбца записи
+Формат вывода: текстовое сообщение с результатом выполнения операции
+     */
+
+}
+/*
+
+insert
+update
+delete
+help
+exit
+ */
