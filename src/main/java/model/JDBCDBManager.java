@@ -120,7 +120,6 @@ public class JDBCDBManager implements DBManager {
         try {
             stmt = connection.createStatement();
             resultSet = stmt.executeQuery(requestSql);
-            System.out.println("Атрибуты: " + resultSet.getMetaData().getColumnCount());
 
             if (resultSet.getMetaData().getColumnCount() != 0) {
                 //рисуем верхнюю границу таблицы(+--+--+)

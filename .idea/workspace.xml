@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31b3f361-3dd6-4d25-b8ac-7cf23ebc08b1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/command/Find.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/command/Tables.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/command/Drop.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/command/Unsupported.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MainController.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -25,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="82" selection-start-line="82" selection-end-line="82" />
+            <state relative-caret-position="814">
+              <caret line="122" lean-forward="true" selection-start-line="122" selection-end-line="122" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#connect#0;class#JDBCDBManager#0" />
@@ -34,7 +37,6 @@
                 <element signature="method#createTable#0;class#JDBCDBManager#0" />
                 <element signature="method#drop#0;class#JDBCDBManager#0" />
                 <element signature="method#clear#0;class#JDBCDBManager#0" />
-                <element signature="method#find#0;class#JDBCDBManager#0" />
                 <element signature="method#dataCortage#0;class#JDBCDBManager#0" />
                 <element signature="method#printTitleTable#0;class#JDBCDBManager#0" />
                 <element signature="method#printLineTable#0;class#JDBCDBManager#0" />
@@ -46,13 +48,80 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="40" column="13" lean-forward="true" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+            <state relative-caret-position="418">
+              <caret line="19" column="23" lean-forward="true" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#connectToDB#0;class#MainController#0" />
-                <element signature="method#doDrop#0;class#MainController#0" />
-                <element signature="method#doClear#0;class#MainController#0" />
+                <element signature="method#printError#0;class#MainController#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Find.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="484">
+              <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="638">
+              <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+              <folding>
+                <element signature="e#230#231#0" expanded="true" />
+                <element signature="e#258#259#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Drop.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="611">
+              <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+              <folding>
+                <element signature="e#228#229#0" expanded="true" />
+                <element signature="e#256#257#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+              <folding>
+                <element signature="e#242#243#0" expanded="true" />
+                <element signature="e#270#271#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Unsupported.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+              <folding>
+                <element signature="e#153#154#0" expanded="true" />
+                <element signature="e#185#186#0" expanded="true" />
+                <element signature="e#197#198#0" expanded="true" />
+                <element signature="e#225#226#0" expanded="true" />
+                <element signature="e#332#333#0" expanded="true" />
+                <element signature="e#351#352#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,11 +165,15 @@
         <option value="$PROJECT_DIR$/src/main/java/controller/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Command.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Exit.java" />
-        <option value="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Help.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Tables.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Find.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Unsupported.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Drop.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/MainController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" />
       </list>
     </option>
   </component>
@@ -227,7 +300,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553613900695" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553615763366" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -374,7 +447,14 @@
       <option name="project" value="LOCAL" />
       <updated>1553608467784</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Команда find работает самостоятельным классом">
+      <created>1553614030310</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1553614030311</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -420,8 +500,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13422818" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13422818" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -438,7 +519,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49932885" weight="0.3286119" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5013423" side_tool="true" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.4986577" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4986577" weight="0.3286119" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3286119" />
       <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -500,50 +581,10 @@
     <MESSAGE value="Исправлен баг вывода содержимого пустой таблицы" />
     <MESSAGE value="Команда exit работает самостоятельным классом" />
     <MESSAGE value="Команда help работает самостоятельным классом" />
-    <option name="LAST_COMMIT_MESSAGE" value="Команда help работает самостоятельным классом" />
+    <MESSAGE value="Команда find работает самостоятельным классом" />
+    <option name="LAST_COMMIT_MESSAGE" value="Команда find работает самостоятельным классом" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/util/ArrayList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="166" selection-start-line="166" selection-end-line="166" />
-          <folding>
-            <element signature="e#6283#6284#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/Object.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/Math.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="1251" selection-start-line="1251" selection-end-line="1251" />
-          <folding>
-            <element signature="e#49082#49083#0" expanded="true" />
-            <element signature="e#52232#52233#0" expanded="true" />
-            <element signature="e#52271#52272#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/util/regex/ASCII.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="202" selection-start-line="202" selection-end-line="202" />
-          <folding>
-            <element signature="e#7171#7172#0" expanded="true" />
-            <element signature="e#7234#7235#0" expanded="true" />
-            <element signature="e#7329#7330#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/lang/String.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -947,25 +988,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#connect#0;class#JDBCDBManager#0" />
-            <element signature="method#getTables#0;class#JDBCDBManager#0" />
-            <element signature="method#createTable#0;class#JDBCDBManager#0" />
-            <element signature="method#drop#0;class#JDBCDBManager#0" />
-            <element signature="method#clear#0;class#JDBCDBManager#0" />
-            <element signature="method#find#0;class#JDBCDBManager#0" />
-            <element signature="method#dataCortage#0;class#JDBCDBManager#0" />
-            <element signature="method#printTitleTable#0;class#JDBCDBManager#0" />
-            <element signature="method#printLineTable#0;class#JDBCDBManager#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Tables.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
@@ -980,27 +1002,90 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Drop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="611">
+          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
+          <folding>
+            <element signature="e#228#229#0" expanded="true" />
+            <element signature="e#256#257#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding>
+            <element signature="e#242#243#0" expanded="true" />
+            <element signature="e#270#271#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Unsupported.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+          <folding>
+            <element signature="e#153#154#0" expanded="true" />
+            <element signature="e#185#186#0" expanded="true" />
+            <element signature="e#197#198#0" expanded="true" />
+            <element signature="e#225#226#0" expanded="true" />
+            <element signature="e#332#333#0" expanded="true" />
+            <element signature="e#351#352#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
+          <folding>
+            <element signature="e#230#231#0" expanded="true" />
+            <element signature="e#258#259#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Find.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
+        <state relative-caret-position="484">
+          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#128#129#0" expanded="true" />
-            <element signature="e#156#157#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="814">
+          <caret line="122" lean-forward="true" selection-start-line="122" selection-end-line="122" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#connect#0;class#JDBCDBManager#0" />
+            <element signature="method#getTables#0;class#JDBCDBManager#0" />
+            <element signature="method#createTable#0;class#JDBCDBManager#0" />
+            <element signature="method#drop#0;class#JDBCDBManager#0" />
+            <element signature="method#clear#0;class#JDBCDBManager#0" />
+            <element signature="method#dataCortage#0;class#JDBCDBManager#0" />
+            <element signature="method#printTitleTable#0;class#JDBCDBManager#0" />
+            <element signature="method#printLineTable#0;class#JDBCDBManager#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="40" column="13" lean-forward="true" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+        <state relative-caret-position="418">
+          <caret line="19" column="23" lean-forward="true" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#connectToDB#0;class#MainController#0" />
-            <element signature="method#doDrop#0;class#MainController#0" />
-            <element signature="method#doClear#0;class#MainController#0" />
+            <element signature="method#printError#0;class#MainController#0" />
           </folding>
         </state>
       </provider>
