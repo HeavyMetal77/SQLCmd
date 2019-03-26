@@ -137,7 +137,7 @@ public class JDBCDBManager implements DBManager {
                 //рисуем нижнюю границу всей таблицы (+--+--+)
                 printLineTable(resultSet);
             } else {
-                throw new SQLException("В таблице не создано ни одного атрибута!");
+                System.out.println("В таблице не создано ни одного атрибута!");
             }
 
         } catch (SQLException e) {
@@ -235,6 +235,11 @@ public class JDBCDBManager implements DBManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean isConnected() {
+        return connection != null;
     }
 }
 /*

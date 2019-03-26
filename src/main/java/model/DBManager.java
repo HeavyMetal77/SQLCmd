@@ -16,4 +16,6 @@ public interface DBManager {
     void find(String nameTable);
 
     void insert(String tableName, String column1, String value1);
+
+    boolean isConnected();
 }
