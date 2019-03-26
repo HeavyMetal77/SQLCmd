@@ -120,99 +120,112 @@ public class JDBCDBManager implements DBManager {
         try {
             stmt = connection.createStatement();
             resultSet = stmt.executeQuery(requestSql);
+            System.out.println("Атрибуты: " + resultSet.getMetaData().getColumnCount());
 
-            //рисуем верхнюю границу таблицы (+--+--+)
-            System.out.print("+");
-            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                //ширина колонки
-                int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
+            if (resultSet.getMetaData().getColumnCount() != 0) {
+                //рисуем верхнюю границу таблицы(+--+--+)
+                printLineTable(resultSet);
 
-                //если ширина колонки меньше чем длинна ее заголовка - увеличить ширину
-                if(lengthColumn < resultSet.getMetaData().getColumnName(i).length())
-                    lengthColumn = resultSet.getMetaData().getColumnName(i).length();
+                //рисуем заглавие таблицы
+                printTitleTable(resultSet);
 
-                System.out.print(String.format("%0" + lengthColumn + "d", 0).replace("0", "-"));
-                System.out.print("+");
-            }
-            System.out.println();
+                //рисуем нижнюю границу заглавия таблицы (+--+--+)
+                printLineTable(resultSet);
 
-            //рисуем заглавие таблицы
-            System.out.print("+");
-            //итерируемся по списку названий таблиц (i)
-                for (int i = 0, j = 1; i < resultSet.getMetaData().getColumnCount(); i++, j++) {
-                    //ширина колонки
-                    int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(j);
-                    System.out.print(resultSet.getMetaData().getColumnName(j));
-                    //остаток пробелов
-                    int countSpace = lengthColumn - resultSet.getMetaData().getColumnName(j).length();
-                    //если кол-во пробелов больше 0
-                    if (countSpace > 0) {
-                        System.out.print(String.format("%0" + countSpace + "d", 0).replace("0", " "));
-                    }
-                    System.out.print("+");
-                }
-                System.out.println();
+                //выводим содержимое кортежей таблицы
+                dataCortage(resultSet);
 
-            //рисуем нижнюю границу заглавия таблицы (+--+--+)
-            System.out.print("+");
-            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                //ширина колонки
-                int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
-                //если ширина колонки меньше чем длинна ее заголовка - увеличить ширину
-                if(lengthColumn < resultSet.getMetaData().getColumnName(i).length())
-                    lengthColumn = resultSet.getMetaData().getColumnName(i).length();
-                System.out.print(String.format("%0" + lengthColumn + "d", 0).replace("0", "-"));
-                System.out.print("+");
-            }
-            System.out.println();
-
-            //выводим содержимое кортежей таблицы
-            while (resultSet.next()) {
-                System.out.print("+");
-                int indexColumn = 0;
-                //resultSet.getMetaData().getColumnCount() - возвращает количество столбцов
-                for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
-                    System.out.print(resultSet.getString(++indexColumn));
-                    //ширина колонки
-                    int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(indexColumn);
-                    int countSpace;//кол-во пробелов
-                    //если значение в таблице не null
-                    if (resultSet.getString(indexColumn) != null) {
-                        //кол-во пробелов
-                        countSpace = lengthColumn - resultSet.getString(indexColumn).length();
-                    }else {//4 - длинна слова 'null'
-                        countSpace = lengthColumn - 4;
-                    }
-                    //если в ячейке булевое значение (занимает 1 позицию)- кол-во пробелов изменяем
-                    if (resultSet.getMetaData().getColumnTypeName(indexColumn).equals("bool")) {
-                        countSpace = resultSet.getMetaData().getColumnName(indexColumn).length() - lengthColumn;
-                    }
-                    //если кол-во пробелов больше 0
-                    if (countSpace > 0) {
-                        System.out.print(String.format("%0" + countSpace + "d", 0).replace("0", " "));
-                    }
-
-
-                    System.out.print("+");
-                }
-                System.out.println();
+                //рисуем нижнюю границу всей таблицы (+--+--+)
+                printLineTable(resultSet);
+            } else {
+                throw new SQLException("В таблице не создано ни одного атрибута!");
             }
 
-            //рисуем нижнюю границу всей таблицы (+--+--+)
-            System.out.print("+");
-            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                //ширина колонки
-                int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
-                //если ширина колонки меньше чем длинна ее заголовка - увеличить ширину
-                if(lengthColumn < resultSet.getMetaData().getColumnName(i).length())
-                    lengthColumn = resultSet.getMetaData().getColumnName(i).length();
-                System.out.print(String.format("%0" + lengthColumn + "d", 0).replace("0", "-"));
-                System.out.print("+");
-            }
-            System.out.println();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    //выводим содержимое кортежей таблицы
+    private void dataCortage(ResultSet resultSet) throws SQLException {
+        while (resultSet.next()) {
+            System.out.print("+");
+            int indexColumn = 0;
+            //resultSet.getMetaData().getColumnCount() - возвращает количество столбцов
+            for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
+                System.out.print(resultSet.getString(++indexColumn));
+                //ширина колонки
+                int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(indexColumn);
+
+                //если ширина колонки больше 50 установить ее в 50
+                if (lengthColumn > 50) {
+                    lengthColumn = 50;
+                }
+                int countSpace;//кол-во пробелов
+                //если значение в таблице не null
+                if (resultSet.getString(indexColumn) != null) {
+                    //кол-во пробелов
+                    countSpace = lengthColumn - resultSet.getString(indexColumn).length();
+                } else {//4 - длинна слова 'null'
+                    countSpace = lengthColumn - 4;
+                }
+                //если в ячейке булевое значение (занимает 1 позицию)- кол-во пробелов изменяем
+                if (resultSet.getMetaData().getColumnTypeName(indexColumn).equals("bool")) {
+                    countSpace = resultSet.getMetaData().getColumnName(indexColumn).length() - lengthColumn;
+                }
+                //если кол-во пробелов больше 0
+                if (countSpace > 0) {
+                    System.out.print(String.format("%0" + countSpace + "d", 0).replace("0", " "));
+                }
+                System.out.print("+");
+            }
+            System.out.println();
+        }
+    }
+
+    //рисуем заглавие таблицы
+    private void printTitleTable(ResultSet resultSet) throws SQLException {
+        System.out.print("+");
+        //итерируемся по списку названий таблиц (i)
+        for (int i = 0, j = 1; i < resultSet.getMetaData().getColumnCount(); i++, j++) {
+            //ширина колонки
+            int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(j);
+            //если ширина колонки больше 50 установить ее в 50
+            if (lengthColumn > 50) {
+                lengthColumn = 50;
+            }
+            System.out.print(resultSet.getMetaData().getColumnName(j));
+            //остаток пробелов
+            int countSpace = lengthColumn - resultSet.getMetaData().getColumnName(j).length();
+            //если кол-во пробелов больше 0
+            if (countSpace > 0) {
+                System.out.print(String.format("%0" + countSpace + "d", 0).replace("0", " "));
+            }
+            System.out.print("+");
+        }
+        System.out.println();
+    }
+
+    //рисуем верхнюю/нижнюю границу таблицы (+--+--+)
+    private void printLineTable(ResultSet resultSet) throws SQLException {
+       System.out.print("+");
+        for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+            //ширина колонки
+            int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
+
+            //если ширина колонки больше 50 установить ее в 50
+            if (lengthColumn > 50) {
+                lengthColumn = 50;
+            }
+
+            //если ширина колонки меньше чем длинна ее заголовка - увеличить ширину
+            if (lengthColumn < resultSet.getMetaData().getColumnName(i).length())
+                lengthColumn = resultSet.getMetaData().getColumnName(i).length();
+
+            System.out.print(String.format("%0" + lengthColumn + "d", 0).replace("0", "-"));
+            System.out.print("+");
+        }
+        System.out.println();
     }
 
     @Override
@@ -220,32 +233,13 @@ public class JDBCDBManager implements DBManager {
         Statement stmt = null;
         try {
             stmt = connection.createStatement();
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    /*
-    insert
-Команда для вставки одной строки в заданную таблицу
-Формат: insert | tableName | column1 | value1 | column2 | value2 | ... | columnN | valueN
-где: tableName - имя таблицы
-column1 - имя первого столбца записи
-value1 - значение первого столбца записи
-column2 - имя второго столбца записи
-value2 - значение второго столбца записи
-columnN - имя n-го столбца записи
-valueN - значение n-го столбца записи
-Формат вывода: текстовое сообщение с результатом выполнения операции
-     */
-
 }
 /*
-
 insert
 update
 delete
-help
-exit
  */

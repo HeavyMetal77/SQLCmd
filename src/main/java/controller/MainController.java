@@ -32,6 +32,57 @@ public class MainController {
         }
     }
 
+    private void connectToDB() {
+        view.write("Привет пользователь!");
+        view.write("Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
+                "database|user|password");
+
+        while (true) {
+            try {
+                String string = view.read();
+                String[] data = string.split("[|]");
+                if (data.length != 3) {
+                    throw new IllegalArgumentException ("Неверное количество параметров: ожидается 3, введено " + data.length);
+                }
+                String database = data[0];
+                String user = data[1];
+                String password = data[2];
+
+                dbManager.connect(database, user, password);
+                view.write("Подключение к базе выполнено успешно!");
+                break;
+            } catch (Exception e) {
+                printError(e);
+            }
+        }
+    }
+
+    private void doHelp() {
+        view.write("Существующие команды:");
+
+        view.write("\ttables - ");
+        view.write("\t\tвывод списка всех таблиц");
+
+        view.write("\tclear - ");
+        view.write("\t\tочистка таблицы");
+
+        view.write("\tfind|tableName - ");
+        view.write("\t\tвывод содержимого таблицы tableName");
+
+        view.write("\tdrop|tableName - ");
+        view.write("\t\tудалить таблицу tableName");
+
+        view.write("\tcreateTable|tableName|column1|column2|...|columnN - ");
+        view.write("\t\tсоздать таблицу tableName с колонками column1...columnN ");
+
+        view.write("\texit - ");
+        view.write("\t\tвыход из программы");
+    }
+
+    private void doTables() {
+        view.write(dbManager.getTables().toString());
+    }
+
     private void doCreateTable(String[] commandWithParam) {
         try {
             //commandWithParam содержит: 1-й аргумент - команда создать таблицу,
@@ -92,57 +143,6 @@ public class MainController {
     private void doExit() {
         view.write("Программа завершила работу");
         System.exit(0);
-    }
-
-    private void doHelp() {
-        view.write("Существующие команды:");
-
-        view.write("\ttables - ");
-        view.write("\t\tвывод списка всех таблиц");
-
-        view.write("\tclear - ");
-        view.write("\t\tочистка таблицы");
-
-        view.write("\tfind|tableName - ");
-        view.write("\t\tвывод содержимого таблицы tableName");
-
-        view.write("\tdrop|tableName - ");
-        view.write("\t\tудалить таблицу tableName");
-
-        view.write("\tcreateTable|tableName|column1|column2|...|columnN - ");
-        view.write("\t\tсоздать таблицу tableName с колонками column1...columnN ");
-
-        view.write("\texit - ");
-        view.write("\t\tвыход из программы");
-    }
-
-    private void doTables() {
-        view.write(dbManager.getTables().toString());
-    }
-
-    private void connectToDB() {
-        view.write("Привет пользователь!");
-        view.write("Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
-                "database|user|password");
-
-        while (true) {
-            try {
-            String string = view.read();
-            String[] data = string.split("[|]");
-            if (data.length != 3) {
-                throw new IllegalArgumentException ("Неверное количество параметров: ожидается 3, введено " + data.length);
-            }
-            String database = data[0];
-            String user = data[1];
-            String password = data[2];
-
-                dbManager.connect(database, user, password);
-                view.write("Подключение к базе выполнено успешно!");
-                break;
-            } catch (Exception e) {
-                printError(e);
-            }
-        }
     }
 
     private void printError(Exception e) {
