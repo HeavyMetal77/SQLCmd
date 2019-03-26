@@ -1,8 +1,6 @@
 package controller;
 
-import controller.command.Command;
-import controller.command.Exit;
-import controller.command.Help;
+import controller.command.*;
 import model.DBManager;
 import view.View;
 
@@ -14,7 +12,8 @@ public class MainController {
     public MainController(View view, DBManager dbManager) {
         this.view = view;
         this.dbManager = dbManager;
-        this.commands = new Command[]{new Exit(view), new Help(view)};
+        this.commands = new Command[]{new Exit(view), new Help(view), new Tables(dbManager, view),
+                new Find(dbManager, view)};
     }
 
     public void run() {
@@ -26,20 +25,18 @@ public class MainController {
 
             if (commands[0].canProcess(command)) {
                 commands[0].process(command);
-            }
-            if (commands[1].canProcess(command)) {
+            }if (commands[1].canProcess(command)) {
                 commands[1].process(command);
-
+            }if (commands[2].canProcess(command)) {
+                commands[2].process(command);
+            }if (commands[3].canProcess(command)) {
+                commands[3].process(command);
             }
 
             switch (commandWithParam[0]) {
-//                case "help": doHelp(); break;
-                case "tables": doTables(); break;
                 case "createTable": doCreateTable(commandWithParam); break;
                 case "drop": doDrop(commandWithParam); break;
                 case "clear": doClear(commandWithParam); break;
-                case "find": doFind(commandWithParam); break;
-//                case "exit": doExit(); break;
                 default: System.out.println("Команды '" + command + "' не существует!"); break;
             }
         }
@@ -72,9 +69,9 @@ public class MainController {
 
 
 
-    private void doTables() {
-        view.write(dbManager.getTables().toString());
-    }
+//    private void doTables() {
+//        view.write(dbManager.getTables().toString());
+//    }
 
     private void doCreateTable(String[] commandWithParam) {
         try {
@@ -121,22 +118,9 @@ public class MainController {
         }
     }
 
-    private void doFind(String[] commandWithParam) {
-        try {
-            if (commandWithParam.length == 2) {
-                dbManager.find(commandWithParam[1]);
-            } else {
-                throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
-            }
-        } catch (Exception e) {
-            printError(e);
-        }
-    }
 
-    private void doExit() {
-        view.write("Программа завершила работу");
-        System.exit(0);
-    }
+
+
 
     private void printError(Exception e) {
         String massage = e.getMessage();
