@@ -2,6 +2,7 @@ package controller;
 
 import controller.command.Command;
 import controller.command.Exit;
+import controller.command.Help;
 import model.DBManager;
 import view.View;
 
@@ -13,7 +14,7 @@ public class MainController {
     public MainController(View view, DBManager dbManager) {
         this.view = view;
         this.dbManager = dbManager;
-        this.commands = new Command[]{new Exit(view)};
+        this.commands = new Command[]{new Exit(view), new Help(view)};
     }
 
     public void run() {
@@ -26,9 +27,13 @@ public class MainController {
             if (commands[0].canProcess(command)) {
                 commands[0].process(command);
             }
+            if (commands[1].canProcess(command)) {
+                commands[1].process(command);
+
+            }
 
             switch (commandWithParam[0]) {
-                case "help": doHelp(); break;
+//                case "help": doHelp(); break;
                 case "tables": doTables(); break;
                 case "createTable": doCreateTable(commandWithParam); break;
                 case "drop": doDrop(commandWithParam); break;
@@ -65,27 +70,7 @@ public class MainController {
         }
     }
 
-    private void doHelp() {
-        view.write("Существующие команды:");
 
-        view.write("\ttables - ");
-        view.write("\t\tвывод списка всех таблиц");
-
-        view.write("\tclear - ");
-        view.write("\t\tочистка таблицы");
-
-        view.write("\tfind|tableName - ");
-        view.write("\t\tвывод содержимого таблицы tableName");
-
-        view.write("\tdrop|tableName - ");
-        view.write("\t\tудалить таблицу tableName");
-
-        view.write("\tcreateTable|tableName|column1|column2|...|columnN - ");
-        view.write("\t\tсоздать таблицу tableName с колонками column1...columnN ");
-
-        view.write("\texit - ");
-        view.write("\t\tвыход из программы");
-    }
 
     private void doTables() {
         view.write(dbManager.getTables().toString());
