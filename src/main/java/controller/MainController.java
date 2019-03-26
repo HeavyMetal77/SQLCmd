@@ -1,15 +1,19 @@
 package controller;
 
+import controller.command.Command;
+import controller.command.Exit;
 import model.DBManager;
 import view.View;
 
 public class MainController {
     private View view;
     private DBManager dbManager;
+    private Command[] commands;
 
     public MainController(View view, DBManager dbManager) {
         this.view = view;
         this.dbManager = dbManager;
+        this.commands = new Command[]{new Exit(view)};
     }
 
     public void run() {
@@ -19,6 +23,10 @@ public class MainController {
             String command = view.read();
             String[] commandWithParam = command.split("[|]");
 
+            if (commands[0].canProcess(command)) {
+                commands[0].process(command);
+            }
+
             switch (commandWithParam[0]) {
                 case "help": doHelp(); break;
                 case "tables": doTables(); break;
@@ -26,7 +34,7 @@ public class MainController {
                 case "drop": doDrop(commandWithParam); break;
                 case "clear": doClear(commandWithParam); break;
                 case "find": doFind(commandWithParam); break;
-                case "exit": doExit(); break;
+//                case "exit": doExit(); break;
                 default: System.out.println("Команды '" + command + "' не существует!"); break;
             }
         }
