@@ -240,15 +240,13 @@ public class JDBCDBManager implements DBManager {
         dataRequestColumn = dataRequestColumn.substring(0, dataRequestColumn.length() - 2);
 
         for (int i = 0; i < lengthArrData; i++) {
-            dataRequestValue += data[i].getValue().toString() + ", ";
+            dataRequestValue += "'" + data[i].getValue().toString() + "'" + ", ";
         }
         dataRequestValue = dataRequestValue.substring(0, dataRequestValue.length() - 2);
 
         //INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);
-        //TODO текстовые данные принимаются только в одинарных кавычках
         String insertRequestSql = "INSERT INTO " +  nameTable + " (" + dataRequestColumn + ")"
                 + " VALUES (" + dataRequestValue +")";
-        System.out.println("insertRequestSql: " + insertRequestSql);
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(insertRequestSql);

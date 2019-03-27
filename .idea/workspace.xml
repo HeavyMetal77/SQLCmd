@@ -2,22 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31b3f361-3dd6-4d25-b8ac-7cf23ebc08b1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controller/command/Insert.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Connect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Connect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/DataSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DataSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/JDBCDBManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/JDBCDBManagerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MainController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/DBManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/DataSet$Data.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/DataSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/DataSet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/JDBCDBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/JDBCDBManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/model/JDBCDBManagerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/model/JDBCDBManagerTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-115">
-              <caret line="236" column="8" selection-start-line="236" selection-start-column="8" selection-end-line="236" selection-end-column="8" />
+            <state relative-caret-position="449">
+              <caret line="249" column="13" lean-forward="true" selection-start-line="249" selection-start-column="13" selection-end-line="249" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#connect#0;class#JDBCDBManager#0" />
@@ -55,23 +41,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/model/DataSet.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Insert.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" column="51" lean-forward="true" selection-start-line="9" selection-start-column="51" selection-end-line="9" selection-end-column="51" />
-              <folding>
-                <element signature="e#355#356#0" expanded="true" />
-                <element signature="e#391#392#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/controller/MainController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="501">
+              <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -79,26 +52,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/view/Console.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="13" selection-start-line="13" selection-end-line="13" />
-              <folding>
-                <element signature="e#133#134#0" expanded="true" />
-                <element signature="e#176#177#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Connect.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="23" column="53" lean-forward="true" selection-start-line="23" selection-start-column="53" selection-end-line="23" selection-end-column="53" />
+            <state relative-caret-position="330">
+              <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#process#0;class#Connect#0" />
+                <element signature="method#printError#0;class#Connect#0" />
               </folding>
             </state>
           </provider>
@@ -282,7 +244,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553681484672" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553685657316" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -450,7 +412,14 @@
       <option name="project" value="LOCAL" />
       <updated>1553619606598</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Добавлен класс Insert, Dataset. Внесены небольшие правки.">
+      <created>1553681621068</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1553681621069</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -485,7 +454,7 @@
       <configuration name="JDBCDBManagerTest" configurationId="JUnit" />
     </history-entry>
   </component>
-  <component name="TodoView" selected-index="3">
+  <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -496,6 +465,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20872483" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -513,7 +483,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286119" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49932885" weight="0.3286119" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5013423" side_tool="true" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.4986577" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4986577" weight="0.3286119" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3286119" />
       <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.3286119" />
       <window_info anchor="bottom" id="Extract Method" order="12" weight="0.3286119" />
@@ -579,16 +549,10 @@
     <MESSAGE value="Команда find работает самостоятельным классом" />
     <MESSAGE value="Команда clear, createTable, drop работают самостоятельными классами" />
     <MESSAGE value="Добавлено классы Connect, IsConnected. Переработана структура приветствия." />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавлено классы Connect, IsConnected. Переработана структура приветствия." />
+    <MESSAGE value="Добавлен класс Insert, Dataset. Внесены небольшие правки." />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлен класс Insert, Dataset. Внесены небольшие правки." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/postgresql/postgresql/42.2.5/postgresql-42.2.5.jar!/org/postgresql/jdbc/TypeInfoCache.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="578" selection-start-line="578" selection-end-line="578" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -1002,16 +966,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Connect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="23" column="53" lean-forward="true" selection-start-line="23" selection-start-column="53" selection-end-line="23" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/DataSet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -1023,20 +977,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Insert.java">
+    <entry file="file://$PROJECT_DIR$/target/test-classes/model/JDBCDBManagerTest.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="35" column="38" selection-start-line="35" selection-start-column="38" selection-end-line="35" selection-end-column="38" />
+        <state>
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#0#713#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-115">
-          <caret line="236" column="8" selection-start-line="236" selection-start-column="8" selection-end-line="236" selection-end-column="8" />
+        <state relative-caret-position="449">
+          <caret line="249" column="13" lean-forward="true" selection-start-line="249" selection-start-column="13" selection-end-line="249" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#connect#0;class#JDBCDBManager#0" />
@@ -1048,6 +1001,28 @@
             <element signature="method#dataCortage#0;class#JDBCDBManager#0" />
             <element signature="method#printTitleTable#0;class#JDBCDBManager#0" />
             <element signature="method#printLineTable#0;class#JDBCDBManager#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Insert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="38" column="51" lean-forward="true" selection-start-line="38" selection-start-column="51" selection-end-line="38" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Connect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#process#0;class#Connect#0" />
+            <element signature="method#printError#0;class#Connect#0" />
           </folding>
         </state>
       </provider>
