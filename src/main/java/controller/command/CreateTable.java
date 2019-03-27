@@ -20,7 +20,6 @@ public class CreateTable implements Command {
     @Override
     public void process(String command) {
         String[] commandWithParam = command.split("[|]");
-
         try {
             //commandWithParam содержит: 1-й аргумент - команда создать таблицу,
             // 2-й название таблицы, 3-й и последующие - названия столбцов

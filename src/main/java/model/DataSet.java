@@ -1,11 +1,22 @@
 package model;
 
+import java.util.TreeMap;
+
 public class DataSet {
-    static class Data{
+
         private String name;
         private Object value;
-    }
 
-    private Data[] data;
+        public DataSet(String name, Object value) {
+            this.name = name;
+            this.value = value;
+        }
 
+        public String getName() {
+            return name;
+        }
+
+        public Object getValue() {
+            return value;
+        }
 }

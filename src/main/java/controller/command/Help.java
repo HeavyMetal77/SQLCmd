@@ -23,8 +23,8 @@ public class Help implements Command {
             view.write("\ttables - ");
             view.write("\t\tвывод списка всех таблиц");
 
-            view.write("\tclear - ");
-            view.write("\t\tочистка таблицы");
+            view.write("\tclear|tableName - ");
+            view.write("\t\tочистка содержимого таблицы tableName");
 
             view.write("\tfind|tableName - ");
             view.write("\t\tвывод содержимого таблицы tableName");

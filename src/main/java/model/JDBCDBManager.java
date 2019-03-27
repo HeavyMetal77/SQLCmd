@@ -228,10 +228,30 @@ public class JDBCDBManager implements DBManager {
     }
 
     @Override
-    public void insert(String tableName, String column1, String value1) {
+    public void insert(String nameTable, DataSet [] data) {
         Statement stmt = null;
+        String dataRequestColumn = "";
+        String dataRequestValue = "";
+        int lengthArrData = data.length;
+
+        for (int i = 0; i < lengthArrData; i++) {
+            dataRequestColumn += data[i].getName() + ", ";
+        }
+        dataRequestColumn = dataRequestColumn.substring(0, dataRequestColumn.length() - 2);
+
+        for (int i = 0; i < lengthArrData; i++) {
+            dataRequestValue += data[i].getValue().toString() + ", ";
+        }
+        dataRequestValue = dataRequestValue.substring(0, dataRequestValue.length() - 2);
+
+        //INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);
+        //TODO текстовые данные принимаются только в одинарных кавычках
+        String insertRequestSql = "INSERT INTO " +  nameTable + " (" + dataRequestColumn + ")"
+                + " VALUES (" + dataRequestValue +")";
+        System.out.println("insertRequestSql: " + insertRequestSql);
         try {
             stmt = connection.createStatement();
+            stmt.executeUpdate(insertRequestSql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -243,7 +263,6 @@ public class JDBCDBManager implements DBManager {
     }
 }
 /*
-insert
 update
 delete
  */

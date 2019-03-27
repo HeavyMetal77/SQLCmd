@@ -18,6 +18,7 @@ public class MainController {
                 new Tables(dbManager, view),
                 new Find(dbManager, view),
                 new CreateTable(dbManager, view),
+                new Insert(dbManager, view),
                 new Drop(dbManager, view),
                 new Clear(dbManager, view),
                 new Unsupported(view)};
@@ -28,7 +29,6 @@ public class MainController {
         view.write("Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password");
         while (true) {
-            view.write("Введи команду или 'help' для помощи:");
             String input = view.read();
             for (Command command: commands) {
                 if (command.canProcess(input)) {
@@ -36,6 +36,7 @@ public class MainController {
                     break;
                 }
             }
+            view.write("Введи команду или 'help' для помощи:");
         }
     }
 }
