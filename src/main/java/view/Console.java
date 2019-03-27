@@ -1,5 +1,6 @@
 package view;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Console implements View {
@@ -10,7 +11,12 @@ public class Console implements View {
 
     @Override
     public String read() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        Scanner scanner;
+        try{
+            scanner = new Scanner(System.in);
+            return scanner.nextLine();
+        }catch (NoSuchElementException e){
+            return null;
+        }
     }
 }

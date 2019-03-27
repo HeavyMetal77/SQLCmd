@@ -25,18 +25,39 @@ public class MainController {
     }
 
     public void run() {
+        try {
+            doWork();
+        } catch (ExitException e) {
+            //do nothing
+        }
+    }
+
+    private void doWork() {
         view.write("Привет пользователь!");
         view.write("Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password");
         while (true) {
             String input = view.read();
-            for (Command command: commands) {
-                if (command.canProcess(input)) {
-                    command.process(input);
-                    break;
+            if (input == null) {
+                break;
+            }
+            try {
+                for (Command command : commands) {
+                    if (command.canProcess(input)) {
+                        command.process(input);
+                        break;
+                    }
+                }
+                view.write("Введи команду или 'help' для помощи:");
+            } catch (Exception e) {
+                if (e instanceof ExitException) {
+                    throw e;
                 }
             }
-            view.write("Введи команду или 'help' для помощи:");
         }
     }
 }
+
+
+
+
