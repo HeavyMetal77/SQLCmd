@@ -20,4 +20,6 @@ public interface DBManager {
     void insert(String nameTable, DataSet[] data) throws SQLException;
 
     boolean isConnected();
+
+    void update(String nameTable, DataSet[] data) throws SQLException;
 }

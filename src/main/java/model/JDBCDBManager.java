@@ -228,6 +228,7 @@ public class JDBCDBManager implements DBManager {
         System.out.println();
     }
 
+    //вставить данные в таблицу
     @Override
     public void insert(String nameTable, DataSet [] data) throws SQLException {
         Statement stmt = null;
@@ -251,14 +252,39 @@ public class JDBCDBManager implements DBManager {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(insertRequestSql);
-        } catch (Exception e) {
-            throw new SQLException("Данные не вставлены, ошибка!");
+        } catch (SQLException e) {
+            throw new SQLException("Данные не вставлены!");
         }
     }
 
+    //проверить наличие соединения
     @Override
     public boolean isConnected() {
         return connection != null;
+    }
+
+    //обновить данные в существующей таблице
+    @Override
+    public void update(String nameTable, DataSet [] data) throws SQLException {
+        Statement stmt = null;
+        String dataRequest = "";
+
+        for (int i = 0; i < data.length; i++) {
+            dataRequest += data[i].getName() + " = " + data[i].getValue() + ", ";
+        }
+        dataRequest = dataRequest.substring(0, dataRequest.length() - 2);
+
+        //UPDATE table_name SET column1 = value1, column2 = value2...., columnN = valueN
+        //WHERE [condition];
+        String insertRequestSql = "UPDATE " +  nameTable + " SET " + dataRequest;
+        //TODO отсутствуют условия обновления WHERE [condition]
+        //TODO вывод на консоль не соответствует техзаданию
+        try {
+            stmt = connection.createStatement();
+            stmt.executeUpdate(insertRequestSql);
+        } catch (SQLException e) {
+            throw new SQLException("Данные не обновлены!");
+        }
     }
 }
 /*

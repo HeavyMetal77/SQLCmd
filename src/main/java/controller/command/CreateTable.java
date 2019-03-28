@@ -36,16 +36,7 @@ public class CreateTable implements Command {
                 throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
             }
         } catch (Exception e) {
-            printError(e);
+            throw e;
         }
-    }
-
-    private void printError(Exception e) {
-        String massage = e.getMessage();
-        if (e.getCause() != null) {
-            massage += " " + e.getCause().getMessage();
-        }
-        view.write("Ошибка! Причина: " + massage);
-        view.write("Повтори попытку!");
     }
 }

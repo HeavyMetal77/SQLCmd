@@ -27,7 +27,7 @@ public class Clear implements Command {
                 throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
             }
         } catch (Exception e) {
-            throw new Exception(e.getMessage());
+            throw e;
         }
     }
 

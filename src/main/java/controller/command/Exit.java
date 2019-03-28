@@ -18,6 +18,5 @@ public class Exit implements Command {
     public void process(String command) {
         view.write("Программа завершила работу");
         throw new ExitException();
-//        System.exit(0);
     }
 }

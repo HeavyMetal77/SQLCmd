@@ -242,7 +242,6 @@ public class IntegrationTest {
                 //find|
                 "Ошибка! Причина: Количество параметров не соответствует шаблону!\r\n" +
                 "Повтори попытку!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
@@ -336,7 +335,6 @@ public class IntegrationTest {
                 //createTable|
                 "Ошибка! Причина: Количество параметров не соответствует шаблону!\r\n" +
                 "Повтори попытку!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
@@ -393,7 +391,6 @@ public class IntegrationTest {
                 //drop|
                 "Ошибка! Причина: Количество параметров не соответствует шаблону!\r\n" +
                 "Повтори попытку!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
@@ -490,8 +487,8 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //insert|test2|id|9|nametest2|test177|field1|test818
-                "Данные не вставлены, ошибка!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
+                "Ошибка! Причина: Данные не вставлены!\r\n" +
+                "Повтори попытку!\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
@@ -520,6 +517,98 @@ public class IntegrationTest {
                 "Программа завершила работу\r\n", getData());
     }
 
+    @Test
+    public void testNullInsertAfterConnect(){
+        //given
+        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
+        in.add("\n");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
+                "connect|database|user|password\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //null
+                "Команды '' не существует!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testUpdateAfterConnect(){
+        //given
+        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
+        in.add("update|test|test1|555|test2|666");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
+                "connect|database|user|password\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //update|test|test1|555|test2|666
+                "Данные успешно обновлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testUpdateErrorAfterConnect(){
+        //given
+        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
+        in.add("update|test|test1|777|test3|888");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
+                "connect|database|user|password\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //update|test|test1|777|test3|888
+                "Ошибка! Причина: Данные не обновлены!\r\n" +
+                "Повтори попытку!\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testUpdateWithNotEnoughParameters(){
+        //given
+        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
+        in.add("update|test|test1");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
+                "connect|database|user|password\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //update|test|test1
+                "Недостаточно параметров!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
     private String getData() {
         try {
             return new String(out.toByteArray(), "UTF-8");
@@ -527,6 +616,4 @@ public class IntegrationTest {
             return e.getMessage();
         }
     }
-
-
 }

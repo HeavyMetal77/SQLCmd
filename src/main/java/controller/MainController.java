@@ -19,6 +19,7 @@ public class MainController {
                 new Find(dbManager, view),
                 new CreateTable(dbManager, view),
                 new Insert(dbManager, view),
+                new Update(dbManager, view),
                 new Drop(dbManager, view),
                 new Clear(dbManager, view),
                 new Unsupported(view)};
@@ -40,7 +41,6 @@ public class MainController {
             String input = view.read();
             if (input == null) {
                 new Exit(view).process(input);
-                break;
             }
             try {
                 for (Command command : commands) {

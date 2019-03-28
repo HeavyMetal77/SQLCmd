@@ -6,20 +6,18 @@ import view.View;
 
 import java.sql.SQLException;
 
-public class Insert implements Command  {
-
-
+public class Update implements Command {
     private DBManager dbManager;
     private View view;
 
-    public Insert(DBManager dbManager, View view) {
+    public Update(DBManager dbManager, View view) {
         this.dbManager = dbManager;
         this.view = view;
     }
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("insert|");
+        return command.startsWith("update|");
     }
 
     @Override
@@ -38,8 +36,8 @@ public class Insert implements Command  {
                 dataSets[i] = new DataSet(commandWithParam[j], commandWithParam[j+1]);
             }
             try {
-                dbManager.insert(nameTable, dataSets);
-                view.write("Данные успешно вставлены!");
+                dbManager.update(nameTable, dataSets);
+                view.write("Данные успешно обновлены!");
             } catch (SQLException e) {
                 throw e;
             }

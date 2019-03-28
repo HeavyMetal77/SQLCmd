@@ -2,17 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31b3f361-3dd6-4d25-b8ac-7cf23ebc08b1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controller/command/Update.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/Clear.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/Connect.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/CreateTable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/Drop.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/ExitException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/Find.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/Help.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/Insert.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/IsConnected.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/Tables.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/controller/command/Unsupported.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/integration/ConfigurableInputStream.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/integration/IntegrationTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/integration/LogOutputStream.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MainController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Drop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Drop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Exit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Exit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/ExitException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/ExitException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Find.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Help.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Insert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Insert.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DBManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/integration/ConfigurableInputStream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/ConfigurableInputStream.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/JDBCDBManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/JDBCDBManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/MainController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/MainController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/command/Command.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/command/Command.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/DBManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/JDBCDBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/JDBCDBManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/model/JDBCDBManagerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/model/JDBCDBManagerTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -24,27 +46,74 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/SQLCmd$All_in_SQLCmd.ic" NAME="All in SQLCmd Coverage Results" MODIFIED="1553780582996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/SQLCmd$All_in_SQLCmd.ic" NAME="All in SQLCmd Coverage Results" MODIFIED="1553787859618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/SQLCmd$SQLCMDMain.ic" NAME="SQLCMDMain Coverage Results" MODIFIED="1553266006541" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/SQLCmd$All_in_SQLCmd__1_.ic" NAME="All in SQLCmd (1) Coverage Results" MODIFIED="1553780886511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
-    <SUITE FILE_PATH="coverage/SQLCmd$All_in_SQLCmd__2_.ic" NAME="All in SQLCmd (2) Coverage Results" MODIFIED="1553774468737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/SQLCmd$All_in_SQLCmd__1_.ic" NAME="All in SQLCmd (1) Coverage Results" MODIFIED="1553788121428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/SQLCmd$All_in_SQLCmd__2_.ic" NAME="All in SQLCmd (2) Coverage Results" MODIFIED="1553788327710" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
     <SUITE FILE_PATH="coverage/SQLCmd$IntegrationTest.ic" NAME="IntegrationTest Coverage Results" MODIFIED="1553717987636" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>integration.*</FILTER>
     </SUITE>
+    <SUITE FILE_PATH="coverage/SQLCmd$All_in_SQLCmd__4_.ic" NAME="All in SQLCmd (4) Coverage Results" MODIFIED="1553784017390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/SQLCmd$All_in_SQLCmd__3_.ic" NAME="All in SQLCmd (3) Coverage Results" MODIFIED="1553783916031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="CoverageViewManager">
-    <option name="myElementSize" value="24" />
+    <option name="myElementSize" value="21" />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="SQLCmd" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="470" column="22" lean-forward="true" selection-start-line="470" selection-start-column="22" selection-end-line="470" selection-end-column="22" />
+            <state relative-caret-position="861">
+              <caret line="617" column="5" selection-start-line="617" selection-start-column="5" selection-end-line="617" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Update.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="567">
+              <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="413">
+              <caret line="280" column="59" selection-start-line="280" selection-start-column="59" selection-end-line="280" selection-end-column="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#connect#0;class#JDBCDBManager#0" />
+                <element signature="method#getTables#0;class#JDBCDBManager#0" />
+                <element signature="method#createTable#0;class#JDBCDBManager#0" />
+                <element signature="method#drop#0;class#JDBCDBManager#0" />
+                <element signature="method#clear#0;class#JDBCDBManager#0" />
+                <element signature="method#find#0;class#JDBCDBManager#0" />
+                <element signature="method#dataCortage#0;class#JDBCDBManager#0" />
+                <element signature="method#printTitleTable#0;class#JDBCDBManager#0" />
+                <element signature="method#printLineTable#0;class#JDBCDBManager#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Insert.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="201">
+              <caret line="30" selection-start-line="30" selection-end-line="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,30 +155,31 @@
         <option value="$PROJECT_DIR$/src/main/java/controller/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Command.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Tables.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/command/Find.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Unsupported.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/command/Drop.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/IsConnect.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/IsConnected.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/Data.java" />
-        <option value="$PROJECT_DIR$/src/main/java/model/DBManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Connect.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/DataSet.java" />
         <option value="$PROJECT_DIR$/src/test/java/integration/SavedPrintStream.java" />
         <option value="$PROJECT_DIR$/src/test/java/integration/LogPrintStream.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/command/ExitException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/command/Exit.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/Console.java" />
         <option value="$PROJECT_DIR$/src/test/java/integration/LogOutputStream.java" />
         <option value="$PROJECT_DIR$/src/test/java/integration/ConfigurableInputStream.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/command/Insert.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/command/Help.java" />
-        <option value="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/MainController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" />
-        <option value="$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/model/JDBCDBManagerTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Drop.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Exit.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/ExitException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Find.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Help.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Insert.java" />
+        <option value="$PROJECT_DIR$/src/main/java/model/DBManager.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Update.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/MainController.java" />
+        <option value="$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" />
       </list>
     </option>
   </component>
@@ -248,6 +318,14 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="integration" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="SQLCmd" type="b2602c69:ProjectViewProjectNode" />
+              <item name="SQLCmd" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -256,7 +334,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ToolWindowRun.ShowToolbar" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553781505773" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553788418506" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
@@ -296,8 +374,16 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in SQLCmd (1)">
+  <component name="RunManager" selected="JUnit.All in SQLCmd (2)">
     <configuration name="All in SQLCmd (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SQLCmd" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in SQLCmd (2)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SQLCmd" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
@@ -313,7 +399,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IntegrationTest.testClearAfterConnect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntegrationTest.testUpdateErrorAfterConnect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SQLCmd" />
       <extension name="coverage">
         <pattern>
@@ -323,13 +409,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="integration" />
       <option name="MAIN_CLASS_NAME" value="integration.IntegrationTest" />
-      <option name="METHOD_NAME" value="testClearAfterConnect" />
+      <option name="METHOD_NAME" value="testUpdateErrorAfterConnect" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IntegrationTest.testClearAfterConnectWithNotEnoughParameters" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntegrationTest.testUpdateWithNotEnoughParameters" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SQLCmd" />
       <extension name="coverage">
         <pattern>
@@ -339,23 +425,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="integration" />
       <option name="MAIN_CLASS_NAME" value="integration.IntegrationTest" />
-      <option name="METHOD_NAME" value="testClearAfterConnectWithNotEnoughParameters" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="IntegrationTest.testTablesAfterConnect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="SQLCmd" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="integration.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="integration" />
-      <option name="MAIN_CLASS_NAME" value="integration.IntegrationTest" />
-      <option name="METHOD_NAME" value="testTablesAfterConnect" />
+      <option name="METHOD_NAME" value="testUpdateWithNotEnoughParameters" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -363,11 +433,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in SQLCmd (2)" />
+        <item itemvalue="JUnit.IntegrationTest.testUpdateWithNotEnoughParameters" />
         <item itemvalue="JUnit.All in SQLCmd (1)" />
+        <item itemvalue="JUnit.IntegrationTest.testUpdateErrorAfterConnect" />
         <item itemvalue="JUnit.All in SQLCmd" />
-        <item itemvalue="JUnit.IntegrationTest.testTablesAfterConnect" />
-        <item itemvalue="JUnit.IntegrationTest.testClearAfterConnectWithNotEnoughParameters" />
-        <item itemvalue="JUnit.IntegrationTest.testClearAfterConnect" />
       </list>
     </recent_temporary>
   </component>
@@ -466,39 +536,46 @@
       <option name="project" value="LOCAL" />
       <updated>1553762639491</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Выполнен интеграционный тест для все команд, покрытие 100% классов, 87% линий">
+      <created>1553781628797</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1553781628797</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="IntegrationTest_testClearAfterConnectWithNotEnoughParameters - 2019.03.28 at 15h 40m 35s.xml">
-      <configuration name="IntegrationTest.testClearAfterConnectWithNotEnoughParameters" configurationId="JUnit" />
+    <history-entry file="IntegrationTest_testUpdateErrorAfterConnect - 2019.03.28 at 17h 46m 00s.xml">
+      <configuration name="IntegrationTest.testUpdateErrorAfterConnect" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegrationTest_testClearAfterConnectWithNotEnoughParameters - 2019.03.28 at 15h 41m 39s.xml">
-      <configuration name="IntegrationTest.testClearAfterConnectWithNotEnoughParameters" configurationId="JUnit" />
+    <history-entry file="IntegrationTest_testUpdateErrorAfterConnect - 2019.03.28 at 17h 46m 19s.xml">
+      <configuration name="IntegrationTest.testUpdateErrorAfterConnect" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegrationTest_testTablesAfterConnect - 2019.03.28 at 15h 42m 10s.xml">
-      <configuration name="IntegrationTest.testTablesAfterConnect" configurationId="JUnit" />
+    <history-entry file="IntegrationTest_testUpdateErrorAfterConnect - 2019.03.28 at 17h 46m 57s.xml">
+      <configuration name="IntegrationTest.testUpdateErrorAfterConnect" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegrationTest_testTablesAfterConnect - 2019.03.28 at 15h 42m 52s.xml">
-      <configuration name="IntegrationTest.testTablesAfterConnect" configurationId="JUnit" />
+    <history-entry file="IntegrationTest_testUpdateErrorAfterConnect - 2019.03.28 at 17h 47m 52s.xml">
+      <configuration name="IntegrationTest.testUpdateErrorAfterConnect" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_SQLCmd - 2019.03.28 at 15h 43m 21s.xml">
-      <configuration name="All in SQLCmd" configurationId="JUnit" />
+    <history-entry file="IntegrationTest_testUpdateErrorAfterConnect - 2019.03.28 at 17h 48m 33s.xml">
+      <configuration name="IntegrationTest.testUpdateErrorAfterConnect" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="IntegrationTest_testTablesAfterConnect - 2019.03.28 at 15h 45m 48s.xml">
-      <configuration name="IntegrationTest.testTablesAfterConnect" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="IntegrationTest_testTablesAfterConnect - 2019.03.28 at 15h 46m 52s.xml">
-      <configuration name="IntegrationTest.testTablesAfterConnect" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_SQLCmd - 2019.03.28 at 15h 47m 23s.xml">
-      <configuration name="All in SQLCmd" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_SQLCmd - 2019.03.28 at 15h 47m 58s.xml">
-      <configuration name="All in SQLCmd" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_SQLCmd_(1) - 2019.03.28 at 15h 48m 24s.xml">
+    <history-entry file="All_in_SQLCmd_(1) - 2019.03.28 at 17h 48m 59s.xml">
       <configuration name="All in SQLCmd (1)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="IntegrationTest_testUpdateWithNotEnoughParameters - 2019.03.28 at 17h 51m 18s.xml">
+      <configuration name="IntegrationTest.testUpdateWithNotEnoughParameters" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="IntegrationTest_testUpdateWithNotEnoughParameters - 2019.03.28 at 17h 51m 42s.xml">
+      <configuration name="IntegrationTest.testUpdateWithNotEnoughParameters" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="IntegrationTest_testUpdateWithNotEnoughParameters - 2019.03.28 at 17h 51m 59s.xml">
+      <configuration name="IntegrationTest.testUpdateWithNotEnoughParameters" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_SQLCmd_(2) - 2019.03.28 at 17h 52m 25s.xml">
+      <configuration name="All in SQLCmd (2)" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -512,8 +589,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" side_tool="true" visible="true" weight="0.21140939" />
+      <window_info content_ui="combo" id="Project" order="0" side_tool="true" visible="true" weight="0.26778522" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24966443" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -541,7 +619,7 @@
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.18724832" />
+      <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.17651007" />
     </layout>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -599,9 +677,20 @@
     <MESSAGE value="Исправлена команда insert - работает согласно техзадания" />
     <MESSAGE value="Добавлен интеграционный тест, с тестами help и exit. Ошибка сепараторов." />
     <MESSAGE value="Исправлена ошибка несовместимости сепараторов, интеграционный тест, с тестами help и exit - проходит." />
-    <option name="LAST_COMMIT_MESSAGE" value="Исправлена ошибка несовместимости сепараторов, интеграционный тест, с тестами help и exit - проходит." />
+    <MESSAGE value="Выполнен интеграционный тест для все команд, покрытие 100% классов, 87% линий" />
+    <option name="LAST_COMMIT_MESSAGE" value="Выполнен интеграционный тест для все команд, покрытие 100% классов, 87% линий" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java</url>
+          <line>38</line>
+          <properties />
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
         <watch expression="nameTable" />
@@ -622,20 +711,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/postgresql/postgresql/42.2.5/postgresql-42.2.5.jar!/org/postgresql/core/v3/SimpleParameterList.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="70" selection-start-line="70" selection-end-line="70" />
-          <folding>
-            <element signature="e#2879#2880#0" expanded="true" />
-            <element signature="e#8897#8898#0" expanded="true" />
-            <element signature="e#8935#8936#0" expanded="true" />
-            <element signature="e#12205#12206#0" expanded="true" />
-            <element signature="e#12232#12233#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/postgresql/postgresql/42.2.5/postgresql-42.2.5.jar!/org/postgresql/core/v3/ExecuteRequest.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -714,13 +789,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Command.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/target/classes/controller/command/Command.class">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -791,13 +859,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/ExitException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="51" selection-start-line="2" selection-start-column="51" selection-end-line="2" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/org/junit/runner/notification/Failure.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="113">
@@ -846,60 +907,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Exit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#138#139#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/IsConnected.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#361#362#0" expanded="true" />
-            <element signature="e#408#409#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Tables.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Unsupported.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#153#154#0" expanded="true" />
-            <element signature="e#332#333#0" expanded="true" />
-            <element signature="e#402#403#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/integration/LogOutputStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -931,44 +938,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Connect.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#427#428#0" expanded="true" />
-            <element signature="e#480#481#0" expanded="true" />
-            <element signature="method#process#0;class#Connect#0" />
-            <element signature="method#printError#0;class#Connect#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Find.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="35" column="37" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Drop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="28" column="31" lean-forward="true" selection-start-line="28" selection-start-column="31" selection-end-line="28" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/integration/ConfigurableInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
@@ -991,13 +960,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/DBManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/DataSet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -1010,10 +972,201 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/model/JDBCDBManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Connect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#427#428#0" expanded="true" />
+            <element signature="e#480#481#0" expanded="true" />
+            <element signature="method#process#0;class#Connect#0" />
+            <element signature="method#printError#0;class#Connect#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Drop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="20" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/ExitException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Find.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/IsConnected.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#361#362#0" expanded="true" />
+            <element signature="e#408#409#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Help.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="831">
+          <caret line="41" column="49" selection-start-line="41" selection-start-column="49" selection-end-line="41" selection-end-column="49" />
+          <folding>
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#170#171#0" expanded="true" />
+            <element signature="e#232#233#0" expanded="true" />
+            <element signature="e#277#278#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Exit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
+          <folding>
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#170#171#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Tables.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Unsupported.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#153#154#0" expanded="true" />
+            <element signature="e#332#333#0" expanded="true" />
+            <element signature="e#402#403#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="30" column="9" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="30" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Insert.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="30" selection-start-line="30" selection-end-line="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/DBManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="23" column="48" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/MainController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Command.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/postgresql/postgresql/42.2.5/postgresql-42.2.5.jar!/org/postgresql/jdbc/PgStatement.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="138" selection-start-line="138" selection-end-line="138" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="861">
+          <caret line="617" column="5" selection-start-line="617" selection-start-column="5" selection-end-line="617" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Update.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="567">
+          <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="231" column="78" selection-start-line="231" selection-start-column="78" selection-end-line="231" selection-end-column="78" />
+        <state relative-caret-position="413">
+          <caret line="280" column="59" selection-start-line="280" selection-start-column="59" selection-end-line="280" selection-end-column="59" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#connect#0;class#JDBCDBManager#0" />
@@ -1025,67 +1178,6 @@
             <element signature="method#dataCortage#0;class#JDBCDBManager#0" />
             <element signature="method#printTitleTable#0;class#JDBCDBManager#0" />
             <element signature="method#printLineTable#0;class#JDBCDBManager#0" />
-            <element signature="method#insert#0;class#JDBCDBManager#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Insert.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Help.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="38" column="84" selection-start-line="38" selection-start-column="84" selection-end-line="38" selection-end-column="84" />
-          <folding>
-            <element signature="e#138#139#0" expanded="true" />
-            <element signature="e#170#171#0" expanded="true" />
-            <element signature="e#232#233#0" expanded="true" />
-            <element signature="e#277#278#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/MainController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="56" column="30" lean-forward="true" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/model/JDBCDBManagerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="470" column="22" lean-forward="true" selection-start-line="470" selection-start-column="22" selection-end-line="470" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
