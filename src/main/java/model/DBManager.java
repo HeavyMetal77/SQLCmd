@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface DBManager {
@@ -16,7 +17,7 @@ public interface DBManager {
     void find(String nameTable);
 
 
-    void insert(String nameTable, DataSet[] data);
+    void insert(String nameTable, DataSet[] data) throws SQLException;
 
     boolean isConnected();
 }

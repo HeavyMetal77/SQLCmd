@@ -4,6 +4,8 @@ import model.DBManager;
 import model.DataSet;
 import view.View;
 
+import java.sql.SQLException;
+
 public class Insert implements Command  {
 
 
@@ -26,16 +28,22 @@ public class Insert implements Command  {
         String[] commandWithParam = command.split("[|]");
         //0-й элемент - непосредственно команда
         //1-й элемент - имя таблицы nameTable
-        String nameTable = commandWithParam[1];
-        //рассчитываем длинну массива DataSet из полученных параметров (минус 2 элемента - команда и имя таблицы)
-        int lengthData = (commandWithParam.length-2)/2;
-        DataSet[] dataSets = new DataSet[lengthData];
-        for (int i = 0, j = 2; i < dataSets.length; i++, j+=2) {
-            dataSets[i] = new DataSet(commandWithParam[j], commandWithParam[j+1]);
-        }
         if (commandWithParam.length >= 4) {
-            dbManager.insert(nameTable, dataSets);
-        } else {
+            String nameTable = commandWithParam[1];
+            //рассчитываем длинну массива DataSet из полученных параметров (минус 2 элемента - команда и имя таблицы)
+            int lengthData = (commandWithParam.length-2)/2;
+            DataSet[] dataSets = new DataSet[lengthData];
+            for (int i = 0, j = 2; i < dataSets.length; i++, j+=2) {
+                dataSets[i] = new DataSet(commandWithParam[j], commandWithParam[j+1]);
+            }
+            try {
+                dbManager.insert(nameTable, dataSets);
+                view.write("Данные успешно вставлены!");
+            } catch (SQLException e) {
+                view.write(e.getMessage());
+            }
+        }
+        else {
             view.write("Недостаточно параметров!");
         }
     }

@@ -39,6 +39,7 @@ public class MainController {
         while (true) {
             String input = view.read();
             if (input == null) {
+                new Exit(view).process(input);
                 break;
             }
             try {
@@ -51,10 +52,19 @@ public class MainController {
                 view.write("Введи команду или 'help' для помощи:");
             } catch (Exception e) {
                 if (e instanceof ExitException) {
-                    throw e;
+                    throw new ExitException();
                 }
+                printError(e);
             }
         }
+    }
+    private void printError(Exception e) {
+        String massage = e.getMessage();
+        if (e.getCause() != null) {
+            massage += " " + e.getCause().getMessage();
+        }
+        view.write("Ошибка! Причина: " + massage);
+        view.write("Повтори попытку!");
     }
 }
 

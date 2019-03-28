@@ -35,6 +35,9 @@ public class Help implements Command {
             view.write("\tcreateTable|tableName|column1|column2|...|columnN - ");
             view.write("\t\tсоздать таблицу tableName с колонками column1...columnN ");
 
+            view.write("\tinsert|tableName|column1|value1|column2|value2|... - ");
+            view.write("\t\tвставить данные в таблицу tableName: column1|value1 ....");
+
             view.write("\texit - ");
             view.write("\t\tвыход из программы");
 

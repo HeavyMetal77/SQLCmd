@@ -18,7 +18,7 @@ public class Clear implements Command {
     }
 
     @Override
-    public void process(String command) {
+    public void process(String command) throws Exception {
         String[] commandWithParam = command.split("[|]");
         try {
             if (commandWithParam.length == 2) {
@@ -27,16 +27,9 @@ public class Clear implements Command {
                 throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
             }
         } catch (Exception e) {
-            printError(e);
+            throw new Exception(e.getMessage());
         }
     }
 
-    private void printError(Exception e) {
-        String massage = e.getMessage();
-        if (e.getCause() != null) {
-            massage += " " + e.getCause().getMessage();
-        }
-        view.write("Ошибка! Причина: " + massage);
-        view.write("Повтори попытку!");
-    }
+
 }

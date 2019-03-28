@@ -141,7 +141,8 @@ public class JDBCDBManager implements DBManager {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Таблицы не существует!");
+//            e.printStackTrace();
         }
     }
 
@@ -228,7 +229,7 @@ public class JDBCDBManager implements DBManager {
     }
 
     @Override
-    public void insert(String nameTable, DataSet [] data) {
+    public void insert(String nameTable, DataSet [] data) throws SQLException {
         Statement stmt = null;
         String dataRequestColumn = "";
         String dataRequestValue = "";
@@ -250,8 +251,8 @@ public class JDBCDBManager implements DBManager {
         try {
             stmt = connection.createStatement();
             stmt.executeUpdate(insertRequestSql);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new SQLException("Данные не вставлены, ошибка!");
         }
     }
 

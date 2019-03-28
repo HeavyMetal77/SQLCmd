@@ -6,6 +6,7 @@ import java.io.InputStream;
 public class ConfigurableInputStream extends InputStream {
     private String line;
     private boolean endLine = false;
+
     @Override
     public int read() throws IOException {
         if (line.length() == 0) {
