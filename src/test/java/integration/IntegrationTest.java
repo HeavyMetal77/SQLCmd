@@ -1,7 +1,6 @@
 package integration;
 
 import controller.Main;
-import model.DBManager;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -55,7 +54,7 @@ public class IntegrationTest {
                 "\texit - \n" +
                 "\t\tвыход из программы\n" +
                 "Введи команду или 'help' для помощи:\n" +
-                "Программа завершила работу\n", getData());
+                "Программа завершила работу", getData().toString().trim().replace("\r",""));
     }
 
     private String getData() {
