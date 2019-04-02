@@ -19,6 +19,9 @@ public class JDBCDBManager implements DBManager {
             return;
         }
         try {
+            if (connection != null) {
+                connection = null;
+            }
             connection = DriverManager.getConnection(
                     "jdbc:postgresql://localhost:5432/" +
                             database, login, password);
@@ -33,26 +36,16 @@ public class JDBCDBManager implements DBManager {
     public ArrayList<String> getTables() {
         String request = "SELECT * FROM information_schema.tables " +
                 "WHERE table_schema='public' AND table_type='BASE TABLE'";
-        Statement stmt = null;
-        ResultSet resultSet = null;
         ArrayList<String> list = new ArrayList<>();
-        try {
-            stmt = connection.createStatement();
-            resultSet = stmt.executeQuery(request);
+        try (Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(request))
+        {
             while (resultSet.next()) {
                 list.add(resultSet.getString("table_name"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        //выводим список таблиц
-//        String listTables = "[";
-//        for (String string : list) {
-//            listTables += string + ", ";
-//        }
-//        listTables = listTables.substring(0, listTables.length() - 2) + "]";
-//        System.out.println(listTables);
         return list;
     }
 
@@ -69,13 +62,10 @@ public class JDBCDBManager implements DBManager {
         textNameColumn = textNameColumn.substring(0, (textNameColumn.length() - 1));
         requestSql += textNameColumn + ")";
 
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement())
+        {
             stmt.executeUpdate(requestSql);
-            stmt.close();
             System.out.println("TABLE " + nameTable + " was successfully created!");
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,11 +75,9 @@ public class JDBCDBManager implements DBManager {
     @Override
     public void drop(String nameTable) {
         String requestSql = "DROP TABLE IF EXISTS " + nameTable;
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement())
+        {
             stmt.executeUpdate(requestSql);
-            stmt.close();
             System.out.println("TABLE " + nameTable + " was successfully deleted!");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,11 +88,9 @@ public class JDBCDBManager implements DBManager {
     @Override
     public void clear(String nameTable) {
         String requestSql = "DELETE FROM " + nameTable;
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement())
+        {
             stmt.executeUpdate(requestSql);
-            stmt.close();
             System.out.println("TABLE " + nameTable + " was successfully clear!");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,12 +101,9 @@ public class JDBCDBManager implements DBManager {
     @Override
     public void find(String nameTable) {
         String requestSql = "SELECT * FROM " + nameTable;
-        Statement stmt = null;
-        ResultSet resultSet = null;
-        try {
-            stmt = connection.createStatement();
-            resultSet = stmt.executeQuery(requestSql);
-
+        try (Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(requestSql))
+        {
             if (resultSet.getMetaData().getColumnCount() != 0) {
                 //рисуем верхнюю границу таблицы(+--+--+)
                 printLineTable(resultSet);
@@ -142,7 +125,6 @@ public class JDBCDBManager implements DBManager {
 
         } catch (SQLException e) {
             System.out.println("Таблицы не существует!");
-//            e.printStackTrace();
         }
     }
 
@@ -185,6 +167,8 @@ public class JDBCDBManager implements DBManager {
 
     //рисуем заглавие таблицы
     private void printTitleTable(ResultSet resultSet) throws SQLException {
+
+        int column = resultSet.getMetaData().getColumnCount();
         System.out.print("+");
         //итерируемся по списку названий таблиц (i)
         for (int i = 0, j = 1; i < resultSet.getMetaData().getColumnCount(); i++, j++) {
@@ -231,7 +215,6 @@ public class JDBCDBManager implements DBManager {
     //вставить данные в таблицу
     @Override
     public void insert(String nameTable, DataSet [] data) throws SQLException {
-        Statement stmt = null;
         String dataRequestColumn = "";
         String dataRequestValue = "";
         int lengthArrData = data.length;
@@ -249,8 +232,7 @@ public class JDBCDBManager implements DBManager {
         //INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);
         String insertRequestSql = "INSERT INTO " +  nameTable + " (" + dataRequestColumn + ")"
                 + " VALUES (" + dataRequestValue +")";
-        try {
-            stmt = connection.createStatement();
+        try (Statement stmt = connection.createStatement()){
             stmt.executeUpdate(insertRequestSql);
         } catch (SQLException e) {
             throw new SQLException("Данные не вставлены!");
@@ -266,9 +248,7 @@ public class JDBCDBManager implements DBManager {
     //обновить данные в существующей таблице
     @Override
     public void update(String nameTable, DataSet [] data) throws SQLException {
-        Statement stmt = null;
         String dataRequest = "";
-
         for (int i = 0; i < data.length; i++) {
             dataRequest += data[i].getName() + " = " + data[i].getValue() + ", ";
         }
@@ -277,10 +257,11 @@ public class JDBCDBManager implements DBManager {
         //UPDATE table_name SET column1 = value1, column2 = value2...., columnN = valueN
         //WHERE [condition];
         String insertRequestSql = "UPDATE " +  nameTable + " SET " + dataRequest;
-        //TODO отсутствуют условия обновления WHERE [condition]
+        //TODO отсутствуют условия обновления WHERE [condition] (обновляются все записи с такими значениями)
         //TODO вывод на консоль не соответствует техзаданию
-        try {
-            stmt = connection.createStatement();
+        //TODO - 30 records
+        try (Statement stmt = connection.createStatement())
+        {
             stmt.executeUpdate(insertRequestSql);
         } catch (SQLException e) {
             throw new SQLException("Данные не обновлены!");
