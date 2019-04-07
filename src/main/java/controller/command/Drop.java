@@ -23,6 +23,8 @@ public class Drop implements Command {
         try {
             if (commandWithParam.length == 2) {
                 dbManager.drop(commandWithParam[1]);
+                view.write("TABLE " + commandWithParam[1] + " was successfully deleted!");
+
             } else {
                 throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
             }

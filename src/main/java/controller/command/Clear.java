@@ -18,11 +18,13 @@ public class Clear implements Command {
     }
 
     @Override
-    public void process(String command) throws Exception {
+    public void process(String command){
         String[] commandWithParam = command.split("[|]");
         try {
             if (commandWithParam.length == 2) {
                 dbManager.clear(commandWithParam[1]);
+                view.write("TABLE " + commandWithParam[1] + " was successfully clear!");
+
             } else {
                 throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
             }

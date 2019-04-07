@@ -34,32 +34,32 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         //then
-        assertEquals("Привет пользователь!\n" +
+        assertEquals("Привет пользователь!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
-                "connect|database|user|password\n" +
+                "connect|database|user|password\r\n" +
                 //help
-                "Существующие команды:\n" +
-                "\tconnect|database|user|password - \n" +
-                "\t\tсоединение с базой данных\n" +
-                "\ttables - \n" +
-                "\t\tвывод списка всех таблиц\n" +
-                "\tclear|tableName - \n" +
-                "\t\tочистка содержимого таблицы tableName\n" +
-                "\tfind|tableName - \n" +
-                "\t\tвывод содержимого таблицы tableName\n" +
-                "\tdrop|tableName - \n" +
-                "\t\tудалить таблицу tableName\n" +
-                "\tcreateTable|tableName|column1|column2|...|columnN - \n" +
-                "\t\tсоздать таблицу tableName с колонками column1...columnN \n" +
-                "\tinsert|tableName|column1|value1|column2|value2|... - \n" +
-                "\t\tвставить данные в таблицу tableName: column1|value1 ....\n" +
-                "\texit - \n" +
-                "\t\tвыход из программы\n" +
-                "Введи команду или 'help' для помощи:\n" +
+                "Существующие команды:\r\n" +
+                "\tconnect|database|user|password - \r\n" +
+                "\t\tсоединение с базой данных\r\n" +
+                "\ttables - \r\n" +
+                "\t\tвывод списка всех таблиц\r\n" +
+                "\tclear|tableName - \r\n" +
+                "\t\tочистка содержимого таблицы tableName\r\n" +
+                "\tfind|tableName - \r\n" +
+                "\t\tвывод содержимого таблицы tableName\r\n" +
+                "\tdrop|tableName - \r\n" +
+                "\t\tудалить таблицу tableName\r\n" +
+                "\tcreateTable|tableName|column1|column2|...|columnN - \r\n" +
+                "\t\tсоздать таблицу tableName с колонками column1...columnN \r\n" +
+                "\tinsert|tableName|column1|value1|column2|value2|... - \r\n" +
+                "\t\tвставить данные в таблицу tableName: column1|value1 ....\r\n" +
+                "\texit - \r\n" +
+                "\t\tвыход из программы\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
                 //exit
-                "Программа завершила работу", getData().toString().trim().replace("\r",""));
+                "Программа завершила работу", getData().toString().trim().replace("",""));
         //https://stackoverflow.com/questions/36324452/assertequalsstring-string-comparisonfailure-when-contents-are-identical
-        //или после каждого перевода строки \n заменить на \r\n как в testExit()
+        //или после каждого перевода строки \r\n заменить на \r\n как в testExit()
     }
 
     @Test
@@ -164,8 +164,8 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //find|test1 - (TableWithoutAttribute)
-                "В таблице не создано ни одного атрибута!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
+                "Ошибка! Причина: В таблице не создано ни одного атрибута!\r\n" +
+                "Повтори попытку!\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
@@ -209,15 +209,15 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         //then
-        assertEquals("Привет пользователь!\r\n" +
+          assertEquals("Привет пользователь!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //find|nonexist
-                "Таблицы не существует!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
+                "Ошибка! Причина: Таблицы не существует!\r\n" +
+                "Повтори попытку!\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
@@ -439,7 +439,7 @@ public class IntegrationTest {
                 "TABLE test3 was successfully deleted!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //tables
-                "[category, contact_type, contact_value, contact, test1, test2, test]\r\n" +
+                "[category, test1, contact_type, contact_value, contact, test2, test]\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -463,8 +463,8 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //insert|
-                "Недостаточно параметров!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
+                "Ошибка! Причина: Недостаточно параметров!\r\n" +
+                "Повтори попытку!\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
@@ -603,8 +603,8 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //update|test|test1
-                "Недостаточно параметров!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
+                "Ошибка! Причина: Недостаточно параметров!\r\n" +
+                "Повтори попытку!\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }

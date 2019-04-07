@@ -13,10 +13,8 @@ public class JDBCDBManager implements DBManager {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("Where is your PostgreSQL JDBC Driver? "
-                    + "Include in your library path!");
-            e.printStackTrace();
-            return;
+           throw new RuntimeException("Where is your PostgreSQL JDBC Driver? "
+                    + "Include in your library path or dependencies Maven!");
         }
         try {
             if (connection != null) {
@@ -27,11 +25,11 @@ public class JDBCDBManager implements DBManager {
                             database, login, password);
         } catch (SQLException e) {
             connection = null;
-            throw new RuntimeException("\nОшибка вводимых данных!", e);
+            throw new RuntimeException("Ошибка вводимых данных!", e);
         }
     }
 
-    //получить названия всех таблиц БД и вывести их на консоль
+    //получить названия всех таблиц БД
     @Override
     public ArrayList<String> getTables() {
         String request = "SELECT * FROM information_schema.tables " +
@@ -65,7 +63,6 @@ public class JDBCDBManager implements DBManager {
         try (Statement stmt = connection.createStatement())
         {
             stmt.executeUpdate(requestSql);
-            System.out.println("TABLE " + nameTable + " was successfully created!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,7 +75,6 @@ public class JDBCDBManager implements DBManager {
         try (Statement stmt = connection.createStatement())
         {
             stmt.executeUpdate(requestSql);
-            System.out.println("TABLE " + nameTable + " was successfully deleted!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -91,7 +87,6 @@ public class JDBCDBManager implements DBManager {
         try (Statement stmt = connection.createStatement())
         {
             stmt.executeUpdate(requestSql);
-            System.out.println("TABLE " + nameTable + " was successfully clear!");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -99,104 +94,54 @@ public class JDBCDBManager implements DBManager {
 
     //получение содержимого указанной таблицы
     @Override
-    public void find(String nameTable) {
+    public ResultSet find(String nameTable) {
         String requestSql = "SELECT * FROM " + nameTable;
-        try (Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(requestSql))
-        {
-            if (resultSet.getMetaData().getColumnCount() != 0) {
-                //рисуем верхнюю границу таблицы(+--+--+)
-                printLineTable(resultSet);
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(requestSql);
 
-                //рисуем заглавие таблицы
-                printTitleTable(resultSet);
+            //количество атрибутов таблицы
+            int columnCount = resultSet.getMetaData().getColumnCount();
 
-                //рисуем нижнюю границу заглавия таблицы (+--+--+)
-                printLineTable(resultSet);
-
-                //выводим содержимое кортежей таблицы
-                dataCortage(resultSet);
-
-                //рисуем нижнюю границу всей таблицы (+--+--+)
-                printLineTable(resultSet);
+            if (columnCount != 0) {
+                return resultSet;
             } else {
-                System.out.println("В таблице не создано ни одного атрибута!");
+                throw new RuntimeException("В таблице не создано ни одного атрибута!");
             }
+        } catch (RuntimeException e) {
+            throw e;
+        }catch (SQLException e) {
+            throw new RuntimeException("Таблицы не существует!");
+        }
+    }
 
+    //возвращает размер таблицы
+    @Override
+    public int getSize(String tableName) {
+        try (Statement stmt = connection.createStatement();
+             ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName))
+        {
+            rsCount.next();
+            int size = rsCount.getInt(1);
+            return size;
         } catch (SQLException e) {
-            System.out.println("Таблицы не существует!");
+            return 0;
         }
     }
 
-    //выводим содержимое кортежей таблицы
-    private void dataCortage(ResultSet resultSet) throws SQLException {
-        while (resultSet.next()) {
-            System.out.print("+");
-            int indexColumn = 0;
-            //resultSet.getMetaData().getColumnCount() - возвращает количество столбцов
-            for (int i = 0; i < resultSet.getMetaData().getColumnCount(); i++) {
-                System.out.print(resultSet.getString(++indexColumn));
-                //ширина колонки
-                int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(indexColumn);
 
-                //если ширина колонки больше 50 установить ее в 50
-                if (lengthColumn > 50) {
-                    lengthColumn = 50;
-                }
-                int countSpace;//кол-во пробелов
-                //если значение в таблице не null
-                if (resultSet.getString(indexColumn) != null) {
-                    //кол-во пробелов
-                    countSpace = lengthColumn - resultSet.getString(indexColumn).length();
-                } else {//4 - длинна слова 'null'
-                    countSpace = lengthColumn - 4;
-                }
-                //если в ячейке булевое значение (занимает 1 позицию)- кол-во пробелов изменяем
-                if (resultSet.getMetaData().getColumnTypeName(indexColumn).equals("bool")) {
-                    countSpace = resultSet.getMetaData().getColumnName(indexColumn).length() - lengthColumn;
-                }
-                //если кол-во пробелов больше 0
-                if (countSpace > 0) {
-                    System.out.print(String.format("%0" + countSpace + "d", 0).replace("0", " "));
-                }
-                System.out.print("+");
-            }
-            System.out.println();
-        }
-    }
-
-    //рисуем заглавие таблицы
-    private void printTitleTable(ResultSet resultSet) throws SQLException {
-
-        int column = resultSet.getMetaData().getColumnCount();
-        System.out.print("+");
-        //итерируемся по списку названий таблиц (i)
-        for (int i = 0, j = 1; i < resultSet.getMetaData().getColumnCount(); i++, j++) {
-            //ширина колонки
-            int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(j);
-            //если ширина колонки больше 50 установить ее в 50
-            if (lengthColumn > 50) {
-                lengthColumn = 50;
-            }
-            System.out.print(resultSet.getMetaData().getColumnName(j));
-            //остаток пробелов
-            int countSpace = lengthColumn - resultSet.getMetaData().getColumnName(j).length();
-            //если кол-во пробелов больше 0
-            if (countSpace > 0) {
-                System.out.print(String.format("%0" + countSpace + "d", 0).replace("0", " "));
-            }
-            System.out.print("+");
-        }
-        System.out.println();
-    }
-
-    //рисуем верхнюю/нижнюю границу таблицы (+--+--+)
-    private void printLineTable(ResultSet resultSet) throws SQLException {
-       System.out.print("+");
-        for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-            //ширина колонки
+    //возвращает массив значений ширины каждого аттрибута
+    @Override
+    public int[] getWidthAtribute(String nameTable) throws SQLException {
+        ResultSet resultSet = find(nameTable);
+        //количество атрибутов таблицы
+        int columnCount = resultSet.getMetaData().getColumnCount();
+        //создаю массив, который содержит размеры (ширину) всех атрибутов таблицы
+        //атрибуты нумеруются в БД начиная с 1, поэтом i=1
+        int[] arrWidthAttribute = new int[columnCount];
+        for (int i = 1; i <= columnCount; i++) {
             int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
-
             //если ширина колонки больше 50 установить ее в 50
             if (lengthColumn > 50) {
                 lengthColumn = 50;
@@ -206,30 +151,74 @@ public class JDBCDBManager implements DBManager {
             if (lengthColumn < resultSet.getMetaData().getColumnName(i).length())
                 lengthColumn = resultSet.getMetaData().getColumnName(i).length();
 
-            System.out.print(String.format("%0" + lengthColumn + "d", 0).replace("0", "-"));
-            System.out.print("+");
+            //ширина колонки
+            arrWidthAttribute[i-1] = lengthColumn;
         }
-        System.out.println();
+        return arrWidthAttribute;
     }
+
+    //вовзращает массив атрибутов таблицы
+    @Override
+    public String[] getAtribute(String nameTable) throws SQLException {
+        ResultSet resultSet = find(nameTable);
+        //количество атрибутов таблицы
+        int columnCount = resultSet.getMetaData().getColumnCount();
+        String[] arrAtribute = new String[columnCount];
+        for (int i = 0, j = 1; i < columnCount; i++, j++) {
+            arrAtribute[i] = resultSet.getMetaData().getColumnName(j);
+        }
+        return arrAtribute;
+    }
+
+
+    //возвращает массив Датасетов содержащий данные из указанной таблицы
+    @Override
+    public DataSet[] getDataSetTable(String nameTable) throws SQLException {
+        ResultSet resultSet = find(nameTable);
+        //размер таблицы
+        int size = getSize(nameTable);
+        //количество атрибутов таблицы
+        int columnCount = resultSet.getMetaData().getColumnCount();
+
+        DataSet[] dataSets = new DataSet[size];
+        int countDataset = 0;
+        while (resultSet.next()) {
+            DataSet dataSet = new DataSet();
+            dataSets[countDataset++] = dataSet;
+            for (int i = 1; i <= columnCount; i++) {
+                dataSet.put(resultSet.getMetaData().getColumnName(i), resultSet.getObject(i));
+            }
+        }
+        return dataSets;
+    }
+
+
 
     //вставить данные в таблицу
     @Override
-    public void insert(String nameTable, DataSet [] data) throws SQLException {
+    public void insert(String nameTable, DataSet dataSet) throws SQLException {
+        //строка запроса, содержащая атрибуты таблицы
         String dataRequestColumn = "";
+        //строка запроса, содержащая значения таблицы
         String dataRequestValue = "";
-        int lengthArrData = data.length;
+        //получаем размер массива датасет
+        int lengthArrData = dataSet.getNames().length;
 
+        //формируем запрос для атрибутов таблицы
         for (int i = 0; i < lengthArrData; i++) {
-            dataRequestColumn += data[i].getName() + ", ";
+            dataRequestColumn += dataSet.getNames()[i] + ", ";
         }
+        //удаляем последнюю запятую и пробел
         dataRequestColumn = dataRequestColumn.substring(0, dataRequestColumn.length() - 2);
 
+        //формируем запрос для значений кортежей таблицы
         for (int i = 0; i < lengthArrData; i++) {
-            dataRequestValue += "'" + data[i].getValue().toString() + "'" + ", ";
+            dataRequestValue += "'" + dataSet.getValues()[i] + "'" + ", ";
         }
+        //удаляем последнюю запятую и пробел
         dataRequestValue = dataRequestValue.substring(0, dataRequestValue.length() - 2);
 
-        //INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);
+        //пример запроса INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);
         String insertRequestSql = "INSERT INTO " +  nameTable + " (" + dataRequestColumn + ")"
                 + " VALUES (" + dataRequestValue +")";
         try (Statement stmt = connection.createStatement()){
@@ -247,10 +236,12 @@ public class JDBCDBManager implements DBManager {
 
     //обновить данные в существующей таблице
     @Override
-    public void update(String nameTable, DataSet [] data) throws SQLException {
+    public void update(String nameTable, DataSet dataSet) {
+        //создаем строку запроса
         String dataRequest = "";
-        for (int i = 0; i < data.length; i++) {
-            dataRequest += data[i].getName() + " = " + data[i].getValue() + ", ";
+        int lengthArrData = dataSet.getNames().length;
+        for (int i = 0; i < lengthArrData; i++) {
+            dataRequest += dataSet.getNames()[i] + " = " + dataSet.getValues()[i] + ", ";
         }
         dataRequest = dataRequest.substring(0, dataRequest.length() - 2);
 
@@ -264,9 +255,13 @@ public class JDBCDBManager implements DBManager {
         {
             stmt.executeUpdate(insertRequestSql);
         } catch (SQLException e) {
-            throw new SQLException("Данные не обновлены!");
+            throw new RuntimeException("Данные не обновлены!");
         }
     }
+
+
+
+
 }
 /*
 update

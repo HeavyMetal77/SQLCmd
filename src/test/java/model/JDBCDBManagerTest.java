@@ -18,7 +18,7 @@ public class JDBCDBManagerTest {
     @Test
     public void testGetAllTableNames() {
         ArrayList<String> tablesNames = manager.getTables();
-        assertEquals("[category, contact_type, contact_value, contact, test1, test2, test]",
+        assertEquals("[category, test1, contact_type, contact_value, contact, test2, test]",
                 tablesNames.toString());
     }
 

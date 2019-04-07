@@ -21,7 +21,7 @@ public class Update implements Command {
     }
 
     @Override
-    public void process(String command) throws SQLException {
+    public void process(String command) {
         //получаем массив параметров команды
         String[] commandWithParam = command.split("[|]");
         //0-й элемент - непосредственно команда
@@ -31,19 +31,19 @@ public class Update implements Command {
             String nameTable = commandWithParam[1];
             //рассчитываем длинну массива DataSet из полученных параметров (минус 2 элемента - команда и имя таблицы)
             int lengthData = (commandWithParam.length-2)/2;
-            DataSet[] dataSets = new DataSet[lengthData];
-            for (int i = 0, j = 2; i < dataSets.length; i++, j+=2) {
-                dataSets[i] = new DataSet(commandWithParam[j], commandWithParam[j+1]);
+            DataSet dataSets = new DataSet();
+            for (int i = 0, j = 2; i < lengthData; i++, j+=2) {
+                dataSets.put(commandWithParam[j], commandWithParam[j+1]);
             }
             try {
                 dbManager.update(nameTable, dataSets);
                 view.write("Данные успешно обновлены!");
             } catch (SQLException e) {
-                throw e;
+                throw new RuntimeException("Данные не обновлены!");
             }
         }
         else {
-            view.write("Недостаточно параметров!");
+            throw new RuntimeException("Недостаточно параметров!");
         }
     }
 }

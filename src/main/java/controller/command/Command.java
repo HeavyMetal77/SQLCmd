@@ -5,5 +5,5 @@ public interface Command {
     boolean canProcess(String command);
 
     //обработать строку
-    void process(String command) throws Exception;
+    void process(String command);
 }

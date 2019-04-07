@@ -1,0 +1,93 @@
+package controller.command;
+
+import model.DBManager;
+import model.DataSet;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+import view.View;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import static junit.framework.TestCase.assertEquals;
+
+public class FindTest {
+    private View view;
+    private DBManager dbManager;
+    private Command command;
+
+
+    @Before
+    public void setup(){
+        dbManager = Mockito.mock(DBManager.class);
+        view = Mockito.mock(View.class);
+        command = new Find(dbManager, view);
+    }
+
+    @Test
+    public void test() {
+        //given
+        String nameTable = "test";
+
+        DataSet field1 = new DataSet();
+        field1.put("id", 1);
+        field1.put("nametest2", "supertest");
+        field1.put("field1", "null");
+
+        DataSet field2 = new DataSet();
+        field2.put("id", 2);
+        field2.put("nametest2", "supertest2");
+        field2.put("field1", "null");
+
+        String[] atributes = new String[]{"id", "nametest2", "field1"};
+        try {
+            Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(new int[]{10, 50, 50});
+            Mockito.when(dbManager.getSize(nameTable)).thenReturn(2);
+            Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(new DataSet[]{field1, field2});
+            Mockito.when(dbManager.getAtribute(nameTable)).thenReturn(atributes);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //when
+        command.process("find|test");
+
+        //then
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(view, Mockito.atLeastOnce()).write(captor.capture());
+        assertEquals("[+----------+--------------------------------------------------+--------------------------------------------------+, " +
+                              "+id        +nametest2                                         +field1                                            +, " +
+                              "+----------+--------------------------------------------------+--------------------------------------------------+, " +
+                              "+1         +supertest                                         +null                                              +, " +
+                              "+2         +supertest2                                        +null                                              +, " +
+                              "+----------+--------------------------------------------------+--------------------------------------------------+]",
+                captor.getAllValues().toString());
+    }
+
+//    @Test
+//    public void testCanProcessExit() {
+//        //given
+//        Command command = new Exit(view);
+//
+//        //when
+//        boolean canProcess = command.canProcess("find");
+//
+//        //then
+//        assertTrue(canProcess);
+//    }
+
+//
+//    @Test
+//    public void testCantProcessExitFailCommand() {
+//        //given
+//        Command command = new Exit(view);
+//
+//        //when
+//        boolean canProcess = command.canProcess("qwerty");
+//
+//        //then
+//        assertFalse(canProcess);
+//    }
+}

@@ -32,6 +32,8 @@ public class CreateTable implements Command {
                     nameColumns[j++] = commandWithParam[i];
                 }
                 dbManager.createTable(nameTable, nameColumns);
+                view.write("TABLE " + nameTable + " was successfully created!");
+
             } else {
                 throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
             }
