@@ -7,11 +7,8 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import view.View;
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.*;
 
 public class FindTest {
     private View view;
@@ -27,7 +24,7 @@ public class FindTest {
     }
 
     @Test
-    public void test() {
+    public void testPrintTableData() {
         //given
         String nameTable = "test";
 
@@ -66,28 +63,71 @@ public class FindTest {
                 captor.getAllValues().toString());
     }
 
-//    @Test
-//    public void testCanProcessExit() {
-//        //given
-//        Command command = new Exit(view);
-//
-//        //when
-//        boolean canProcess = command.canProcess("find");
-//
-//        //then
-//        assertTrue(canProcess);
-//    }
+    @Test
+    public void testCantProcessWithParameters() {
+        //given
+        Command command = new Find(dbManager, view);
 
-//
-//    @Test
-//    public void testCantProcessExitFailCommand() {
-//        //given
-//        Command command = new Exit(view);
-//
-//        //when
-//        boolean canProcess = command.canProcess("qwerty");
-//
-//        //then
-//        assertFalse(canProcess);
-//    }
+        //when
+        boolean canProcess = command.canProcess("find|contact");
+
+        //then
+        assertTrue(canProcess);
+    }
+
+
+    @Test
+    public void testCantProcessWithoutParameters() {
+        //given
+        Command command = new Find(dbManager, view);
+
+        //when
+        boolean canProcess = command.canProcess("find");
+
+        //then
+        assertFalse(canProcess);
+    }
+
+    @Test
+    public void testCantProcessNonexistCommand() {
+        //given
+        Command command = new Find(dbManager, view);
+
+        //when
+        boolean canProcess = command.canProcess("findkhg|contact");
+
+        //then
+        assertFalse(canProcess);
+    }
+
+    @Test
+    public void testPrintTableDataFromEmptyTable() {
+        //given
+        String nameTable = "test";
+
+        DataSet[] dataSets = new DataSet[0];
+
+        String[] atributes = new String[]{"id", "nametest2", "field1"};
+        try {
+            Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(new int[]{5, 20, 20});
+            Mockito.when(dbManager.getSize(nameTable)).thenReturn(0);
+            Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(dataSets);
+            Mockito.when(dbManager.getAtribute(nameTable)).thenReturn(atributes);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        //when
+        command.process("find|test");
+
+        //then
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        Mockito.verify(view, Mockito.atLeastOnce()).write(captor.capture());
+        assertEquals(
+                "[+-----+--------------------+--------------------+, " +
+                         "+id   +nametest2           +field1              +, " +
+                         "+-----+--------------------+--------------------+, " +
+                         "+-----+--------------------+--------------------+]",
+                captor.getAllValues().toString());
+    }
 }

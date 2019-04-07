@@ -62,7 +62,8 @@ public class Find implements Command {
         printLineTable(nameTable, arrWidthAttribute);
 
         //выводим содержимое кортежей таблицы
-        dataCortage(nameTable, arrWidthAttribute, tableSize, dataSets);
+        dataCortage(nameTable, arrWidthAttribute, tableSize, atributes, dataSets);
+
 
         //рисуем нижнюю границу всей таблицы (+--+--+)
         printLineTable(nameTable, arrWidthAttribute);
@@ -101,17 +102,21 @@ public class Find implements Command {
     }
 
     //выводим содержимое кортежей таблицы
-    private void dataCortage(String nameTable, int [] arrWidthAttribute, int tableSize, DataSet[] dataSets) throws SQLException {
+    private void dataCortage(String nameTable, int [] arrWidthAttribute, int tableSize, String[] atributes, DataSet[] dataSets) throws SQLException {
         for (int j = 0; j < tableSize; j++) {
             String str = "+";
-            int indexColumn = 0;
+            Object valueData = "";
+
 
             for (int i = 0; i < arrWidthAttribute.length; i++) {
-
-                str += dataSets[j].getValues()[i];
+                String temp = "";
+                if (dataSets.length != 0) {
+                    temp = ""  + dataSets[j].getValues()[i];
+                    valueData = dataSets[j].getValues()[i];
+                }
+                str += temp;
                 //ширина колонки
                 int lengthColumn = arrWidthAttribute[i];
-                Object valueData = dataSets[j].getValues()[i];
 
                 int countSpace;//кол-во пробелов
                 //если значение в таблице не null
@@ -122,14 +127,13 @@ public class Find implements Command {
                     countSpace = lengthColumn - 4;
                 }
                 //если в ячейке булевое значение (занимает 1 позицию)- кол-во пробелов изменяем
-                if (dataSets[0].getNames()[i].equals("bool")) {
+                if (atributes[i].equals("bool")) {
                     countSpace = valueData.toString().length() - lengthColumn;
                 }
                 //если кол-во пробелов больше 0
                 if (countSpace > 0) {
                     str += String.format("%0" + countSpace + "d", 0).replace("0", " ");
                 }
-
                 str += "+";
             }
             view.write(str);
