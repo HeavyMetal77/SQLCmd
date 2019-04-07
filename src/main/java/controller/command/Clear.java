@@ -24,7 +24,6 @@ public class Clear implements Command {
             if (commandWithParam.length == 2) {
                 dbManager.clear(commandWithParam[1]);
                 view.write("TABLE " + commandWithParam[1] + " was successfully clear!");
-
             } else {
                 throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
             }

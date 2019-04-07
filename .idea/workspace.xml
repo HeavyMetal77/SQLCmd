@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31b3f361-3dd6-4d25-b8ac-7cf23ebc08b1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/target/classes/META-INF/SQLCmd.kotlin_module" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/model/DataSet$Data.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/controller/command/ExitUnitTest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/controller/command/ExitUnitTestWithMockito.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/controller/command/FindTest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/test-classes/controller/command/TestView.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/controller/command/ClearTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Find.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Find.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/controller/command/FindTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/controller/command/FindTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/DataSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/DataSet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/model/JDBCDBManagerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/model/JDBCDBManagerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/command/Find.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/command/Find.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/controller/command/FindTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/controller/command/FindTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -42,11 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/controller/command/FindTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="107">
-              <caret line="129" column="25" selection-start-line="129" selection-start-column="25" selection-end-line="129" selection-end-column="25" />
+            <state relative-caret-position="69">
+              <caret line="74" column="4" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -55,15 +50,33 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/controller/command/ClearTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="69">
+              <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Find.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="130" column="60" lean-forward="true" selection-start-line="130" selection-start-column="60" selection-end-line="130" selection-end-column="60" />
+            <state relative-caret-position="150">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#printLineTable#0;class#Find#0" />
                 <element signature="method#printTitleTable#0;class#Find#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="281">
+              <caret line="25" column="72" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -125,7 +138,6 @@
         <option value="$PROJECT_DIR$/src/main/java/controller/MainController.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Connect.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Tables.java" />
-        <option value="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Drop.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Exit.java" />
@@ -142,6 +154,8 @@
         <option value="$PROJECT_DIR$/src/main/java/model/DataSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Find.java" />
         <option value="$PROJECT_DIR$/src/test/java/controller/command/FindTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/controller/command/ClearTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" />
       </list>
     </option>
   </component>
@@ -297,7 +311,7 @@
   <component name="PropertiesComponent">
     <property name="TODO_SCOPE" value="All Places" />
     <property name="ToolWindowRun.ShowToolbar" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554652596650" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554654814297" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../JuJaSqlCmd" />
     <property name="project.structure.last.edited" value="Project" />
@@ -314,17 +328,17 @@
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="database" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\workspace\SQLCmd\src\main\java\temp" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="controller.command" />
+      <recent name="integration" />
+      <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="controller.command" />
       <recent name="" />
     </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="controller.command" />
-      <recent name="integration" />
-      <recent name="" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\workspace\SQLCmd\src\main\java\temp" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -339,21 +353,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in SQLCmd (1)">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="controller.Main" />
-      <module name="SQLCmd" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in SQLCmd (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.All in SQLCmd">
+    <configuration name="All in SQLCmd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SQLCmd" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
@@ -361,7 +362,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FindTest.testCantProcessNonexistCommand" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ClearTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SQLCmd" />
       <extension name="coverage">
         <pattern>
@@ -370,14 +371,29 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="controller.command" />
-      <option name="MAIN_CLASS_NAME" value="controller.command.FindTest" />
+      <option name="MAIN_CLASS_NAME" value="controller.command.ClearTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClearTest.testCantProcessNonexistCommand" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SQLCmd" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controller.command.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="controller.command" />
+      <option name="MAIN_CLASS_NAME" value="controller.command.ClearTest" />
       <option name="METHOD_NAME" value="testCantProcessNonexistCommand" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FindTest.testCantProcessWithParameters" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ClearTest.testCantProcessWithoutParameters" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SQLCmd" />
       <extension name="coverage">
         <pattern>
@@ -386,14 +402,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="controller.command" />
-      <option name="MAIN_CLASS_NAME" value="controller.command.FindTest" />
-      <option name="METHOD_NAME" value="testCantProcessWithParameters" />
+      <option name="MAIN_CLASS_NAME" value="controller.command.ClearTest" />
+      <option name="METHOD_NAME" value="testCantProcessWithoutParameters" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FindTest.testPrintTableDataFromEmptyTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ClearTest.testClearTable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SQLCmd" />
       <extension name="coverage">
         <pattern>
@@ -402,8 +418,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="controller.command" />
-      <option name="MAIN_CLASS_NAME" value="controller.command.FindTest" />
-      <option name="METHOD_NAME" value="testPrintTableDataFromEmptyTable" />
+      <option name="MAIN_CLASS_NAME" value="controller.command.ClearTest" />
+      <option name="METHOD_NAME" value="testClearTable" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -411,11 +427,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in SQLCmd (1)" />
-        <item itemvalue="JUnit.FindTest.testPrintTableDataFromEmptyTable" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.FindTest.testCantProcessNonexistCommand" />
-        <item itemvalue="JUnit.FindTest.testCantProcessWithParameters" />
+        <item itemvalue="JUnit.All in SQLCmd" />
+        <item itemvalue="JUnit.ClearTest" />
+        <item itemvalue="JUnit.ClearTest.testClearTable" />
+        <item itemvalue="JUnit.ClearTest.testCantProcessNonexistCommand" />
+        <item itemvalue="JUnit.ClearTest.testCantProcessWithoutParameters" />
       </list>
     </recent_temporary>
   </component>
@@ -542,39 +558,46 @@
       <option name="project" value="LOCAL" />
       <updated>1554646487167</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Добавлены тесты для Find with Mockito, исправлены баги пустых датасетов">
+      <created>1554652738491</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1554652738491</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_SQLCmd_(1) - 2019.04.07 at 18h 41m 48s.xml">
-      <configuration name="All in SQLCmd (1)" configurationId="JUnit" />
+    <history-entry file="ClearTest_testCantProcessWithParameters - 2019.04.07 at 19h 27m 56s.xml">
+      <configuration name="ClearTest.testCantProcessWithParameters" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_SQLCmd_(1) - 2019.04.07 at 18h 43m 40s.xml">
-      <configuration name="All in SQLCmd (1)" configurationId="JUnit" />
+    <history-entry file="ClearTest_testClearTable - 2019.04.07 at 19h 28m 04s.xml">
+      <configuration name="ClearTest.testClearTable" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_SQLCmd_(1) - 2019.04.07 at 18h 45m 35s.xml">
-      <configuration name="All in SQLCmd (1)" configurationId="JUnit" />
+    <history-entry file="ClearTest_testCantProcessWithParameters - 2019.04.07 at 19h 29m 18s.xml">
+      <configuration name="ClearTest.testCantProcessWithParameters" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_SQLCmd_(1) - 2019.04.07 at 18h 48m 30s.xml">
-      <configuration name="All in SQLCmd (1)" configurationId="JUnit" />
+    <history-entry file="ClearTest_testCantProcessWithoutParameters - 2019.04.07 at 19h 29m 31s.xml">
+      <configuration name="ClearTest.testCantProcessWithoutParameters" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_SQLCmd_(1) - 2019.04.07 at 18h 49m 38s.xml">
-      <configuration name="All in SQLCmd (1)" configurationId="JUnit" />
+    <history-entry file="ClearTest_testCantProcessNonexistCommand - 2019.04.07 at 19h 30m 17s.xml">
+      <configuration name="ClearTest.testCantProcessNonexistCommand" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_SQLCmd_(1) - 2019.04.07 at 18h 52m 59s.xml">
-      <configuration name="All in SQLCmd (1)" configurationId="JUnit" />
+    <history-entry file="ClearTest - 2019.04.07 at 19h 30m 43s.xml">
+      <configuration name="ClearTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_SQLCmd_(1) - 2019.04.07 at 18h 54m 35s.xml">
-      <configuration name="All in SQLCmd (1)" configurationId="JUnit" />
+    <history-entry file="ClearTest_testClearTable - 2019.04.07 at 19h 32m 10s.xml">
+      <configuration name="ClearTest.testClearTable" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FindTest_testPrintTableDataFromEmptyTable - 2019.04.07 at 18h 55m 10s.xml">
-      <configuration name="FindTest.testPrintTableDataFromEmptyTable" configurationId="JUnit" />
+    <history-entry file="ClearTest - 2019.04.07 at 19h 32m 51s.xml">
+      <configuration name="ClearTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="FindTest_testPrintTableDataFromEmptyTable - 2019.04.07 at 18h 55m 37s.xml">
-      <configuration name="FindTest.testPrintTableDataFromEmptyTable" configurationId="JUnit" />
+    <history-entry file="ClearTest - 2019.04.07 at 19h 33m 01s.xml">
+      <configuration name="ClearTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_SQLCmd_(1) - 2019.04.07 at 18h 56m 19s.xml">
-      <configuration name="All in SQLCmd (1)" configurationId="JUnit" />
+    <history-entry file="All_in_SQLCmd - 2019.04.07 at 19h 33m 36s.xml">
+      <configuration name="All in SQLCmd" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -608,7 +631,7 @@
       <window_info anchor="bottom" id="Messages" order="9" weight="0.3286119" />
       <window_info anchor="bottom" id="Inspection Results" order="10" weight="0.3286119" />
       <window_info anchor="bottom" id="Extract Method" order="11" weight="0.3286119" />
-      <window_info anchor="bottom" id="Run" order="12" weight="0.28895184" />
+      <window_info anchor="bottom" id="Run" order="12" weight="0.40651557" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24966443" />
@@ -680,7 +703,8 @@
     <MESSAGE value="Частично реализована команда Update (не реализован вывод на консоль по техзаданию), дополнен интеграционный тест" />
     <MESSAGE value="Дополнено автозакрытие ресурсов statement и resultSet после выполнения команд" />
     <MESSAGE value="Проведен глобальный рефакторинг MVC, переработаны тесты, исправлены ошибки проектирования." />
-    <option name="LAST_COMMIT_MESSAGE" value="Проведен глобальный рефакторинг MVC, переработаны тесты, исправлены ошибки проектирования." />
+    <MESSAGE value="Добавлены тесты для Find with Mockito, исправлены баги пустых датасетов" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлены тесты для Find with Mockito, исправлены баги пустых датасетов" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -722,13 +746,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.jar!/org/mockito/internal/stubbing/defaultanswers/ReturnsEmptyValues.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.jar!/org/mockito/internal/stubbing/defaultanswers/GloballyConfiguredAnswer.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -984,13 +1001,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/controller/command/ExitUnitTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
@@ -1164,10 +1174,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/controller/command/FindTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="74" column="4" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Find.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="130" column="60" lean-forward="true" selection-start-line="130" selection-start-column="60" selection-end-line="130" selection-end-column="60" />
+        <state relative-caret-position="150">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#printLineTable#0;class#Find#0" />
@@ -1176,13 +1196,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/controller/command/FindTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/controller/command/ClearTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="129" column="25" selection-start-line="129" selection-start-column="25" selection-end-line="129" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="69">
+          <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="25" column="72" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
         </state>
       </provider>
     </entry>

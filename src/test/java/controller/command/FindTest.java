@@ -65,9 +65,6 @@ public class FindTest {
 
     @Test
     public void testCantProcessWithParameters() {
-        //given
-        Command command = new Find(dbManager, view);
-
         //when
         boolean canProcess = command.canProcess("find|contact");
 
@@ -75,12 +72,8 @@ public class FindTest {
         assertTrue(canProcess);
     }
 
-
     @Test
     public void testCantProcessWithoutParameters() {
-        //given
-        Command command = new Find(dbManager, view);
-
         //when
         boolean canProcess = command.canProcess("find");
 
@@ -90,9 +83,6 @@ public class FindTest {
 
     @Test
     public void testCantProcessNonexistCommand() {
-        //given
-        Command command = new Find(dbManager, view);
-
         //when
         boolean canProcess = command.canProcess("findkhg|contact");
 
