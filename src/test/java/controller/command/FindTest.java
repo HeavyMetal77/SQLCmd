@@ -82,6 +82,30 @@ public class FindTest {
     }
 
     @Test
+    public void testProcessWithMoreThen2Parameters() {
+        //when
+        try {
+            command.process("find|test|morethen2");
+            fail();
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Количество параметров не соответствует шаблону!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testProcessWithLessThen2Parameters() {
+        //when
+        try {
+            command.process("find");
+            fail();
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Количество параметров не соответствует шаблону!", e.getMessage());
+        }
+    }
+
+    @Test
     public void testCantProcessNonexistCommand() {
         //when
         boolean canProcess = command.canProcess("findkhg|contact");

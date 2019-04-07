@@ -62,4 +62,28 @@ public class ClearTest {
         //then
         assertFalse(canProcess);
     }
+
+    @Test
+    public void testProcessWithMoreThen2Parameters() {
+        //when
+        try {
+            command.process("clear|test|morethen2");
+            fail();
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Количество параметров не соответствует шаблону!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testProcessWithLessThen2Parameters() {
+        //when
+        try {
+            command.process("clear");
+            fail();
+        } catch (IllegalArgumentException e) {
+            //then
+            assertEquals("Количество параметров не соответствует шаблону!", e.getMessage());
+        }
+    }
 }
