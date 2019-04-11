@@ -9,11 +9,10 @@ public class JDBCDBManager implements DBManager {
     //получить соединение с БД
     @Override
     public void connect(String database, String login, String password) {
-
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-           throw new RuntimeException("Where is your PostgreSQL JDBC Driver? "
+            throw new RuntimeException("Where is your PostgreSQL JDBC Driver? "
                     + "Include in your library path or dependencies Maven!");
         }
         try {
@@ -36,8 +35,7 @@ public class JDBCDBManager implements DBManager {
                 "WHERE table_schema='public' AND table_type='BASE TABLE'";
         ArrayList<String> list = new ArrayList<>();
         try (Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(request))
-        {
+             ResultSet resultSet = stmt.executeQuery(request)) {
             while (resultSet.next()) {
                 list.add(resultSet.getString("table_name"));
             }
@@ -48,8 +46,8 @@ public class JDBCDBManager implements DBManager {
     }
 
     //создать таблицу с названием nameTable
-     @Override
-     public void createTable(String nameTable, String... nameColumns) {
+    @Override
+    public void createTable(String nameTable, String... nameColumns) {
         String requestSql = "CREATE TABLE IF NOT EXISTS " +
                 nameTable + " (ID INT PRIMARY KEY NOT NULL,";
         String textNameColumn = "";
@@ -60,8 +58,7 @@ public class JDBCDBManager implements DBManager {
         textNameColumn = textNameColumn.substring(0, (textNameColumn.length() - 1));
         requestSql += textNameColumn + ")";
 
-        try (Statement stmt = connection.createStatement())
-        {
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -72,8 +69,7 @@ public class JDBCDBManager implements DBManager {
     @Override
     public void drop(String nameTable) {
         String requestSql = "DROP TABLE IF EXISTS " + nameTable;
-        try (Statement stmt = connection.createStatement())
-        {
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -84,8 +80,7 @@ public class JDBCDBManager implements DBManager {
     @Override
     public void clear(String nameTable) {
         String requestSql = "DELETE FROM " + nameTable;
-        try (Statement stmt = connection.createStatement())
-        {
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,10 +95,8 @@ public class JDBCDBManager implements DBManager {
         try {
             stmt = connection.createStatement();
             ResultSet resultSet = stmt.executeQuery(requestSql);
-
             //количество атрибутов таблицы
             int columnCount = resultSet.getMetaData().getColumnCount();
-
             if (columnCount != 0) {
                 return resultSet;
             } else {
@@ -111,7 +104,7 @@ public class JDBCDBManager implements DBManager {
             }
         } catch (RuntimeException e) {
             throw e;
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException("Таблицы не существует!");
         }
     }
@@ -120,8 +113,7 @@ public class JDBCDBManager implements DBManager {
     @Override
     public int getSize(String tableName) {
         try (Statement stmt = connection.createStatement();
-             ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName))
-        {
+             ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName)) {
             rsCount.next();
             int size = rsCount.getInt(1);
             return size;
@@ -129,7 +121,6 @@ public class JDBCDBManager implements DBManager {
             return 0;
         }
     }
-
 
     //возвращает массив значений ширины каждого аттрибута
     @Override
@@ -146,13 +137,11 @@ public class JDBCDBManager implements DBManager {
             if (lengthColumn > 50) {
                 lengthColumn = 50;
             }
-
             //если ширина колонки меньше чем длинна ее заголовка - увеличить ширину
             if (lengthColumn < resultSet.getMetaData().getColumnName(i).length())
                 lengthColumn = resultSet.getMetaData().getColumnName(i).length();
-
             //ширина колонки
-            arrWidthAttribute[i-1] = lengthColumn;
+            arrWidthAttribute[i - 1] = lengthColumn;
         }
         return arrWidthAttribute;
     }
@@ -169,7 +158,6 @@ public class JDBCDBManager implements DBManager {
         }
         return arrAtribute;
     }
-
 
     //возвращает массив Датасетов содержащий данные из указанной таблицы
     @Override
@@ -192,36 +180,11 @@ public class JDBCDBManager implements DBManager {
         return dataSets;
     }
 
-
-
     //вставить данные в таблицу
     @Override
-    public void insert(String nameTable, DataSet dataSet) throws SQLException {
-        //строка запроса, содержащая атрибуты таблицы
-        String dataRequestColumn = "";
-        //строка запроса, содержащая значения таблицы
-        String dataRequestValue = "";
-        //получаем размер массива датасет
-        int lengthArrData = dataSet.getNames().length;
+    public void insert(String insertRequestSql, DataSet dataSet) throws SQLException {
 
-        //формируем запрос для атрибутов таблицы
-        for (int i = 0; i < lengthArrData; i++) {
-            dataRequestColumn += dataSet.getNames()[i] + ", ";
-        }
-        //удаляем последнюю запятую и пробел
-        dataRequestColumn = dataRequestColumn.substring(0, dataRequestColumn.length() - 2);
-
-        //формируем запрос для значений кортежей таблицы
-        for (int i = 0; i < lengthArrData; i++) {
-            dataRequestValue += "'" + dataSet.getValues()[i] + "'" + ", ";
-        }
-        //удаляем последнюю запятую и пробел
-        dataRequestValue = dataRequestValue.substring(0, dataRequestValue.length() - 2);
-
-        //пример запроса INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);
-        String insertRequestSql = "INSERT INTO " +  nameTable + " (" + dataRequestColumn + ")"
-                + " VALUES (" + dataRequestValue +")";
-        try (Statement stmt = connection.createStatement()){
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(insertRequestSql);
         } catch (SQLException e) {
             throw new SQLException("Данные не вставлены!");
@@ -247,21 +210,16 @@ public class JDBCDBManager implements DBManager {
 
         //UPDATE table_name SET column1 = value1, column2 = value2...., columnN = valueN
         //WHERE [condition];
-        String insertRequestSql = "UPDATE " +  nameTable + " SET " + dataRequest;
+        String insertRequestSql = "UPDATE " + nameTable + " SET " + dataRequest;
         //TODO отсутствуют условия обновления WHERE [condition] (обновляются все записи с такими значениями)
         //TODO вывод на консоль не соответствует техзаданию
         //TODO - 30 records
-        try (Statement stmt = connection.createStatement())
-        {
+        try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(insertRequestSql);
         } catch (SQLException e) {
             throw new RuntimeException("Данные не обновлены!");
         }
     }
-
-
-
-
 }
 /*
 update

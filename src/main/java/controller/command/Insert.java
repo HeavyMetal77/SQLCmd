@@ -37,8 +37,9 @@ public class Insert implements Command  {
             for (int i = 0, j = 2; i < lengthData; i++, j+=2) {
                 dataSet.put(commandWithParam[j], commandWithParam[j+1]);
             }
+            String insertRequestSql = getRequest(nameTable, dataSet);
             try {
-                dbManager.insert(nameTable, dataSet);
+                dbManager.insert(insertRequestSql, dataSet);
                 view.write("Данные успешно вставлены!");
             } catch (SQLException e) {
                 throw new RuntimeException("Данные не вставлены!");
@@ -47,5 +48,32 @@ public class Insert implements Command  {
         else {
             throw new RuntimeException("Недостаточно параметров!");
         }
+    }
+
+    private String getRequest(String nameTable, DataSet dataSet) {
+        //строка запроса, содержащая атрибуты таблицы
+        String dataRequestColumn = "";
+        //строка запроса, содержащая значения таблицы
+        String dataRequestValue = "";
+        //получаем размер массива датасет
+        int lengthArrData = dataSet.getNames().length;
+
+        //формируем запрос для атрибутов таблицы
+        for (int i = 0; i < lengthArrData; i++) {
+            dataRequestColumn += dataSet.getNames()[i] + ", ";
+        }
+        //удаляем последнюю запятую и пробел
+        dataRequestColumn = dataRequestColumn.substring(0, dataRequestColumn.length() - 2);
+
+        //формируем запрос для значений кортежей таблицы
+        for (int i = 0; i < lengthArrData; i++) {
+            dataRequestValue += "'" + dataSet.getValues()[i] + "'" + ", ";
+        }
+        //удаляем последнюю запятую и пробел
+        dataRequestValue = dataRequestValue.substring(0, dataRequestValue.length() - 2);
+        //пример запроса INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);
+        String insertRequestSql = "INSERT INTO " + nameTable + " (" + dataRequestColumn + ")"
+                + " VALUES (" + dataRequestValue + ")";
+        return insertRequestSql;
     }
 }

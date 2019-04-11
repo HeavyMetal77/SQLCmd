@@ -7,7 +7,6 @@ import view.View;
 import java.sql.SQLException;
 
 public class Find implements Command {
-
     private DBManager dbManager;
     private View view;
 
@@ -34,12 +33,10 @@ public class Find implements Command {
                 int tableSize = dbManager.getSize(nameTable);
                 //массив датасетов таблицы
                 DataSet[] dataSets = dbManager.getDataSetTable(nameTable);
-
+                //массив атрибутов (названий колонок) таблицы
                 String[] atributes = dbManager.getAtribute(nameTable);
-
                 //вывод всей таблицы
                 printTable(nameTable, arrWidthAttribute, tableSize, atributes, dataSets);
-
             } else {
                 throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
             }
@@ -63,7 +60,6 @@ public class Find implements Command {
 
         //выводим содержимое кортежей таблицы
         dataCortage(nameTable, arrWidthAttribute, tableSize, atributes, dataSets);
-
 
         //рисуем нижнюю границу всей таблицы (+--+--+)
         printLineTable(nameTable, arrWidthAttribute);
@@ -106,8 +102,6 @@ public class Find implements Command {
         for (int j = 0; j < tableSize; j++) {
             String str = "+";
             Object valueData = "";
-
-
             for (int i = 0; i < arrWidthAttribute.length; i++) {
                 String temp = "";
                 if (dataSets.length != 0) {
@@ -117,7 +111,6 @@ public class Find implements Command {
                 str += temp;
                 //ширина колонки
                 int lengthColumn = arrWidthAttribute[i];
-
                 int countSpace;//кол-во пробелов
                 //если значение в таблице не null
                 if (valueData != null) {
@@ -139,7 +132,4 @@ public class Find implements Command {
             view.write(str);
         }
     }
-
-
-
 }
