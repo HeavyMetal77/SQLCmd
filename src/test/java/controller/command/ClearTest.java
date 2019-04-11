@@ -32,7 +32,11 @@ public class ClearTest {
         command.process("clear|test");
 
         //then
-        Mockito.verify(dbManager).clear("test");
+        try {
+            Mockito.verify(dbManager).clear("test");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         Mockito.verify(view).write("TABLE test was successfully clear!");
     }
 
@@ -66,24 +70,14 @@ public class ClearTest {
     @Test
     public void testProcessWithMoreThen2Parameters() {
         //when
-        try {
-            command.process("clear|test|morethen2");
-            fail();
-        } catch (IllegalArgumentException e) {
-            //then
-            assertEquals("Количество параметров не соответствует шаблону!", e.getMessage());
-        }
+        command.process("clear|test|morethen2");
+        Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
     }
 
     @Test
     public void testProcessWithLessThen2Parameters() {
         //when
-        try {
-            command.process("clear");
-            fail();
-        } catch (IllegalArgumentException e) {
-            //then
-            assertEquals("Количество параметров не соответствует шаблону!", e.getMessage());
-        }
+        command.process("clear");
+        Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
     }
 }

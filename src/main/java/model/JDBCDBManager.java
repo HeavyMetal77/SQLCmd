@@ -30,7 +30,7 @@ public class JDBCDBManager implements DBManager {
 
     //получить названия всех таблиц БД
     @Override
-    public ArrayList<String> getTables() {
+    public ArrayList<String> getTables() throws SQLException {
         String request = "SELECT * FROM information_schema.tables " +
                 "WHERE table_schema='public' AND table_type='BASE TABLE'";
         ArrayList<String> list = new ArrayList<>();
@@ -39,51 +39,35 @@ public class JDBCDBManager implements DBManager {
             while (resultSet.next()) {
                 list.add(resultSet.getString("table_name"));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return list;
     }
 
     //создать таблицу с названием nameTable
     @Override
-    public void createTable(String nameTable, String... nameColumns) {
-        String requestSql = "CREATE TABLE IF NOT EXISTS " +
-                nameTable + " (ID INT PRIMARY KEY NOT NULL,";
-        String textNameColumn = "";
-        for (String text : nameColumns) {
-            textNameColumn += " " + text + " TEXT NOT NULL,";
-        }
+    public void createTable(String requestSql) throws SQLException {
 
-        textNameColumn = textNameColumn.substring(0, (textNameColumn.length() - 1));
-        requestSql += textNameColumn + ")";
 
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     //удалить таблицу
     @Override
-    public void drop(String nameTable) {
+    public void drop(String nameTable) throws SQLException {
         String requestSql = "DROP TABLE IF EXISTS " + nameTable;
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
     //очистить таблицу
     @Override
-    public void clear(String nameTable) {
+    public void clear(String nameTable) throws SQLException {
         String requestSql = "DELETE FROM " + nameTable;
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

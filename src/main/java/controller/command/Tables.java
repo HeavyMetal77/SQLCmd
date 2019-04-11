@@ -3,6 +3,8 @@ package controller.command;
 import model.DBManager;
 import view.View;
 
+import java.sql.SQLException;
+
 public class Tables implements Command {
 
     private View view;
@@ -20,6 +22,10 @@ public class Tables implements Command {
 
     @Override
     public void process(String command) {
-        view.write(dbManager.getTables().toString());
+        try {
+            view.write(dbManager.getTables().toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -20,16 +20,16 @@ public class Drop implements Command {
     @Override
     public void process(String command) {
         String[] commandWithParam = command.split("[|]");
+        if (commandWithParam.length != 2) {
+            view.write("Количество параметров не соответствует шаблону!");
+            return;
+        }
+        String nameTable = commandWithParam[1];
         try {
-            if (commandWithParam.length == 2) {
-                dbManager.drop(commandWithParam[1]);
-                view.write("TABLE " + commandWithParam[1] + " was successfully deleted!");
-
-            } else {
-                throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
-            }
+            dbManager.drop(nameTable);
+            view.write("TABLE " + nameTable + " was successfully deleted!");
         } catch (Exception e) {
-            throw e;
+            view.write(String.format("Ошибка удаления таблицы %s, по причине: %s", nameTable, e.getMessage()));
         }
     }
 }

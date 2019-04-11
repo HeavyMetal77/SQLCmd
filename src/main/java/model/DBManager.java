@@ -7,13 +7,14 @@ import java.util.ArrayList;
 public interface DBManager {
     void connect(String database, String login, String password);
 
-    ArrayList<String> getTables();
+    ArrayList<String> getTables() throws SQLException;
 
-    void createTable(String nameTable, String... nameColumns);
+    //создать таблицу с названием nameTable
+    void createTable(String requestSql) throws SQLException;
 
-    void drop(String nameTable);
+    void drop(String nameTable) throws SQLException;
 
-    void clear(String nameTable);
+    void clear(String nameTable) throws SQLException;
 
     ResultSet find(String nameTable);
 
