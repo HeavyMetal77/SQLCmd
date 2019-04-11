@@ -3,6 +3,8 @@ package controller.command;
 import model.DBManager;
 import view.View;
 
+import java.sql.SQLException;
+
 public class Connect implements Command {
     private final String COMMAND_SAMPLE = "connect|sqlcmd|sqlcmd|sqlcmd";
     private DBManager dbManager;
@@ -20,24 +22,26 @@ public class Connect implements Command {
 
     @Override
     public void process(String command) {
-            try {
-                String[] data = command.split("[|]");
-                int countCommandParameters = COMMAND_SAMPLE.split("\\|").length;
-                if (data.length != countCommandParameters) {
-                    throw new IllegalArgumentException (String.format("Неверное количество параметров: " +
-                            "ожидается: %s, введено: %s", countCommandParameters, data.length));
-                }
-                String database = data[1];
-                String user = data[2];
-                String password = data[3];
+        String[] data = command.split("[|]");
+        int countCommandParameters = COMMAND_SAMPLE.split("\\|").length;
+        if (data.length != countCommandParameters) {
+            view.write(String.format("Неверное количество параметров: " +
+                    "ожидается: %s, введено: %s", countCommandParameters, data.length));
+            return;
+        }
+        String database = data[1];
+        String user = data[2];
+        String password = data[3];
 
-                dbManager.connect(database, user, password);
-                view.write("Подключение к базе выполнено успешно!");
-            } catch (Exception e) {
-                printError(e);
-            }
+        try {
+            dbManager.connect(database, user, password);
+            view.write("Подключение к базе выполнено успешно!");
+        } catch (SQLException e) {
+            printError(e);
+        }
 
     }
+
     private void printError(Exception e) {
         String massage = e.getMessage();
         if (e.getCause() != null) {

@@ -17,33 +17,30 @@ public class Find implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("find|");
+        return command.startsWith("getResultSet|");
     }
 
     @Override
     public void process(String command) {
         String[] commandWithParam = command.split("[|]");
+        if (commandWithParam.length != 2) {
+            view.write("Количество параметров не соответствует шаблону!");
+            return;
+        }
+        String nameTable = commandWithParam[1];
         try {
-            if (commandWithParam.length == 2) {
-                //имя таблицы
-                String nameTable = commandWithParam[1];
-                //массив с размерами (шириной) каждого атрибута таблицы
-                int[] arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
-                //количество кортежей таблицы //TODO потом посмотреть - возможно достаточно датасетов
-                int tableSize = dbManager.getSize(nameTable);
-                //массив датасетов таблицы
-                DataSet[] dataSets = dbManager.getDataSetTable(nameTable);
-                //массив атрибутов (названий колонок) таблицы
-                String[] atributes = dbManager.getAtribute(nameTable);
-                //вывод всей таблицы
-                printTable(nameTable, arrWidthAttribute, tableSize, atributes, dataSets);
-            } else {
-                throw new IllegalArgumentException("Количество параметров не соответствует шаблону!");
-            }
-        } catch (RuntimeException e) {
-            throw e;
+            //массив с размерами (шириной) каждого атрибута таблицы
+            int[] arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
+            //количество кортежей таблицы //TODO потом посмотреть - возможно достаточно датасетов
+            int tableSize = dbManager.getSize(nameTable);
+            //массив датасетов таблицы
+            DataSet[] dataSets = dbManager.getDataSetTable(nameTable);
+            //массив атрибутов (названий колонок) таблицы
+            String[] atributes = dbManager.getAtribute(nameTable);
+            //вывод всей таблицы
+            printTable(nameTable, arrWidthAttribute, tableSize, atributes, dataSets);
         } catch (SQLException e) {
-            throw new RuntimeException("Ошибка при работе с БД!");
+            view.write(String.format(e.getMessage()));
         }
     }
 
@@ -66,7 +63,7 @@ public class Find implements Command {
     }
 
     //рисуем верхнюю/нижнюю границу таблицы (+--+--+)
-    private void printLineTable(String nameTable, int [] arrWidthAttribute) throws SQLException {
+    private void printLineTable(String nameTable, int[] arrWidthAttribute) throws SQLException {
         String str = "+";
         for (int i = 0; i < arrWidthAttribute.length; i++) {
             //ширина колонки
@@ -79,7 +76,7 @@ public class Find implements Command {
     }
 
     //рисуем заглавие таблицы
-    private void printTitleTable(String nameTable, int [] arrWidthAttribute, String[] atributes, DataSet[] dataSets) throws SQLException {
+    private void printTitleTable(String nameTable, int[] arrWidthAttribute, String[] atributes, DataSet[] dataSets) throws SQLException {
         String str = "+";
         //итерируемся по списку названий таблиц (i)
         for (int i = 0; i < arrWidthAttribute.length; i++) {
@@ -98,14 +95,14 @@ public class Find implements Command {
     }
 
     //выводим содержимое кортежей таблицы
-    private void dataCortage(String nameTable, int [] arrWidthAttribute, int tableSize, String[] atributes, DataSet[] dataSets) throws SQLException {
+    private void dataCortage(String nameTable, int[] arrWidthAttribute, int tableSize, String[] atributes, DataSet[] dataSets) throws SQLException {
         for (int j = 0; j < tableSize; j++) {
             String str = "+";
             Object valueData = "";
             for (int i = 0; i < arrWidthAttribute.length; i++) {
                 String temp = "";
                 if (dataSets.length != 0) {
-                    temp = ""  + dataSets[j].getValues()[i];
+                    temp = "" + dataSets[j].getValues()[i];
                     valueData = dataSets[j].getValues()[i];
                 }
                 str += temp;

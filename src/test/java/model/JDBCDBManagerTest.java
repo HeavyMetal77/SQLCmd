@@ -13,7 +13,11 @@ public class JDBCDBManagerTest {
     @Before
     public void setup(){
         manager = new JDBCDBManager();
-        manager.connect("sqlcmd", "sqlcmd", "");
+        try {
+            manager.connect("sqlcmd", "sqlcmd", "");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

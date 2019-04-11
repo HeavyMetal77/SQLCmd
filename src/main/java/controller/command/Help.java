@@ -26,7 +26,7 @@ public class Help implements Command {
             view.write("\tclear|tableName - ");
             view.write("\t\tочистка содержимого таблицы tableName");
 
-            view.write("\tfind|tableName - ");
+            view.write("\tgetResultSet|tableName - ");
             view.write("\t\tвывод содержимого таблицы tableName");
 
             view.write("\tdrop|tableName - ");

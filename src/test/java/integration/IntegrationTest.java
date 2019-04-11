@@ -45,7 +45,7 @@ public class IntegrationTest {
                 "\t\tвывод списка всех таблиц\r\n" +
                 "\tclear|tableName - \r\n" +
                 "\t\tочистка содержимого таблицы tableName\r\n" +
-                "\tfind|tableName - \r\n" +
+                "\tgetResultSet|tableName - \r\n" +
                 "\t\tвывод содержимого таблицы tableName\r\n" +
                 "\tdrop|tableName - \r\n" +
                 "\t\tудалить таблицу tableName\r\n" +
@@ -81,7 +81,7 @@ public class IntegrationTest {
     @Test
     public void testFindTestWithoutConnect(){
         //given
-        in.add("find|test");
+        in.add("getResultSet|test");
         in.add("exit");
 
         //when
@@ -91,8 +91,8 @@ public class IntegrationTest {
         assertEquals("Привет пользователь!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
-                //find|test
-                "Вы не можете пользоваться командой 'find|test', " +
+                //getResultSet|test
+                "Вы не можете пользоваться командой 'getResultSet|test', " +
                 "пока не подключитесь к базе данных " +
                 "командой connect|database|login|password\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
@@ -150,7 +150,7 @@ public class IntegrationTest {
     public void testFindTableWithoutAttributeAfterConnect(){
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("find|test1");
+        in.add("getResultSet|test1");
         in.add("exit");
 
         //when
@@ -163,9 +163,9 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //find|test1 - (TableWithoutAttribute)
-                "Ошибка! Причина: В таблице не создано ни одного атрибута!\r\n" +
-                "Повтори попытку!\r\n" +
+                //getResultSet|test1 - (TableWithoutAttribute)
+                "В таблице не создано ни одного атрибута!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
@@ -174,7 +174,7 @@ public class IntegrationTest {
     public void testFindTableAfterConnect(){
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("find|contact_value");
+        in.add("getResultSet|contact_value");
         in.add("exit");
 
         //when
@@ -187,7 +187,7 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //find|contact_value
+                //getResultSet|contact_value
                 "+-----------+-----------+---------------+--------------------------------------------------+----------------------+----------------------+------+\r\n" +
                 "+id         +id_contact +id_contact_type+value                                             +created               +updated               +active+\r\n" +
                 "+-----------+-----------+---------------+--------------------------------------------------+----------------------+----------------------+------+\r\n" +
@@ -202,7 +202,7 @@ public class IntegrationTest {
     public void testFindWithErrorAfterConnect(){
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("find|nonexist");
+        in.add("getResultSet|nonexist");
         in.add("exit");
 
         //when
@@ -215,10 +215,10 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //find|nonexist
-                "Ошибка! Причина: Таблицы не существует!\r\n" +
-                "Повтори попытку!\r\n" +
-                //exit
+                //getResultSet|nonexist
+                "Таблицы nonexist не существует!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                  //exit
                 "Программа завершила работу\r\n", getData());
     }
 
@@ -226,7 +226,7 @@ public class IntegrationTest {
     public void testFindWithNotEnoughParametersAfterConnect(){
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("find|");
+        in.add("getResultSet|");
         in.add("exit");
 
         //when
@@ -239,9 +239,9 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //find|
-                "Ошибка! Причина: Количество параметров не соответствует шаблону!\r\n" +
-                "Повтори попытку!\r\n" +
+                //getResultSet|
+                "Количество параметров не соответствует шаблону!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
@@ -308,8 +308,7 @@ public class IntegrationTest {
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect|sqlcmd
-                "Ошибка! Причина: Неверное количество параметров: ожидается: 4, введено: 2\r\n" +
-                "Повтори попытку!\r\n" +
+                "Неверное количество параметров: ожидается: 4, введено: 2\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());

@@ -8,24 +8,20 @@ public class JDBCDBManager implements DBManager {
 
     //получить соединение с БД
     @Override
-    public void connect(String database, String login, String password) {
+    public void connect(String database, String login, String password) throws SQLException {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Where is your PostgreSQL JDBC Driver? "
                     + "Include in your library path or dependencies Maven!");
         }
-        try {
-            if (connection != null) {
-                connection = null;
-            }
-            connection = DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/" +
-                            database, login, password);
-        } catch (SQLException e) {
+
+        if (connection != null) {
             connection = null;
-            throw new RuntimeException("Ошибка вводимых данных!", e);
         }
+        connection = DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/" +
+                        database, login, password);
     }
 
     //получить названия всех таблиц БД
@@ -46,8 +42,6 @@ public class JDBCDBManager implements DBManager {
     //создать таблицу с названием nameTable
     @Override
     public void createTable(String requestSql) throws SQLException {
-
-
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
         }
@@ -73,23 +67,22 @@ public class JDBCDBManager implements DBManager {
 
     //получение содержимого указанной таблицы
     @Override
-    public ResultSet find(String nameTable) {
+    public ResultSet getResultSet(String nameTable) throws SQLException {
         String requestSql = "SELECT * FROM " + nameTable;
         Statement stmt = null;
+        stmt = connection.createStatement();
+        ResultSet resultSet;
         try {
-            stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery(requestSql);
-            //количество атрибутов таблицы
-            int columnCount = resultSet.getMetaData().getColumnCount();
-            if (columnCount != 0) {
-                return resultSet;
-            } else {
-                throw new RuntimeException("В таблице не создано ни одного атрибута!");
-            }
-        } catch (RuntimeException e) {
-            throw e;
+            resultSet = stmt.executeQuery(requestSql);
         } catch (SQLException e) {
-            throw new RuntimeException("Таблицы не существует!");
+            throw new SQLException(String.format("Таблицы %s не существует!", nameTable));
+        }
+        //количество атрибутов таблицы
+        int columnCount = resultSet.getMetaData().getColumnCount();
+        if (columnCount != 0) {
+            return resultSet;
+        } else {
+            throw new SQLException("В таблице не создано ни одного атрибута!");
         }
     }
 
@@ -109,7 +102,7 @@ public class JDBCDBManager implements DBManager {
     //возвращает массив значений ширины каждого аттрибута
     @Override
     public int[] getWidthAtribute(String nameTable) throws SQLException {
-        ResultSet resultSet = find(nameTable);
+        ResultSet resultSet = getResultSet(nameTable);
         //количество атрибутов таблицы
         int columnCount = resultSet.getMetaData().getColumnCount();
         //создаю массив, который содержит размеры (ширину) всех атрибутов таблицы
@@ -133,7 +126,7 @@ public class JDBCDBManager implements DBManager {
     //вовзращает массив атрибутов таблицы
     @Override
     public String[] getAtribute(String nameTable) throws SQLException {
-        ResultSet resultSet = find(nameTable);
+        ResultSet resultSet = getResultSet(nameTable);
         //количество атрибутов таблицы
         int columnCount = resultSet.getMetaData().getColumnCount();
         String[] arrAtribute = new String[columnCount];
@@ -146,12 +139,11 @@ public class JDBCDBManager implements DBManager {
     //возвращает массив Датасетов содержащий данные из указанной таблицы
     @Override
     public DataSet[] getDataSetTable(String nameTable) throws SQLException {
-        ResultSet resultSet = find(nameTable);
+        ResultSet resultSet = getResultSet(nameTable);
         //размер таблицы
         int size = getSize(nameTable);
         //количество атрибутов таблицы
         int columnCount = resultSet.getMetaData().getColumnCount();
-
         DataSet[] dataSets = new DataSet[size];
         int countDataset = 0;
         while (resultSet.next()) {
@@ -167,7 +159,6 @@ public class JDBCDBManager implements DBManager {
     //вставить данные в таблицу
     @Override
     public void insert(String insertRequestSql, DataSet dataSet) throws SQLException {
-
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(insertRequestSql);
         } catch (SQLException e) {

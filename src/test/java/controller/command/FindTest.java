@@ -49,7 +49,7 @@ public class FindTest {
         }
 
         //when
-        command.process("find|test");
+        command.process("getResultSet|test");
 
         //then
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
@@ -66,7 +66,7 @@ public class FindTest {
     @Test
     public void testCantProcessWithParameters() {
         //when
-        boolean canProcess = command.canProcess("find|contact");
+        boolean canProcess = command.canProcess("getResultSet|contact");
 
         //then
         assertTrue(canProcess);
@@ -75,7 +75,7 @@ public class FindTest {
     @Test
     public void testCantProcessWithoutParameters() {
         //when
-        boolean canProcess = command.canProcess("find");
+        boolean canProcess = command.canProcess("getResultSet");
 
         //then
         assertFalse(canProcess);
@@ -84,25 +84,17 @@ public class FindTest {
     @Test
     public void testProcessWithMoreThen2Parameters() {
         //when
-        try {
-            command.process("find|test|morethen2");
-            fail();
-        } catch (IllegalArgumentException e) {
-            //then
-            assertEquals("Количество параметров не соответствует шаблону!", e.getMessage());
-        }
+        command.process("getResultSet|test|morethen2");
+        //then
+        Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
     }
 
     @Test
     public void testProcessWithLessThen2Parameters() {
         //when
-        try {
-            command.process("find");
-            fail();
-        } catch (IllegalArgumentException e) {
-            //then
-            assertEquals("Количество параметров не соответствует шаблону!", e.getMessage());
-        }
+        command.process("getResultSet");
+        //then
+        Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
     }
 
     @Test
@@ -132,7 +124,7 @@ public class FindTest {
         }
 
         //when
-        command.process("find|test");
+        command.process("getResultSet|test");
 
         //then
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
