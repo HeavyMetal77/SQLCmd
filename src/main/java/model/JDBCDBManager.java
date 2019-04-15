@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class JDBCDBManager implements DBManager {
+    public static final String JDBC_POSTGRESQL_LOCALHOST = "jdbc:postgresql://localhost:5432/";
     private Connection connection;
 
     //получить соединение с БД
@@ -12,15 +13,14 @@ public class JDBCDBManager implements DBManager {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Where is your PostgreSQL JDBC Driver? "
-                    + "Include in your library path or dependencies Maven!");
+            throw new SQLException("Отсутствует драйвер базы данных, пропиши зависимости в Maven!", e);
         }
 
         if (connection != null) {
             connection = null;
         }
         connection = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/" +
+                JDBC_POSTGRESQL_LOCALHOST +
                         database, login, password);
     }
 

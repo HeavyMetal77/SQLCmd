@@ -17,7 +17,7 @@ public class Find implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.startsWith("getResultSet|");
+        return command.startsWith("find|");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Find implements Command {
         printLineTable(nameTable, arrWidthAttribute);
 
         //рисуем заглавие таблицы
-        printTitleTable(nameTable, arrWidthAttribute, atributes, dataSets);
+        printTitleTable(nameTable, arrWidthAttribute, atributes);
 
         //рисуем нижнюю границу заглавия таблицы (+--+--+)
         printLineTable(nameTable, arrWidthAttribute);
@@ -76,7 +76,7 @@ public class Find implements Command {
     }
 
     //рисуем заглавие таблицы
-    private void printTitleTable(String nameTable, int[] arrWidthAttribute, String[] atributes, DataSet[] dataSets) throws SQLException {
+    private void printTitleTable(String nameTable, int[] arrWidthAttribute, String[] atributes) throws SQLException {
         String str = "+";
         //итерируемся по списку названий таблиц (i)
         for (int i = 0; i < arrWidthAttribute.length; i++) {
@@ -98,7 +98,7 @@ public class Find implements Command {
     private void dataCortage(String nameTable, int[] arrWidthAttribute, int tableSize, String[] atributes, DataSet[] dataSets) throws SQLException {
         for (int j = 0; j < tableSize; j++) {
             String str = "+";
-            Object valueData = "";
+            Object valueData = new Object();
             for (int i = 0; i < arrWidthAttribute.length; i++) {
                 String temp = "";
                 if (dataSets.length != 0) {

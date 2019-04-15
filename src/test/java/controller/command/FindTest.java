@@ -49,7 +49,7 @@ public class FindTest {
         }
 
         //when
-        command.process("getResultSet|test");
+        command.process("find|test");
 
         //then
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
@@ -66,7 +66,7 @@ public class FindTest {
     @Test
     public void testCantProcessWithParameters() {
         //when
-        boolean canProcess = command.canProcess("getResultSet|contact");
+        boolean canProcess = command.canProcess("find|contact");
 
         //then
         assertTrue(canProcess);
@@ -75,7 +75,7 @@ public class FindTest {
     @Test
     public void testCantProcessWithoutParameters() {
         //when
-        boolean canProcess = command.canProcess("getResultSet");
+        boolean canProcess = command.canProcess("find");
 
         //then
         assertFalse(canProcess);
@@ -84,7 +84,7 @@ public class FindTest {
     @Test
     public void testProcessWithMoreThen2Parameters() {
         //when
-        command.process("getResultSet|test|morethen2");
+        command.process("find|test|morethen2");
         //then
         Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
     }
@@ -92,7 +92,7 @@ public class FindTest {
     @Test
     public void testProcessWithLessThen2Parameters() {
         //when
-        command.process("getResultSet");
+        command.process("find");
         //then
         Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
     }
@@ -124,7 +124,7 @@ public class FindTest {
         }
 
         //when
-        command.process("getResultSet|test");
+        command.process("find|test");
 
         //then
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
