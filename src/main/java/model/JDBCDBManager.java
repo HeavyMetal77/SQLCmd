@@ -5,17 +5,18 @@ import java.util.ArrayList;
 
 public class JDBCDBManager implements DBManager {
     public static final String JDBC_POSTGRESQL_LOCALHOST = "jdbc:postgresql://localhost:5432/";
+    private static final String JDBC_POSTGRESQL_DRIVER = "org.postgresql.Driver";
     private Connection connection;
 
     //получить соединение с БД
     @Override
     public void connect(String database, String login, String password) throws SQLException {
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName(JDBC_POSTGRESQL_DRIVER);
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
             throw new SQLException("Отсутствует драйвер базы данных, пропиши зависимости в Maven!", e);
         }
-
         if (connection != null) {
             connection = null;
         }

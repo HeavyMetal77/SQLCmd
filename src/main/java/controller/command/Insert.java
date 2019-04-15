@@ -6,7 +6,7 @@ import view.View;
 
 import java.sql.SQLException;
 
-public class Insert implements Command  {
+public class Insert implements Command {
 
 
     private DBManager dbManager;
@@ -32,10 +32,10 @@ public class Insert implements Command  {
         if (commandWithParam.length >= 4 && commandWithParam.length % 2 == 0) {
             String nameTable = commandWithParam[1];
             //рассчитываем длинну массива DataSet из полученных параметров (минус 2 элемента - команда и имя таблицы)
-            int lengthData = (commandWithParam.length-2)/2;
+            int lengthData = (commandWithParam.length - 2) / 2;
             DataSet dataSet = new DataSet();
-            for (int i = 0, j = 2; i < lengthData; i++, j+=2) {
-                dataSet.put(commandWithParam[j], commandWithParam[j+1]);
+            for (int i = 0, j = 2; i < lengthData; i++, j += 2) {
+                dataSet.put(commandWithParam[j], commandWithParam[j + 1]);
             }
             String insertRequestSql = getRequest(nameTable, dataSet);
             try {
@@ -44,8 +44,7 @@ public class Insert implements Command  {
             } catch (SQLException e) {
                 throw new RuntimeException("Данные не вставлены!");
             }
-        }
-        else {
+        } else {
             throw new RuntimeException("Недостаточно параметров!");
         }
     }

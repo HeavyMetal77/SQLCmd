@@ -12,10 +12,10 @@ public class Console implements View {
     @Override
     public String read() {
         Scanner scanner;
-        try{
+        try {
             scanner = new Scanner(System.in);
             return scanner.nextLine();
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return null;
         }
     }

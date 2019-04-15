@@ -10,8 +10,9 @@ import static org.junit.Assert.assertEquals;
 
 public class JDBCDBManagerTest {
     private JDBCDBManager manager;
+
     @Before
-    public void setup(){
+    public void setup() {
         manager = new JDBCDBManager();
         try {
             manager.connect("sqlcmd", "sqlcmd", "");

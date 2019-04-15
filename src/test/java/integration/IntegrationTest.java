@@ -16,7 +16,7 @@ public class IntegrationTest {
     private ByteArrayOutputStream out;
 
     @Before
-    public void setup(){
+    public void setup() {
         out = new ByteArrayOutputStream();
         in = new ConfigurableInputStream();
 
@@ -25,7 +25,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testHelp(){
+    public void testHelp() {
         //given
         in.add("help");
         in.add("exit");
@@ -57,13 +57,13 @@ public class IntegrationTest {
                 "\t\tвыход из программы\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
-                "Программа завершила работу", getData().toString().trim().replace("",""));
+                "Программа завершила работу", getData().toString().trim().replace("", ""));
         //https://stackoverflow.com/questions/36324452/assertequalsstring-string-comparisonfailure-when-contents-are-identical
         //или после каждого перевода строки \r\n заменить на \r\n как в testExit()
     }
 
     @Test
-    public void testExit(){
+    public void testExit() {
         //given
         in.add("exit");
 
@@ -79,7 +79,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testFindTestWithoutConnect(){
+    public void testFindTestWithoutConnect() {
         //given
         in.add("find|test");
         in.add("exit");
@@ -101,7 +101,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testUnsupported(){
+    public void testUnsupported() {
         //given
         in.add("unsupported");
         in.add("exit");
@@ -123,7 +123,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testUnsupportedAfterConnect(){
+    public void testUnsupportedAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("unsupported");
@@ -147,7 +147,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testFindTableWithoutAttributeAfterConnect(){
+    public void testFindTableWithoutAttributeAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("find|test1");
@@ -171,7 +171,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testFindTableAfterConnect(){
+    public void testFindTableAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("find|contact_value");
@@ -199,7 +199,7 @@ public class IntegrationTest {
 
 
     @Test
-    public void testFindWithErrorAfterConnect(){
+    public void testFindWithErrorAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("find|nonexist");
@@ -209,7 +209,7 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         //then
-          assertEquals("Привет пользователь!\r\n" +
+        assertEquals("Привет пользователь!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -218,12 +218,12 @@ public class IntegrationTest {
                 //find|nonexist
                 "Таблицы nonexist не существует!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                  //exit
+                //exit
                 "Программа завершила работу\r\n", getData());
     }
 
     @Test
-    public void testFindWithNotEnoughParametersAfterConnect(){
+    public void testFindWithNotEnoughParametersAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("find|");
@@ -247,7 +247,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testClearAfterConnect(){
+    public void testClearAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("clear|test1");
@@ -271,7 +271,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testClearAfterConnectWithNotEnoughParameters(){
+    public void testClearAfterConnectWithNotEnoughParameters() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("clear|");
@@ -295,7 +295,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testConnectWithNotEnoughParameters(){
+    public void testConnectWithNotEnoughParameters() {
         //given
         in.add("connect|sqlcmd");
         in.add("exit");
@@ -315,7 +315,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testCreateTableAfterConnectWithNotEnoughParameters(){
+    public void testCreateTableAfterConnectWithNotEnoughParameters() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("createTable|");
@@ -339,7 +339,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testCreateAndDropTableAfterConnect(){
+    public void testCreateAndDropTableAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("createTable|test3|test3|");
@@ -367,7 +367,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testDropTableAfterConnectWithNotEnoughParameters(){
+    public void testDropTableAfterConnectWithNotEnoughParameters() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("createTable|test3|test3|");
@@ -395,7 +395,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testTablesWithoutConnect(){
+    public void testTablesWithoutConnect() {
         //given
         in.add("tables");
         in.add("exit");
@@ -417,7 +417,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testTablesAfterConnect(){
+    public void testTablesAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("drop|test3");
@@ -445,7 +445,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testInsertAfterConnectWithNotEnoughParameters(){
+    public void testInsertAfterConnectWithNotEnoughParameters() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("insert|");
@@ -469,7 +469,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testInsertErrorAfterConnect(){
+    public void testInsertErrorAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("insert|test2|id|9|nametest2|test177|field1|test818");
@@ -493,7 +493,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testInsertSuccessAfterConnect(){
+    public void testInsertSuccessAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("insert|test|test1|111|test2|222");
@@ -517,7 +517,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testNullInsertAfterConnect(){
+    public void testNullInsertAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("\n");
@@ -540,7 +540,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testUpdateAfterConnect(){
+    public void testUpdateAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("update|test|test1|555|test2|666");
@@ -563,7 +563,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testUpdateErrorAfterConnect(){
+    public void testUpdateErrorAfterConnect() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("update|test|test1|777|test3|888");
@@ -586,7 +586,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testUpdateWithNotEnoughParameters(){
+    public void testUpdateWithNotEnoughParameters() {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("update|test|test1");

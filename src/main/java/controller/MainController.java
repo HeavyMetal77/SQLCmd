@@ -58,6 +58,7 @@ public class MainController {
             }
         }
     }
+
     private void printError(Exception e) {
         String massage = e.getMessage();
         if (e.getCause() != null) {

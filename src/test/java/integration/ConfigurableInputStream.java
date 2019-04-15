@@ -25,13 +25,13 @@ public class ConfigurableInputStream extends InputStream {
             endLine = true;
         }
 
-        return (int)ch;
+        return (int) ch;
     }
 
     public void add(String line) {
         if (this.line == null) {
             this.line = line;
-        }else {
+        } else {
             this.line += "\n" + line;
         }
     }

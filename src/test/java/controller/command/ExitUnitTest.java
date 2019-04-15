@@ -1,7 +1,6 @@
 package controller.command;
 
 import org.junit.Test;
-import view.View;
 
 import static junit.framework.TestCase.*;
 

@@ -26,7 +26,7 @@ public class TestView implements View {
         this.input = input;
     }
 
-    public String getContent(){
+    public String getContent() {
         return massages;
     }
 }

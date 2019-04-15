@@ -7,7 +7,9 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import view.View;
+
 import java.sql.SQLException;
+
 import static junit.framework.TestCase.*;
 
 public class FindTest {
@@ -17,7 +19,7 @@ public class FindTest {
 
 
     @Before
-    public void setup(){
+    public void setup() {
         dbManager = Mockito.mock(DBManager.class);
         view = Mockito.mock(View.class);
         command = new Find(dbManager, view);
@@ -55,11 +57,11 @@ public class FindTest {
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         Mockito.verify(view, Mockito.atLeastOnce()).write(captor.capture());
         assertEquals("[+----------+--------------------------------------------------+--------------------------------------------------+, " +
-                              "+id        +nametest2                                         +field1                                            +, " +
-                              "+----------+--------------------------------------------------+--------------------------------------------------+, " +
-                              "+1         +supertest                                         +null                                              +, " +
-                              "+2         +supertest2                                        +null                                              +, " +
-                              "+----------+--------------------------------------------------+--------------------------------------------------+]",
+                        "+id        +nametest2                                         +field1                                            +, " +
+                        "+----------+--------------------------------------------------+--------------------------------------------------+, " +
+                        "+1         +supertest                                         +null                                              +, " +
+                        "+2         +supertest2                                        +null                                              +, " +
+                        "+----------+--------------------------------------------------+--------------------------------------------------+]",
                 captor.getAllValues().toString());
     }
 
@@ -131,9 +133,9 @@ public class FindTest {
         Mockito.verify(view, Mockito.atLeastOnce()).write(captor.capture());
         assertEquals(
                 "[+-----+--------------------+--------------------+, " +
-                         "+id   +nametest2           +field1              +, " +
-                         "+-----+--------------------+--------------------+, " +
-                         "+-----+--------------------+--------------------+]",
+                        "+id   +nametest2           +field1              +, " +
+                        "+-----+--------------------+--------------------+, " +
+                        "+-----+--------------------+--------------------+]",
                 captor.getAllValues().toString());
     }
 }

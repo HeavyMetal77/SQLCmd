@@ -1,16 +1,15 @@
 package controller.command;
 
 import model.DBManager;
-import model.DataSet;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import view.View;
 
 import java.sql.SQLException;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 
 public class ClearTest {
     private View view;
@@ -19,7 +18,7 @@ public class ClearTest {
 
 
     @Before
-    public void setup(){
+    public void setup() {
         dbManager = Mockito.mock(DBManager.class);
         view = Mockito.mock(View.class);
         command = new Clear(dbManager, view);

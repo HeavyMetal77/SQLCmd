@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class DataSet {
 
-    static class Data{
+    static class Data {
         private String name;
         private Object value;
 

@@ -30,10 +30,10 @@ public class Update implements Command {
         if (commandWithParam.length >= 4 && commandWithParam.length % 2 == 0) {
             String nameTable = commandWithParam[1];
             //рассчитываем длинну массива DataSet из полученных параметров (минус 2 элемента - команда и имя таблицы)
-            int lengthData = (commandWithParam.length-2)/2;
+            int lengthData = (commandWithParam.length - 2) / 2;
             DataSet dataSets = new DataSet();
-            for (int i = 0, j = 2; i < lengthData; i++, j+=2) {
-                dataSets.put(commandWithParam[j], commandWithParam[j+1]);
+            for (int i = 0, j = 2; i < lengthData; i++, j += 2) {
+                dataSets.put(commandWithParam[j], commandWithParam[j + 1]);
             }
             try {
                 dbManager.update(nameTable, dataSets);
@@ -41,8 +41,7 @@ public class Update implements Command {
             } catch (SQLException e) {
                 throw new RuntimeException("Данные не обновлены!");
             }
-        }
-        else {
+        } else {
             throw new RuntimeException("Недостаточно параметров!");
         }
     }
