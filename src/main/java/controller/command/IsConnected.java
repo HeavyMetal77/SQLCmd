@@ -7,6 +7,7 @@ public class IsConnected implements Command {
     private DBManager dbManager;
     private View view;
 
+
     public IsConnected(DBManager dbManager, View view) {
         this.dbManager = dbManager;
         this.view = view;
@@ -14,7 +15,7 @@ public class IsConnected implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return !dbManager.isConnected();
+        return dbManager.getConnection() == null;
     }
 
     @Override

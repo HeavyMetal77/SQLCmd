@@ -3,8 +3,6 @@ package controller.command;
 import model.DBManager;
 import view.View;
 
-import java.sql.SQLException;
-
 public class Connect implements Command {
     private final String COMMAND_SAMPLE = "connect|sqlcmd|sqlcmd|sqlcmd";
     private DBManager dbManager;
@@ -36,7 +34,7 @@ public class Connect implements Command {
         try {
             dbManager.connect(database, user, password);
             view.write("Подключение к базе выполнено успешно!");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             printError(e);
         }
 

@@ -16,7 +16,7 @@ public class JDBCDBManagerTest {
         manager = new JDBCDBManager();
         try {
             manager.connect("sqlcmd", "sqlcmd", "");
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

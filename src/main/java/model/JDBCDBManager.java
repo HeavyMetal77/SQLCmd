@@ -1,28 +1,40 @@
 package model;
 
-import java.sql.*;
+import model.configuration.ConnectionManager;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class JDBCDBManager implements DBManager {
     public static final String JDBC_POSTGRESQL_LOCALHOST = "jdbc:postgresql://localhost:5432/";
     private static final String JDBC_POSTGRESQL_DRIVER = "org.postgresql.Driver";
     private Connection connection;
+    private ConnectionManager connectionManager;
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(ConnectionManager connectionManager) throws Exception {
+        try {
+            this.connection = connectionManager.getConnection();
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
+    }
 
     //получить соединение с БД
     @Override
-    public void connect(String database, String login, String password) throws SQLException {
-        try {
-            Class.forName(JDBC_POSTGRESQL_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            throw new SQLException("Отсутствует драйвер базы данных, пропиши зависимости в Maven!", e);
+    public void connect(String database, String login, String password) throws Exception {
+        connectionManager = new ConnectionManager();
+        if (connectionManager.isConnected()) {
+            connection = connectionManager.getConnection();
+        } else {
+            connection = connectionManager.getConnectionWithAuthorization(database, login, password);
         }
-        if (connection != null) {
-            connection = null;
-        }
-        connection = DriverManager.getConnection(
-                JDBC_POSTGRESQL_LOCALHOST +
-                        database, login, password);
     }
 
     //получить названия всех таблиц БД
@@ -165,12 +177,6 @@ public class JDBCDBManager implements DBManager {
         } catch (SQLException e) {
             throw new SQLException("Данные не вставлены!");
         }
-    }
-
-    //проверить наличие соединения
-    @Override
-    public boolean isConnected() {
-        return connection != null;
     }
 
     //обновить данные в существующей таблице

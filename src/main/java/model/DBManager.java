@@ -1,12 +1,15 @@
 package model;
 
+import model.configuration.ConnectionManager;
+
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface DBManager {
     //получить соединение с БД
-    void connect(String database, String login, String password) throws SQLException;
+    void connect(String database, String login, String password) throws Exception;
 
     //возвращает список таблиц БД
     ArrayList<String> getTables() throws SQLException;
@@ -41,6 +44,9 @@ public interface DBManager {
     //обновить данные в таблице с названием nameTable
     void update(String nameTable, DataSet dataSet) throws SQLException;
 
-    //проверить наличие соединения с БД
-    boolean isConnected();
+    //установить connection из ConnectionManager
+    void setConnection(ConnectionManager connectionManager) throws Exception;
+
+    //получить connection
+    Connection getConnection();
 }
