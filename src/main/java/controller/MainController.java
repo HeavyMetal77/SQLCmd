@@ -34,9 +34,11 @@ public class MainController {
         connectionManager = new ConnectionManager();
         try {
             connection = connectionManager.getConnection();
+            view.write("Файл конфигурации загружен!");
         } catch (Exception e) {
             view.write("Файл конфигурации не загружен!");
         }
+
         if (connection == null) {
             view.write("Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                     "connect|database|user|password");
