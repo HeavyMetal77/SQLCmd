@@ -35,6 +35,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //help
@@ -72,6 +73,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //exit
@@ -89,6 +91,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //find|test
@@ -111,6 +114,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //unsupported
@@ -134,6 +138,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -158,6 +163,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -182,6 +188,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -210,6 +217,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -234,6 +242,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -258,6 +267,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -282,6 +292,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -305,6 +316,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect|sqlcmd
@@ -326,6 +338,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -351,6 +364,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -379,6 +393,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -405,6 +420,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //tables
@@ -429,6 +445,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -456,6 +473,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -480,6 +498,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -504,6 +523,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -527,6 +547,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -550,6 +571,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -573,6 +595,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect
@@ -596,6 +619,7 @@ public class IntegrationTest {
 
         //then
         assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                 "connect|database|user|password\r\n" +
                 //connect

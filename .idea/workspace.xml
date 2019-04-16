@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="31b3f361-3dd6-4d25-b8ac-7cf23ebc08b1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/configuration/Configuration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/configuration/ConnectionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/configuration/PropertiesLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config/sqlcmd.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/Connect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/Connect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/command/IsConnected.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/command/IsConnected.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/DBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/model/JDBCDBManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/model/JDBCDBManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/sqlcmd.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -46,11 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="107">
-              <caret line="39" column="33" lean-forward="true" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+              <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -59,10 +50,28 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="347">
+              <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="298">
+              <caret line="366" column="54" selection-start-line="366" selection-start-column="54" selection-end-line="366" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="457">
-              <caret line="202" column="2" lean-forward="true" selection-start-line="202" selection-start-column="2" selection-end-line="202" selection-end-column="2" />
+              <caret line="205" column="2" selection-start-line="205" selection-start-column="2" selection-end-line="205" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#378#379#0" expanded="true" />
@@ -145,7 +154,6 @@
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Clear.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Help.java" />
         <option value="$PROJECT_DIR$/src/test/java/controller/command/FindTest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/command/Find.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/Configuration.java" />
@@ -163,6 +171,7 @@
         <option value="$PROJECT_DIR$/src/main/java/model/DBManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/MainController.java" />
+        <option value="$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java" />
       </list>
     </option>
   </component>
@@ -285,14 +294,6 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="SQLCmd" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SQLCmd" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -352,7 +353,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.All in SQLCmd">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="controller.Main" />
       <module name="SQLCmd" />
@@ -382,7 +383,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="IntegrationTest.testFindWithErrorAfterConnect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="IntegrationTest.testNullInsertAfterConnect" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SQLCmd" />
       <extension name="coverage">
         <pattern>
@@ -392,7 +393,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="integration" />
       <option name="MAIN_CLASS_NAME" value="integration.IntegrationTest" />
-      <option name="METHOD_NAME" value="testFindWithErrorAfterConnect" />
+      <option name="METHOD_NAME" value="testNullInsertAfterConnect" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -404,11 +405,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.All in SQLCmd" />
+        <item itemvalue="JUnit.IntegrationTest.testNullInsertAfterConnect" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JAR Application.SQLCmd-1.0-SNAPSHOT.jar" />
         <item itemvalue="JUnit.All in SQLCmd (1)" />
-        <item itemvalue="JUnit.IntegrationTest.testFindWithErrorAfterConnect" />
       </list>
     </recent_temporary>
   </component>
@@ -598,25 +599,17 @@
       <option name="project" value="LOCAL" />
       <updated>1555352243855</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Добавлены properties, изменена логика работы программы">
+      <created>1555424139491</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1555424139491</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_SQLCmd - 2019.04.15 at 19h 02m 11s.xml">
-      <configuration name="All in SQLCmd" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_SQLCmd - 2019.04.15 at 19h 03m 10s.xml">
-      <configuration name="All in SQLCmd" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_SQLCmd - 2019.04.15 at 20h 00m 00s.xml">
-      <configuration name="All in SQLCmd" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_SQLCmd - 2019.04.15 at 20h 29m 08s.xml">
-      <configuration name="All in SQLCmd" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_SQLCmd - 2019.04.15 at 21h 17m 08s.xml">
-      <configuration name="All in SQLCmd" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="All_in_SQLCmd - 2019.04.15 at 22h 00m 22s.xml">
       <configuration name="All in SQLCmd" configurationId="JUnit" />
     </history-entry>
@@ -630,6 +623,21 @@
       <configuration name="All in SQLCmd" configurationId="JUnit" />
     </history-entry>
     <history-entry file="All_in_SQLCmd - 2019.04.16 at 17h 03m 59s.xml">
+      <configuration name="All in SQLCmd" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_SQLCmd - 2019.04.16 at 17h 18m 43s.xml">
+      <configuration name="All in SQLCmd" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_SQLCmd - 2019.04.16 at 17h 19m 24s.xml">
+      <configuration name="All in SQLCmd" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="IntegrationTest_testNullInsertAfterConnect - 2019.04.16 at 17h 20m 53s.xml">
+      <configuration name="IntegrationTest.testNullInsertAfterConnect" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_SQLCmd - 2019.04.16 at 17h 21m 02s.xml">
+      <configuration name="All in SQLCmd" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_SQLCmd - 2019.04.16 at 17h 24m 40s.xml">
       <configuration name="All in SQLCmd" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -745,7 +753,10 @@
     <MESSAGE value="Add &quot;.gitignore&quot;" />
     <MESSAGE value="Внесены зависимости в мавен для успешной компиляции мавеном и создания файла jar" />
     <MESSAGE value="Реформат кода" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реформат кода" />
+    <MESSAGE value="Добавлены properties, изменена логика работы программы" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлены properties, изменена логика работы программы" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/SQLCmd$All_in_SQLCmd.ic" NAME="All in SQLCmd Coverage Results" MODIFIED="1554978618398" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
@@ -1005,13 +1016,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/CreateTable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="107">
@@ -1177,17 +1181,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="528" selection-start-line="528" selection-end-line="528" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/model/JDBCDBManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="457">
-          <caret line="202" column="2" lean-forward="true" selection-start-line="202" selection-start-column="2" selection-end-line="202" selection-end-column="2" />
+          <caret line="205" column="2" selection-start-line="205" selection-start-column="2" selection-end-line="205" selection-end-column="2" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#378#379#0" expanded="true" />
@@ -1208,10 +1205,24 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="107">
-          <caret line="39" column="33" lean-forward="true" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
+          <caret line="39" column="33" selection-start-line="39" selection-start-column="33" selection-end-line="39" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/controller/command/Clear.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/integration/IntegrationTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="366" column="54" selection-start-line="366" selection-start-column="54" selection-end-line="366" selection-end-column="54" />
         </state>
       </provider>
     </entry>
