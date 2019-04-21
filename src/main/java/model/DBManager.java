@@ -36,7 +36,7 @@ public interface DBManager {
     int[] getWidthAtribute(String nameTable) throws SQLException;
 
     //вовзращает массив атрибутов таблицы
-    String[] getAtribute(String nameTable) throws SQLException;
+    Set<String> getAtribute(String nameTable) throws SQLException;
 
     //возвращает массив Датасетов содержащий данные из указанной таблицы
     DataSet[] getDataSetTable(String nameTable) throws SQLException;

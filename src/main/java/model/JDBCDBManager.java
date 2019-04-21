@@ -106,8 +106,7 @@ public class JDBCDBManager implements DBManager {
         try (Statement stmt = connection.createStatement();
              ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName)) {
             rsCount.next();
-            int size = rsCount.getInt(1);
-            return size;
+            return rsCount.getInt(1);
         } catch (SQLException e) {
             return 0;
         }
@@ -139,13 +138,13 @@ public class JDBCDBManager implements DBManager {
 
     //вовзращает массив атрибутов таблицы
     @Override
-    public String[] getAtribute(String nameTable) throws SQLException {
+    public Set<String> getAtribute(String nameTable) throws SQLException {
         ResultSet resultSet = getResultSet(nameTable);
         //количество атрибутов таблицы
         int columnCount = resultSet.getMetaData().getColumnCount();
-        String[] arrAtribute = new String[columnCount];
-        for (int i = 0, j = 1; i < columnCount; i++, j++) {
-            arrAtribute[i] = resultSet.getMetaData().getColumnName(j);
+        Set<String> arrAtribute = new LinkedHashSet<>(columnCount);
+        for (int i = 1; i <= columnCount; i++) {
+            arrAtribute.add(resultSet.getMetaData().getColumnName(i));
         }
         return arrAtribute;
     }

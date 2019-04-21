@@ -5,6 +5,8 @@ import model.DataSet;
 import view.View;
 
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.Set;
 
 public class Find implements Command {
     private DBManager dbManager;
@@ -36,7 +38,7 @@ public class Find implements Command {
             //массив датасетов таблицы
             DataSet[] dataSets = dbManager.getDataSetTable(nameTable);
             //массив атрибутов (названий колонок) таблицы
-            String[] atributes = dbManager.getAtribute(nameTable);
+            Set<String> atributes = dbManager.getAtribute(nameTable);
             //вывод всей таблицы
             printTable(nameTable, arrWidthAttribute, tableSize, atributes, dataSets);
         } catch (SQLException e) {
@@ -45,7 +47,7 @@ public class Find implements Command {
     }
 
     //вывод всей таблицы
-    private void printTable(String nameTable, int[] arrWidthAttribute, int tableSize, String[] atributes, DataSet[] dataSets) throws SQLException {
+    private void printTable(String nameTable, int[] arrWidthAttribute, int tableSize, Set<String> atributes, DataSet[] dataSets) throws SQLException {
         //рисуем верхнюю границу таблицы(+--+--+)
         printLineTable(nameTable, arrWidthAttribute);
 
@@ -76,15 +78,15 @@ public class Find implements Command {
     }
 
     //рисуем заглавие таблицы
-    private void printTitleTable(String nameTable, int[] arrWidthAttribute, String[] atributes) throws SQLException {
+    private void printTitleTable(String nameTable, int[] arrWidthAttribute, Set<String> atributes) throws SQLException {
         String str = "+";
-        //итерируемся по списку названий таблиц (i)
-        for (int i = 0; i < arrWidthAttribute.length; i++) {
+        int count = 0;
+        for (String stringIterator : atributes) {
+            str += stringIterator;
             //ширина колонки
-            int lengthColumn = arrWidthAttribute[i];
-            str += atributes[i];
+            int lengthColumn = arrWidthAttribute[count++];
             //остаток пробелов
-            int countSpace = lengthColumn - atributes[i].length();
+            int countSpace = lengthColumn - stringIterator.length();
             //если кол-во пробелов больше 0
             if (countSpace > 0) {
                 str += String.format("%0" + countSpace + "d", 0).replace("0", " ");
@@ -95,7 +97,7 @@ public class Find implements Command {
     }
 
     //выводим содержимое кортежей таблицы
-    private void dataCortage(String nameTable, int[] arrWidthAttribute, int tableSize, String[] atributes, DataSet[] dataSets) throws SQLException {
+    private void dataCortage(String nameTable, int[] arrWidthAttribute, int tableSize, Set<String> atributes, DataSet[] dataSets) throws SQLException {
         for (int j = 0; j < tableSize; j++) {
             String str = "+";
             Object valueData = new Object();
@@ -117,8 +119,15 @@ public class Find implements Command {
                     countSpace = lengthColumn - 4;
                 }
                 //если в ячейке булевое значение (занимает 1 позицию)- кол-во пробелов изменяем
-                if (atributes[i].equals("bool")) {
-                    countSpace = valueData.toString().length() - lengthColumn;
+                Iterator<String> iterator = atributes.iterator();
+                String currentIterator = "";
+                for (int k = 0; k < i; k++) {
+                    if (iterator.hasNext()) {
+                        currentIterator = iterator.next();
+                    }
+                }
+                if (currentIterator.equals("bool")) {
+                    countSpace = lengthColumn - valueData.toString().length();
                 }
                 //если кол-во пробелов больше 0
                 if (countSpace > 0) {

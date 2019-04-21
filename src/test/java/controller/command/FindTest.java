@@ -9,6 +9,9 @@ import org.mockito.Mockito;
 import view.View;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import static junit.framework.TestCase.*;
 
@@ -40,7 +43,7 @@ public class FindTest {
         field2.put("nametest2", "supertest2");
         field2.put("field1", "null");
 
-        String[] atributes = new String[]{"id", "nametest2", "field1"};
+        Set<String> atributes = new LinkedHashSet<String>(Arrays.asList("id", "nametest2", "field1"));
         try {
             Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(new int[]{10, 50, 50});
             Mockito.when(dbManager.getSize(nameTable)).thenReturn(2);
@@ -114,8 +117,7 @@ public class FindTest {
         String nameTable = "test";
 
         DataSet[] dataSets = new DataSet[0];
-
-        String[] atributes = new String[]{"id", "nametest2", "field1"};
+        Set<String> atributes = new LinkedHashSet<String>(Arrays.asList("id", "nametest2", "field1"));
         try {
             Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(new int[]{5, 20, 20});
             Mockito.when(dbManager.getSize(nameTable)).thenReturn(0);
