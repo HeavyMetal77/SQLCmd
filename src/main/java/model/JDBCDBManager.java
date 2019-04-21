@@ -6,7 +6,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class JDBCDBManager implements DBManager {
     public static final String JDBC_POSTGRESQL_LOCALHOST = "jdbc:postgresql://localhost:5432/";
@@ -39,10 +40,10 @@ public class JDBCDBManager implements DBManager {
 
     //получить названия всех таблиц БД
     @Override
-    public ArrayList<String> getTables() throws SQLException {
+    public Set<String> getTables() throws SQLException {
         String request = "SELECT * FROM information_schema.tables " +
                 "WHERE table_schema='public' AND table_type='BASE TABLE'";
-        ArrayList<String> list = new ArrayList<>();
+        Set<String> list = new LinkedHashSet<>();
         try (Statement stmt = connection.createStatement();
              ResultSet resultSet = stmt.executeQuery(request)) {
             while (resultSet.next()) {

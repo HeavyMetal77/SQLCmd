@@ -5,14 +5,14 @@ import model.configuration.ConnectionManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Set;
 
 public interface DBManager {
     //получить соединение с БД
     void connect(String database, String login, String password) throws Exception;
 
     //возвращает список таблиц БД
-    ArrayList<String> getTables() throws SQLException;
+    Set<String> getTables() throws SQLException;
 
     //создать таблицу с названием nameTable
     void createTable(String requestSql) throws SQLException;

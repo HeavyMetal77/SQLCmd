@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,7 +23,7 @@ public class JDBCDBManagerTest {
 
     @Test
     public void testGetAllTableNames() throws SQLException {
-        ArrayList<String> tablesNames = manager.getTables();
+        Set<String> tablesNames = manager.getTables();
         assertEquals("[category, test1, contact_type, contact_value, contact, test2, test]",
                 tablesNames.toString());
     }
