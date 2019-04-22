@@ -6,6 +6,7 @@ import view.View;
 
 import java.sql.SQLException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class Find implements Command {
@@ -36,7 +37,7 @@ public class Find implements Command {
             //количество кортежей таблицы //TODO потом посмотреть - возможно достаточно датасетов
             int tableSize = dbManager.getSize(nameTable);
             //массив датасетов таблицы
-            DataSet[] dataSets = dbManager.getDataSetTable(nameTable);
+            List<DataSet> dataSets = dbManager.getDataSetTable(nameTable);
             //массив атрибутов (названий колонок) таблицы
             Set<String> atributes = dbManager.getAtribute(nameTable);
             //вывод всей таблицы
@@ -47,7 +48,7 @@ public class Find implements Command {
     }
 
     //вывод всей таблицы
-    private void printTable(String nameTable, int[] arrWidthAttribute, int tableSize, Set<String> atributes, DataSet[] dataSets) throws SQLException {
+    private void printTable(String nameTable, int[] arrWidthAttribute, int tableSize, Set<String> atributes, List<DataSet> dataSets) throws SQLException {
         //рисуем верхнюю границу таблицы(+--+--+)
         printLineTable(nameTable, arrWidthAttribute);
 
@@ -97,15 +98,15 @@ public class Find implements Command {
     }
 
     //выводим содержимое кортежей таблицы
-    private void dataCortage(String nameTable, int[] arrWidthAttribute, int tableSize, Set<String> atributes, DataSet[] dataSets) throws SQLException {
+    private void dataCortage(String nameTable, int[] arrWidthAttribute, int tableSize, Set<String> atributes, List<DataSet> dataSets) throws SQLException {
         for (int j = 0; j < tableSize; j++) {
             String str = "+";
             Object valueData = new Object();
             for (int i = 0; i < arrWidthAttribute.length; i++) {
                 String temp = "";
-                if (dataSets.length != 0) {
-                    temp = "" + dataSets[j].getValues()[i];
-                    valueData = dataSets[j].getValues()[i];
+                if (dataSets.size() != 0) {
+                    temp = "" + dataSets.get(j).getValues()[i];
+                    valueData = dataSets.get(j).getValues()[i];
                 }
                 str += temp;
                 //ширина колонки

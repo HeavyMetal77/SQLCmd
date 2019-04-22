@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class JDBCDBManager implements DBManager {
@@ -151,17 +153,17 @@ public class JDBCDBManager implements DBManager {
 
     //возвращает массив Датасетов содержащий данные из указанной таблицы
     @Override
-    public DataSet[] getDataSetTable(String nameTable) throws SQLException {
+    public List<DataSet> getDataSetTable(String nameTable) throws SQLException {
         ResultSet resultSet = getResultSet(nameTable);
         //размер таблицы
         int size = getSize(nameTable);
         //количество атрибутов таблицы
         int columnCount = resultSet.getMetaData().getColumnCount();
-        DataSet[] dataSets = new DataSet[size];
+        List<DataSet> dataSets = new LinkedList<>();
         int countDataset = 0;
         while (resultSet.next()) {
             DataSet dataSet = new DataSet();
-            dataSets[countDataset++] = dataSet;
+            dataSets.add(dataSet);
             for (int i = 1; i <= columnCount; i++) {
                 dataSet.put(resultSet.getMetaData().getColumnName(i), resultSet.getObject(i));
             }

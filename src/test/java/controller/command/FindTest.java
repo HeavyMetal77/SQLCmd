@@ -11,6 +11,7 @@ import view.View;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import static junit.framework.TestCase.*;
@@ -42,12 +43,15 @@ public class FindTest {
         field2.put("id", 2);
         field2.put("nametest2", "supertest2");
         field2.put("field1", "null");
+        LinkedList<DataSet> dataSets = new LinkedList<>();
+        dataSets.add(field1);
+        dataSets.add(field2);
 
         Set<String> atributes = new LinkedHashSet<String>(Arrays.asList("id", "nametest2", "field1"));
         try {
             Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(new int[]{10, 50, 50});
             Mockito.when(dbManager.getSize(nameTable)).thenReturn(2);
-            Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(new DataSet[]{field1, field2});
+            Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(dataSets);
             Mockito.when(dbManager.getAtribute(nameTable)).thenReturn(atributes);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -116,7 +120,7 @@ public class FindTest {
         //given
         String nameTable = "test";
 
-        DataSet[] dataSets = new DataSet[0];
+        LinkedList<DataSet> dataSets = new LinkedList<>();
         Set<String> atributes = new LinkedHashSet<String>(Arrays.asList("id", "nametest2", "field1"));
         try {
             Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(new int[]{5, 20, 20});

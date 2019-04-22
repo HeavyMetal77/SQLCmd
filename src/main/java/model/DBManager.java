@@ -5,6 +5,7 @@ import model.configuration.ConnectionManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Set;
 
 public interface DBManager {
@@ -39,7 +40,7 @@ public interface DBManager {
     Set<String> getAtribute(String nameTable) throws SQLException;
 
     //возвращает массив Датасетов содержащий данные из указанной таблицы
-    DataSet[] getDataSetTable(String nameTable) throws SQLException;
+    List<DataSet> getDataSetTable(String nameTable) throws SQLException;
 
     //обновить данные в таблице с названием nameTable
     void update(String nameTable, DataSet dataSet) throws SQLException;
