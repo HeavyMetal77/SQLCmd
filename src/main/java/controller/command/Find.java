@@ -5,6 +5,7 @@ import model.DataSet;
 import view.View;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -32,8 +33,8 @@ public class Find implements Command {
         }
         String nameTable = commandWithParam[1];
         try {
-            //массив с размерами (шириной) каждого атрибута таблицы
-            int[] arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
+            //список с размерами (шириной) каждого атрибута таблицы
+            ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
             //количество кортежей таблицы //TODO потом посмотреть - возможно достаточно датасетов
             int tableSize = dbManager.getSize(nameTable);
             //массив датасетов таблицы
@@ -48,7 +49,7 @@ public class Find implements Command {
     }
 
     //вывод всей таблицы
-    private void printTable(String nameTable, int[] arrWidthAttribute, int tableSize, Set<String> atributes, List<DataSet> dataSets) throws SQLException {
+    private void printTable(String nameTable, ArrayList<Integer> arrWidthAttribute, int tableSize, Set<String> atributes, List<DataSet> dataSets) throws SQLException {
         //рисуем верхнюю границу таблицы(+--+--+)
         printLineTable(nameTable, arrWidthAttribute);
 
@@ -66,11 +67,11 @@ public class Find implements Command {
     }
 
     //рисуем верхнюю/нижнюю границу таблицы (+--+--+)
-    private void printLineTable(String nameTable, int[] arrWidthAttribute) throws SQLException {
+    private void printLineTable(String nameTable, ArrayList<Integer> arrWidthAttribute) throws SQLException {
         String str = "+";
-        for (int i = 0; i < arrWidthAttribute.length; i++) {
+        for (int i = 0; i < arrWidthAttribute.size(); i++) {
             //ширина колонки
-            int lengthColumn = arrWidthAttribute[i];
+            int lengthColumn = arrWidthAttribute.get(i);
             if (lengthColumn > 0) {
                 str += String.format("%0" + lengthColumn + "d", 0).replace("0", "-") + "+";
             }
@@ -79,13 +80,13 @@ public class Find implements Command {
     }
 
     //рисуем заглавие таблицы
-    private void printTitleTable(String nameTable, int[] arrWidthAttribute, Set<String> atributes) throws SQLException {
+    private void printTitleTable(String nameTable, ArrayList<Integer> arrWidthAttribute, Set<String> atributes) throws SQLException {
         String str = "+";
         int count = 0;
         for (String stringIterator : atributes) {
             str += stringIterator;
             //ширина колонки
-            int lengthColumn = arrWidthAttribute[count++];
+            int lengthColumn = arrWidthAttribute.get(count++);
             //остаток пробелов
             int countSpace = lengthColumn - stringIterator.length();
             //если кол-во пробелов больше 0
@@ -98,11 +99,11 @@ public class Find implements Command {
     }
 
     //выводим содержимое кортежей таблицы
-    private void dataCortage(String nameTable, int[] arrWidthAttribute, int tableSize, Set<String> atributes, List<DataSet> dataSets) throws SQLException {
+    private void dataCortage(String nameTable, ArrayList<Integer> arrWidthAttribute, int tableSize, Set<String> atributes, List<DataSet> dataSets) throws SQLException {
         for (int j = 0; j < tableSize; j++) {
             String str = "+";
             Object valueData = new Object();
-            for (int i = 0; i < arrWidthAttribute.length; i++) {
+            for (int i = 0; i < arrWidthAttribute.size(); i++) {
                 String temp = "";
                 if (dataSets.size() != 0) {
                     temp = "" + dataSets.get(j).getValues()[i];
@@ -110,7 +111,7 @@ public class Find implements Command {
                 }
                 str += temp;
                 //ширина колонки
-                int lengthColumn = arrWidthAttribute[i];
+                int lengthColumn = arrWidthAttribute.get(i);
                 int countSpace;//кол-во пробелов
                 //если значение в таблице не null
                 if (valueData != null) {

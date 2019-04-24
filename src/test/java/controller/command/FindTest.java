@@ -9,10 +9,7 @@ import org.mockito.Mockito;
 import view.View;
 
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 import static junit.framework.TestCase.*;
 
@@ -47,9 +44,14 @@ public class FindTest {
         dataSets.add(field1);
         dataSets.add(field2);
 
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(10);
+        list.add(50);
+        list.add(50);
+
         Set<String> atributes = new LinkedHashSet<String>(Arrays.asList("id", "nametest2", "field1"));
         try {
-            Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(new int[]{10, 50, 50});
+            Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(list);
             Mockito.when(dbManager.getSize(nameTable)).thenReturn(2);
             Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(dataSets);
             Mockito.when(dbManager.getAtribute(nameTable)).thenReturn(atributes);
@@ -122,8 +124,14 @@ public class FindTest {
 
         LinkedList<DataSet> dataSets = new LinkedList<>();
         Set<String> atributes = new LinkedHashSet<String>(Arrays.asList("id", "nametest2", "field1"));
+
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(5);
+        list.add(20);
+        list.add(20);
+
         try {
-            Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(new int[]{5, 20, 20});
+            Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(list);
             Mockito.when(dbManager.getSize(nameTable)).thenReturn(0);
             Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(dataSets);
             Mockito.when(dbManager.getAtribute(nameTable)).thenReturn(atributes);

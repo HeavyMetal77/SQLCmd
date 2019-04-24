@@ -6,10 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class JDBCDBManager implements DBManager {
     public static final String JDBC_POSTGRESQL_LOCALHOST = "jdbc:postgresql://localhost:5432/";
@@ -116,13 +113,13 @@ public class JDBCDBManager implements DBManager {
 
     //возвращает массив значений ширины каждого аттрибута
     @Override
-    public int[] getWidthAtribute(String nameTable) throws SQLException {
+    public ArrayList<Integer> getWidthAtribute(String nameTable) throws SQLException {
         ResultSet resultSet = getResultSet(nameTable);
         //количество атрибутов таблицы
         int columnCount = resultSet.getMetaData().getColumnCount();
         //создаю массив, который содержит размеры (ширину) всех атрибутов таблицы
         //атрибуты нумеруются в БД начиная с 1, поэтом i=1
-        int[] arrWidthAttribute = new int[columnCount];
+        ArrayList<Integer> arrWidthAttribute = new ArrayList<>(columnCount);
         for (int i = 1; i <= columnCount; i++) {
             int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
             //если ширина колонки больше 50 установить ее в 50
@@ -133,7 +130,7 @@ public class JDBCDBManager implements DBManager {
             if (lengthColumn < resultSet.getMetaData().getColumnName(i).length())
                 lengthColumn = resultSet.getMetaData().getColumnName(i).length();
             //ширина колонки
-            arrWidthAttribute[i - 1] = lengthColumn;
+            arrWidthAttribute.add(lengthColumn);
         }
         return arrWidthAttribute;
     }
