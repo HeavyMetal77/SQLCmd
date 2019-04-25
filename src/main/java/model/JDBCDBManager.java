@@ -159,7 +159,7 @@ public class JDBCDBManager implements DBManager {
         List<DataSet> dataSets = new LinkedList<>();
         int countDataset = 0;
         while (resultSet.next()) {
-            DataSet dataSet = new DataSet();
+            DataSet dataSet = new DataSetImpl();
             dataSets.add(dataSet);
             for (int i = 1; i <= columnCount; i++) {
                 dataSet.put(resultSet.getMetaData().getColumnName(i), resultSet.getObject(i));

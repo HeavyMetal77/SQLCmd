@@ -2,6 +2,7 @@ package controller.command;
 
 import model.DBManager;
 import model.DataSet;
+import model.DataSetImpl;
 import view.View;
 
 import java.sql.SQLException;
@@ -31,7 +32,7 @@ public class Update implements Command {
             String nameTable = commandWithParam[1];
             //рассчитываем длинну массива DataSet из полученных параметров (минус 2 элемента - команда и имя таблицы)
             int lengthData = (commandWithParam.length - 2) / 2;
-            DataSet dataSets = new DataSet();
+            DataSet dataSets = new DataSetImpl();
             for (int i = 0, j = 2; i < lengthData; i++, j += 2) {
                 dataSets.put(commandWithParam[j], commandWithParam[j + 1]);
             }

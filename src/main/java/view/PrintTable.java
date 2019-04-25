@@ -2,7 +2,6 @@ package view;
 
 import model.DataSet;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +15,7 @@ public class PrintTable {
     }
 
     //вывод всей таблицы
-    public void printTable(ArrayList<Integer> arrWidthAttribute, int tableSize, Set<String> attributes, List<DataSet> dataSets) throws SQLException {
+    public void printTable(ArrayList<Integer> arrWidthAttribute, int tableSize, Set<String> attributes, List<DataSet> dataSets) {
         //рисуем верхнюю границу таблицы(+--+--+)
         printLineTable(arrWidthAttribute);
 
@@ -27,14 +26,14 @@ public class PrintTable {
         printLineTable(arrWidthAttribute);
 
         //выводим содержимое кортежей таблицы
-        dataCortage(arrWidthAttribute, tableSize, attributes, dataSets);
+        dataCortege(arrWidthAttribute, tableSize, attributes, dataSets);
 
         //рисуем нижнюю границу всей таблицы (+--+--+)
         printLineTable(arrWidthAttribute);
     }
 
     //рисуем верхнюю/нижнюю границу таблицы (+--+--+)
-    public void printLineTable(ArrayList<Integer> arrWidthAttribute) throws SQLException {
+    public void printLineTable(ArrayList<Integer> arrWidthAttribute) {
         String str = "+";
         for (int i = 0; i < arrWidthAttribute.size(); i++) {
             //ширина колонки
@@ -47,7 +46,7 @@ public class PrintTable {
     }
 
     //рисуем заглавие таблицы
-    public void printTitleTable(ArrayList<Integer> arrWidthAttribute, Set<String> attributes) throws SQLException {
+    public void printTitleTable(ArrayList<Integer> arrWidthAttribute, Set<String> attributes) {
         String str = "+";
         int count = 0;
         for (String stringIterator : attributes) {
@@ -66,7 +65,7 @@ public class PrintTable {
     }
 
     //выводим содержимое кортежей таблицы
-    private void dataCortage(ArrayList<Integer> arrWidthAttribute, int tableSize, Set<String> attributes, List<DataSet> dataSets) throws SQLException {
+    private void dataCortege(ArrayList<Integer> arrWidthAttribute, int tableSize, Set<String> attributes, List<DataSet> dataSets) {
         for (int j = 0; j < tableSize; j++) {
             String str = "+";
             Object valueData = new Object();

@@ -2,6 +2,7 @@ package controller.command;
 
 import model.DBManager;
 import model.DataSet;
+import model.DataSetImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -31,12 +32,12 @@ public class FindTest {
         //given
         String nameTable = "test";
 
-        DataSet field1 = new DataSet();
+        DataSet field1 = new DataSetImpl();
         field1.put("id", 1);
         field1.put("nametest2", "supertest");
         field1.put("field1", "null");
 
-        DataSet field2 = new DataSet();
+        DataSet field2 = new DataSetImpl();
         field2.put("id", 2);
         field2.put("nametest2", "supertest2");
         field2.put("field1", "null");

@@ -41,11 +41,9 @@ public class Find implements Command {
             List<DataSet> dataSets = dbManager.getDataSetTable(nameTable);
             //коллекция атрибутов (названий колонок) таблицы
             Set<String> attributes = dbManager.getAtribute(nameTable);
-
             //вывод всей таблицы
             PrintTable printTable = new PrintTable(view);
             printTable.printTable(arrWidthAttribute, tableSize, attributes, dataSets);
-
         } catch (SQLException e) {
             view.write(String.format(e.getMessage()));
         }
