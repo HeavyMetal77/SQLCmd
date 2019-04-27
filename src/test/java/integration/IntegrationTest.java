@@ -204,6 +204,40 @@ public class IntegrationTest {
                 "Программа завершила работу\r\n", getData());
     }
 
+    @Test
+    public void testCreateTableFindTableWithDataAfterConnect() {
+        //given
+        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
+        in.add("drop|testdataset");
+        in.add("createTable|testdataset|name|surname");
+        in.add("insert|testdataset|id|1|name|Will|surname|Smith");
+        in.add("find|testdataset");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: connect|database|user|password\r\n" +
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "TABLE testdataset was successfully deleted!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "TABLE testdataset was successfully created!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "Данные успешно вставлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+1          +Will                                              +Smith                                             +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "Программа завершила работу\r\n", getData());
+    }
+
 
     @Test
     public void testFindWithErrorAfterConnect() {
@@ -437,6 +471,7 @@ public class IntegrationTest {
         //given
         in.add("connect|sqlcmd|sqlcmd|sqlcmd");
         in.add("drop|test3");
+        in.add("drop|testdataset");
         in.add("tables");
         in.add("exit");
 
@@ -453,6 +488,9 @@ public class IntegrationTest {
                 "Введи команду или 'help' для помощи:\r\n" +
                 //drop|test3
                 "TABLE test3 was successfully deleted!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //drop|testdataset
+                "TABLE testdataset was successfully deleted!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //tables
                 "[category, test1, contact_type, contact_value, contact, test2, test]\r\n" +

@@ -41,7 +41,7 @@ public class Insert implements Command {
             }
             String insertRequestSql = getRequest(nameTable, dataSet);
             try {
-                dbManager.insert(insertRequestSql, dataSet);
+                dbManager.insert(insertRequestSql);
                 view.write("Данные успешно вставлены!");
             } catch (SQLException e) {
                 throw new RuntimeException("Данные не вставлены!");
@@ -60,7 +60,7 @@ public class Insert implements Command {
         Set<String> columns = dataSet.getNames();
         for (String name : columns) {
             dataRequestColumn += name + ", ";
-            dataRequestValue += dataSet.get(name) + ", ";
+            dataRequestValue += "'" + dataSet.get(name) + "'" + ", ";
         }
         //удаляем последнюю запятую и пробел
         dataRequestColumn = dataRequestColumn.substring(0, dataRequestColumn.length() - 2);

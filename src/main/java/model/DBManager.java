@@ -28,9 +28,6 @@ public interface DBManager {
     //получить ResultSet у таблицы с названием nameTable
     ResultSet getResultSet(String nameTable) throws SQLException;
 
-    //вставить данные в таблицу с названием nameTable
-    void insert(String nameTable, DataSet data) throws SQLException;
-
     //возвращает размер таблицы
     int getSize(String tableName) throws SQLException;
 
@@ -42,6 +39,9 @@ public interface DBManager {
 
     //возвращает массив Датасетов содержащий данные из указанной таблицы
     List<DataSet> getDataSetTable(String nameTable) throws SQLException;
+
+    //вставить данные в таблицу
+    void insert(String insertRequestSql) throws SQLException;
 
     //обновить данные в таблице с названием nameTable
     void update(String nameTable, DataSet dataSet) throws SQLException;

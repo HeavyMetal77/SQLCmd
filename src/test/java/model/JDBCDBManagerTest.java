@@ -27,6 +27,4 @@ public class JDBCDBManagerTest {
         assertEquals("[category, test1, contact_type, contact_value, contact, test2, test]",
                 tablesNames.toString());
     }
-
-
 }

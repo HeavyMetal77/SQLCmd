@@ -169,7 +169,7 @@ public class JDBCDBManager implements DBManager {
 
     //вставить данные в таблицу
     @Override
-    public void insert(String insertRequestSql, DataSet dataSet) throws SQLException {
+    public void insert(String insertRequestSql) throws SQLException {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(insertRequestSql);
         } catch (SQLException e) {
