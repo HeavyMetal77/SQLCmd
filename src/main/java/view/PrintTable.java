@@ -69,16 +69,15 @@ public class PrintTable {
         for (int j = 0; j < tableSize; j++) {
             String str = "+";
             Object valueData = new Object();
+            Iterator<String> iteratorAttributes = attributes.iterator();
             for (int i = 0; i < arrWidthAttribute.size(); i++) {
-                String temp = "";
-                if (dataSets.size() != 0) {
-                    temp = "" + dataSets.get(j).getValues()[i];
-                    valueData = dataSets.get(j).getValues()[i];
+                if (dataSets.size() != 0 && iteratorAttributes.hasNext()) {
+                    valueData = (dataSets.get(j).get(iteratorAttributes.next()));
                 }
-                str += temp;
+                str += valueData;
                 //ширина колонки
                 int lengthColumn = arrWidthAttribute.get(i);
-                int countSpace;//кол-во пробелов
+                int countSpace = 0;//кол-во пробелов
                 //если значение в таблице не null
                 if (valueData != null) {
                     //кол-во пробелов

@@ -6,6 +6,7 @@ import model.DataSetImpl;
 import view.View;
 
 import java.sql.SQLException;
+import java.util.Set;
 
 public class Insert implements Command {
 
@@ -55,20 +56,14 @@ public class Insert implements Command {
         String dataRequestColumn = "";
         //строка запроса, содержащая значения таблицы
         String dataRequestValue = "";
-        //получаем размер массива датасет
-        int lengthArrData = dataSet.getNames().length;
-
-        //формируем запрос для атрибутов таблицы
-        for (int i = 0; i < lengthArrData; i++) {
-            dataRequestColumn += dataSet.getNames()[i] + ", ";
+        //формируем запрос для атрибутов таблицы и значений кортежей таблицы
+        Set<String> columns = dataSet.getNames();
+        for (String name : columns) {
+            dataRequestColumn += name + ", ";
+            dataRequestValue += dataSet.get(name) + ", ";
         }
         //удаляем последнюю запятую и пробел
         dataRequestColumn = dataRequestColumn.substring(0, dataRequestColumn.length() - 2);
-
-        //формируем запрос для значений кортежей таблицы
-        for (int i = 0; i < lengthArrData; i++) {
-            dataRequestValue += "'" + dataSet.getValues()[i] + "'" + ", ";
-        }
         //удаляем последнюю запятую и пробел
         dataRequestValue = dataRequestValue.substring(0, dataRequestValue.length() - 2);
         //пример запроса INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);

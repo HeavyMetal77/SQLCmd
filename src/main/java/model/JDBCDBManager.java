@@ -157,7 +157,6 @@ public class JDBCDBManager implements DBManager {
         //количество атрибутов таблицы
         int columnCount = resultSet.getMetaData().getColumnCount();
         List<DataSet> dataSets = new LinkedList<>();
-        int countDataset = 0;
         while (resultSet.next()) {
             DataSet dataSet = new DataSetImpl();
             dataSets.add(dataSet);
@@ -183,9 +182,9 @@ public class JDBCDBManager implements DBManager {
     public void update(String nameTable, DataSet dataSet) {
         //создаем строку запроса
         String dataRequest = "";
-        int lengthArrData = dataSet.getNames().length;
-        for (int i = 0; i < lengthArrData; i++) {
-            dataRequest += dataSet.getNames()[i] + " = " + dataSet.getValues()[i] + ", ";
+        Set<String> columns = dataSet.getNames();
+        for (String name : columns) {
+            dataRequest += name + " = " + dataSet.get(name) + ", ";
         }
         dataRequest = dataRequest.substring(0, dataRequest.length() - 2);
 
