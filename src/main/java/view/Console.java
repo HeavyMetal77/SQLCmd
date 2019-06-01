@@ -19,4 +19,13 @@ public class Console implements View {
             return null;
         }
     }
+
+    public void printError(Exception e) {
+        String massage = e.getMessage();
+        if (e.getCause() != null) {
+            massage += " " + e.getCause().getMessage();
+        }
+        write("Ошибка! Причина: " + massage);
+        write("Повтори попытку!");
+    }
 }

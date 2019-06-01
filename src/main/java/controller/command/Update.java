@@ -25,20 +25,19 @@ public class Update implements Command {
     public void process(String command) {
         //получаем массив параметров команды
         String[] commandWithParam = command.split("[|]");
-        //0-й элемент - непосредственно команда
-        //1-й элемент - имя таблицы nameTable
         //порверяем достаточно ли параметров в команде
-        if (commandWithParam.length >= 4 && commandWithParam.length % 2 == 0) {
+        if (commandWithParam.length >= 6 && commandWithParam.length % 2 == 0) {
             String nameTable = commandWithParam[1];
-            //рассчитываем длинну массива DataSet из полученных параметров
-            //минус 2 элемента - команда и имя таблицы)
-            int lengthData = (commandWithParam.length - 2) / 2;
+            String column1 = commandWithParam[2];
+            String value1 = commandWithParam[3];
+
+            int lengthData = (commandWithParam.length - 4) / 2;
             DataSet dataSets = new DataSetImpl();
-            for (int i = 0, j = 2; i < lengthData; i++, j += 2) {
+            for (int i = 0, j = 4; i < lengthData; i++, j += 2) {
                 dataSets.put(commandWithParam[j], commandWithParam[j + 1]);
             }
             try {
-                dbManager.update(nameTable, dataSets);
+                dbManager.update(nameTable, column1, value1, dataSets);
                 view.write("Данные успешно обновлены!");
             } catch (SQLException e) {
                 throw new RuntimeException("Данные не обновлены!");
@@ -59,3 +58,16 @@ public class Update implements Command {
                 "для которой соблюдается условие column1 = value1";
     }
 }
+
+/*
+Команда обновит запись, установив значение column2 = value2, для которой соблюдается условие column1 = value1
+Формат: update | tableName | column1 | value1 | column2 | value2
+где: tableName - имя таблицы
+column1 - имя столбца записи которое проверяется
+value1 - значение которому должен соответствовать столбец column1 для обновляемой записи
+column2 - имя обновляемого столбца записи
+value2 - значение обновляемого столбца записи
+columnN - имя n-го обновляемого столбца записи
+valueN - значение n-го обновляемого столбца записи
+Формат вывода: табличный, как при find со старыми значениями обновленных записей.
+ */

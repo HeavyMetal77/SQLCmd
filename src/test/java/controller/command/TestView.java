@@ -22,6 +22,16 @@ public class TestView implements View {
         return result;
     }
 
+    @Override
+    public void printError(Exception e) {
+        String massage = e.getMessage();
+        if (e.getCause() != null) {
+            massage += " " + e.getCause().getMessage();
+        }
+        write("Ошибка! Причина: " + massage);
+        write("Повтори попытку!");
+    }
+
     public void addRead(String input) {
         this.input = input;
     }

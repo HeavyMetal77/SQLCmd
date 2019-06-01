@@ -4,7 +4,6 @@ import model.DBManager;
 import view.View;
 
 public class Connect implements Command {
-    private final String COMMAND_SAMPLE = "connect|sqlcmd|sqlcmd|sqlcmd";
     private DBManager dbManager;
     private View view;
 
@@ -21,7 +20,7 @@ public class Connect implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("[|]");
-        int countCommandParameters = COMMAND_SAMPLE.split("\\|").length;
+        int countCommandParameters = formatCommand().split("\\|").length;
         if (data.length != countCommandParameters) {
             view.write(String.format("Неверное количество параметров: " +
                     "ожидается: %s, введено: %s", countCommandParameters, data.length));
@@ -35,9 +34,8 @@ public class Connect implements Command {
             dbManager.connect(database, user, password);
             view.write("Подключение к базе выполнено успешно!");
         } catch (Exception e) {
-            printError(e);
+            view.printError(e);
         }
-
     }
 
     @Override
@@ -48,14 +46,5 @@ public class Connect implements Command {
     @Override
     public String describeCommand() {
         return "Соединение с базой данных";
-    }
-
-    private void printError(Exception e) {
-        String massage = e.getMessage();
-        if (e.getCause() != null) {
-            massage += " " + e.getCause().getMessage();
-        }
-        view.write("Ошибка! Причина: " + massage);
-        view.write("Повтори попытку!");
     }
 }

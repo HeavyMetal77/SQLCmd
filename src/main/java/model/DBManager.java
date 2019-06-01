@@ -44,7 +44,7 @@ public interface DBManager {
     void insert(String insertRequestSql) throws SQLException;
 
     //обновить данные в таблице с названием nameTable
-    void update(String nameTable, DataSet dataSet) throws SQLException;
+    void update(String nameTable, String column1, String value1, DataSet dataSet) throws SQLException;
 
     //установить connection из ConnectionManager
     void setConnection(ConnectionManager connectionManager) throws Exception;

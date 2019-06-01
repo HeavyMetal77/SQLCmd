@@ -179,23 +179,21 @@ public class JDBCDBManager implements DBManager {
 
     //обновить данные в существующей таблице
     @Override
-    public void update(String nameTable, DataSet dataSet) {
+    public void update(String nameTable, String column1, String value1, DataSet dataSet) {
         //создаем строку запроса
         String dataRequest = "";
         Set<String> columns = dataSet.getNames();
         for (String name : columns) {
-            dataRequest += name + " = " + dataSet.get(name) + ", ";
+            dataRequest += name + " = '" + dataSet.get(name) + "', ";
         }
         dataRequest = dataRequest.substring(0, dataRequest.length() - 2);
 
-        //UPDATE table_name SET column1 = value1, column2 = value2...., columnN = valueN
-        //WHERE [condition];
-        String insertRequestSql = "UPDATE " + nameTable + " SET " + dataRequest;
-        //TODO отсутствуют условия обновления WHERE [condition] (обновляются все записи с такими значениями)
+        String updateRequestSql = "UPDATE " + nameTable + " SET " + dataRequest + " WHERE "
+                + column1 + " = '" + value1 + "'";
         //TODO вывод на консоль не соответствует техзаданию
         //TODO - 30 records
         try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate(insertRequestSql);
+            stmt.executeUpdate(updateRequestSql);
         } catch (SQLException e) {
             throw new RuntimeException("Данные не обновлены!");
         }
