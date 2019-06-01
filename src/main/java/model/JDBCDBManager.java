@@ -148,7 +148,7 @@ public class JDBCDBManager implements DBManager {
         return arrAtribute;
     }
 
-    //возвращает массив Датасетов содержащий данные из указанной таблицы
+    //возвращает лист Датасетов содержащий данные из указанной таблицы
     @Override
     public List<DataSet> getDataSetTable(String nameTable) throws SQLException {
         ResultSet resultSet = getResultSet(nameTable);
@@ -200,8 +200,15 @@ public class JDBCDBManager implements DBManager {
             throw new RuntimeException("Данные не обновлены!");
         }
     }
+
+    //удалить запись в таблице
+    @Override
+    public void delete(String nameTable, String columnName, String columnValue) throws SQLException {
+        String sql = "DELETE FROM " + nameTable + " WHERE " + columnName + " = '" + columnValue + "'";
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new SQLException("Данные не удалены!");
+        }
+    }
 }
-/*
-update
-delete
- */

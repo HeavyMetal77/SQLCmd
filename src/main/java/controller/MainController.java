@@ -82,6 +82,7 @@ public class MainController {
         commands.add(new Update(dbManager, view));
         commands.add(new Drop(dbManager, view));
         commands.add(new Clear(dbManager, view));
+        commands.add(new Delete(dbManager, view));
         commands.add(new Unsupported(view));
     }
 
