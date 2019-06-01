@@ -42,6 +42,16 @@ public class CreateTable implements Command {
         }
     }
 
+    @Override
+    public String formatCommand() {
+        return "createTable|tableName|column1|column2|...|columnN";
+    }
+
+    @Override
+    public String describeCommand() {
+        return "Создать таблицу 'tableName' с колонками 'column1'...'columnN'";
+    }
+
     private String getRequest(String nameTable, String[] nameColumns) {
         String requestSql = "CREATE TABLE IF NOT EXISTS " +
                 nameTable + " (ID INT PRIMARY KEY NOT NULL,";

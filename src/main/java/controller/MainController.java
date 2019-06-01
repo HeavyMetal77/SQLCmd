@@ -6,10 +6,11 @@ import model.configuration.ConnectionManager;
 import view.View;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class MainController {
     private View view;
-    private Command[] commands;
+    private ArrayList<Command> commands;
     private ConnectionManager connectionManager;
     private Connection connection;
     private DBManager dbManager;
@@ -17,8 +18,8 @@ public class MainController {
     public MainController(View view, DBManager dbManager) {
         this.view = view;
         this.dbManager = dbManager;
-        this.commands = new Command[12];
-        createCommandBlock();
+        this.commands = new ArrayList<>();
+        createCommandList();
     }
 
     public void run() {
@@ -39,7 +40,7 @@ public class MainController {
         }
         if (connection == null) {
             view.write("Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
-                    "connect|database|user|password");
+                    "\n'connect|database|user|password' \nили 'help' для получения помощи");
         } else {
             view.write("Введи команду или 'help' для помощи:");
         }
@@ -69,19 +70,19 @@ public class MainController {
         }
     }
 
-    private void createCommandBlock() {
-        commands[0] = new Connect(dbManager, view);
-        commands[1] = new Help(view);
-        commands[2] = new Exit(view);
-        commands[3] = new IsConnected(dbManager, view);
-        commands[4] = new Tables(dbManager, view);
-        commands[5] = new Find(dbManager, view);
-        commands[6] = new CreateTable(dbManager, view);
-        commands[7] = new Insert(dbManager, view);
-        commands[8] = new Update(dbManager, view);
-        commands[9] = new Drop(dbManager, view);
-        commands[10] = new Clear(dbManager, view);
-        commands[11] = new Unsupported(view);
+    private void createCommandList() {
+        commands.add(new Connect(dbManager, view));
+        commands.add(new Help(view, commands));
+        commands.add(new Exit(view));
+        commands.add(new IsConnected(dbManager, view));
+        commands.add(new Tables(dbManager, view));
+        commands.add(new Find(dbManager, view));
+        commands.add(new CreateTable(dbManager, view));
+        commands.add(new Insert(dbManager, view));
+        commands.add(new Update(dbManager, view));
+        commands.add(new Drop(dbManager, view));
+        commands.add(new Clear(dbManager, view));
+        commands.add(new Unsupported(view));
     }
 
     private void printError(Exception e) {

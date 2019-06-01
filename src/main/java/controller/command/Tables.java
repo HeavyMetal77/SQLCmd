@@ -28,4 +28,14 @@ public class Tables implements Command {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String formatCommand() {
+        return "tables";
+    }
+
+    @Override
+    public String describeCommand() {
+        return "Вывод списка всех таблиц";
+    }
 }

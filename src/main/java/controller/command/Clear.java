@@ -34,4 +34,14 @@ public class Clear implements Command {
             view.write(String.format("Ошибка очистки таблицы %s, по причине: %s", nameTable, e.getMessage()));
         }
     }
+
+    @Override
+    public String formatCommand() {
+        return "clear|tableName";
+    }
+
+    @Override
+    public String describeCommand() {
+        return "Очистка содержимого таблицы 'tableName'";
+    }
 }

@@ -30,7 +30,8 @@ public class Update implements Command {
         //порверяем достаточно ли параметров в команде
         if (commandWithParam.length >= 4 && commandWithParam.length % 2 == 0) {
             String nameTable = commandWithParam[1];
-            //рассчитываем длинну массива DataSet из полученных параметров (минус 2 элемента - команда и имя таблицы)
+            //рассчитываем длинну массива DataSet из полученных параметров
+            //минус 2 элемента - команда и имя таблицы)
             int lengthData = (commandWithParam.length - 2) / 2;
             DataSet dataSets = new DataSetImpl();
             for (int i = 0, j = 2; i < lengthData; i++, j += 2) {
@@ -45,5 +46,16 @@ public class Update implements Command {
         } else {
             throw new RuntimeException("Недостаточно параметров!");
         }
+    }
+
+    @Override
+    public String formatCommand() {
+        return "update|tableName|column1|value1|column2|value2";
+    }
+
+    @Override
+    public String describeCommand() {
+        return "Команда обновит запись, установив значение column2 = value2, " +
+                "для которой соблюдается условие column1 = value1";
     }
 }

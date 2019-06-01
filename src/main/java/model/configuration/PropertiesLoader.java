@@ -12,17 +12,11 @@ public class PropertiesLoader {
     public PropertiesLoader() throws Exception {
         properties = new Properties();
         File fileProperties = new File(CONFIG_SQLCMD_PROPERTIES);
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(fileProperties);
+        try (FileInputStream fileInputStream = new FileInputStream(fileProperties)) {
             properties.load(fileInputStream);
         } catch (Exception e) {
             throw new FileNotFoundException("Ошибка при загрузке конфигурации: "
                     + fileProperties.getAbsolutePath());
-        } finally {
-            if (fileInputStream != null) {
-                fileInputStream.close();
-            }
         }
     }
 

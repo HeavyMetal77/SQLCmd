@@ -48,4 +48,14 @@ public class Find implements Command {
             view.write(String.format(e.getMessage()));
         }
     }
+
+    @Override
+    public String formatCommand() {
+        return "find|tableName";
+    }
+
+    @Override
+    public String describeCommand() {
+        return "Вывод содержимого таблицы 'tableName'";
+    }
 }

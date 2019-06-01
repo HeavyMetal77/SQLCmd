@@ -19,4 +19,14 @@ public class Unsupported implements Command {
     public void process(String command) {
         view.write("Команды '" + command + "' не существует!");
     }
+
+    @Override
+    public String formatCommand() {
+        return null;
+    }
+
+    @Override
+    public String describeCommand() {
+        return null;
+    }
 }

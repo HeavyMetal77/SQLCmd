@@ -23,4 +23,14 @@ public class IsConnected implements Command {
         view.write(String.format("Вы не можете пользоваться командой '%s', пока не подключитесь к базе данных командой " +
                 "connect|database|login|password", command));
     }
+
+    @Override
+    public String formatCommand() {
+        return null;
+    }
+
+    @Override
+    public String describeCommand() {
+        return null;
+    }
 }

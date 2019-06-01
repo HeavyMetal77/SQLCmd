@@ -2,11 +2,15 @@ package controller.command;
 
 import view.View;
 
+import java.util.ArrayList;
+
 public class Help implements Command {
     private View view;
+    private ArrayList<Command> commands;
 
-    public Help(View view) {
+    public Help(View view, ArrayList<Command> commands) {
         this.view = view;
+        this.commands = commands;
     }
 
     @Override
@@ -17,29 +21,22 @@ public class Help implements Command {
     @Override
     public void process(String command) {
         view.write("Существующие команды:");
+        for (Command c : commands) {
+            if (c.describeCommand() != null) {
+                view.write("\t" + c.formatCommand());
+                view.write("\t\t" + c.describeCommand());
+                view.write("");
+            }
+        }
+    }
 
-        view.write("\tconnect|database|user|password - ");
-        view.write("\t\tсоединение с базой данных");
+    @Override
+    public String formatCommand() {
+        return null;
+    }
 
-        view.write("\ttables - ");
-        view.write("\t\tвывод списка всех таблиц");
-
-        view.write("\tclear|tableName - ");
-        view.write("\t\tочистка содержимого таблицы tableName");
-
-        view.write("\tfind|tableName - ");
-        view.write("\t\tвывод содержимого таблицы tableName");
-
-        view.write("\tdrop|tableName - ");
-        view.write("\t\tудалить таблицу tableName");
-
-        view.write("\tcreateTable|tableName|column1|column2|...|columnN - ");
-        view.write("\t\tсоздать таблицу tableName с колонками column1...columnN ");
-
-        view.write("\tinsert|tableName|column1|value1|column2|value2|... - ");
-        view.write("\t\tвставить данные в таблицу tableName: column1|value1 ....");
-
-        view.write("\texit - ");
-        view.write("\t\tвыход из программы");
+    @Override
+    public String describeCommand() {
+        return null;
     }
 }

@@ -19,4 +19,14 @@ public class Exit implements Command {
         view.write("Программа завершила работу");
         throw new ExitException();
     }
+
+    @Override
+    public String formatCommand() {
+        return "exit";
+    }
+
+    @Override
+    public String describeCommand() {
+        return "Выход из программы";
+    }
 }

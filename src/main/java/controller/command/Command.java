@@ -6,4 +6,8 @@ public interface Command {
 
     //обработать строку
     void process(String command);
+
+    String formatCommand();
+
+    String describeCommand();
 }

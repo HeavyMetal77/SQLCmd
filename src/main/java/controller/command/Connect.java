@@ -40,6 +40,16 @@ public class Connect implements Command {
 
     }
 
+    @Override
+    public String formatCommand() {
+        return "connect|database|user|password";
+    }
+
+    @Override
+    public String describeCommand() {
+        return "Соединение с базой данных";
+    }
+
     private void printError(Exception e) {
         String massage = e.getMessage();
         if (e.getCause() != null) {

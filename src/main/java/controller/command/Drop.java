@@ -32,4 +32,14 @@ public class Drop implements Command {
             view.write(String.format("Ошибка удаления таблицы %s, по причине: %s", nameTable, e.getMessage()));
         }
     }
+
+    @Override
+    public String formatCommand() {
+        return "drop|tableName";
+    }
+
+    @Override
+    public String describeCommand() {
+        return "Удалить таблицу 'tableName'";
+    }
 }
