@@ -31,7 +31,7 @@ public class Clear implements Command {
             dbManager.clear(nameTable);
             view.write("TABLE " + nameTable + " was successfully clear!");
         } catch (SQLException e) {
-            view.write(String.format("Ошибка очистки таблицы %s, по причине: %s", nameTable, e.getMessage()));
+            throw new RuntimeException(String.format("Ошибка очистки таблицы %s, по причине: %s", nameTable, e.getMessage()));
         }
     }
 

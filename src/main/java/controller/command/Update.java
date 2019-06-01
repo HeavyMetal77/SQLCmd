@@ -26,24 +26,24 @@ public class Update implements Command {
         //получаем массив параметров команды
         String[] commandWithParam = command.split("[|]");
         //порверяем достаточно ли параметров в команде
-        if (commandWithParam.length >= 6 && commandWithParam.length % 2 == 0) {
-            String nameTable = commandWithParam[1];
-            String column1 = commandWithParam[2];
-            String value1 = commandWithParam[3];
+        if (commandWithParam.length < 6 && commandWithParam.length % 2 == 1) {
+            view.write("Количество параметров не соответствует шаблону!"); //TODO кинуть исключение?
+            return;
+        }
+        String nameTable = commandWithParam[1];
+        String column1 = commandWithParam[2];
+        String value1 = commandWithParam[3];
 
-            int lengthData = (commandWithParam.length - 4) / 2;
-            DataSet dataSets = new DataSetImpl();
-            for (int i = 0, j = 4; i < lengthData; i++, j += 2) {
-                dataSets.put(commandWithParam[j], commandWithParam[j + 1]);
-            }
-            try {
-                dbManager.update(nameTable, column1, value1, dataSets);
-                view.write("Данные успешно обновлены!");
-            } catch (SQLException e) {
-                throw new RuntimeException("Данные не обновлены!");
-            }
-        } else {
-            throw new RuntimeException("Недостаточно параметров!");
+        int lengthData = (commandWithParam.length - 4) / 2;
+        DataSet dataSets = new DataSetImpl();
+        for (int i = 0, j = 4; i < lengthData; i++, j += 2) {
+            dataSets.put(commandWithParam[j], commandWithParam[j + 1]);
+        }
+        try {
+            dbManager.update(nameTable, column1, value1, dataSets);
+            view.write("Данные успешно обновлены!");
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getCause());
         }
     }
 

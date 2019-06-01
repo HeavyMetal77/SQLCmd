@@ -31,7 +31,10 @@ public class Insert implements Command {
         //0-й элемент - непосредственно команда
         //1-й элемент - имя таблицы nameTable
         //порверяем достаточно ли параметров в команде
-        if (commandWithParam.length >= 4 && commandWithParam.length % 2 == 0) {
+        if (commandWithParam.length < 4 && commandWithParam.length % 2 == 1) {
+            view.write("Количество параметров не соответствует шаблону!");
+            return;
+        }
             String nameTable = commandWithParam[1];
             //рассчитываем длинну массива DataSet из полученных параметров (минус 2 элемента - команда и имя таблицы)
             int lengthData = (commandWithParam.length - 2) / 2;
@@ -44,11 +47,8 @@ public class Insert implements Command {
                 dbManager.insert(insertRequestSql);
                 view.write("Данные успешно вставлены!");
             } catch (SQLException e) {
-                throw new RuntimeException("Данные не вставлены!");
+                throw new RuntimeException(String.format("Данные в таблицу %s не вставлены, по причине: %s", nameTable, e.getMessage()));
             }
-        } else {
-            throw new RuntimeException("Недостаточно параметров!");
-        }
     }
 
     @Override

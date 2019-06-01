@@ -92,7 +92,7 @@ public class MainController {
             massage += " " + e.getCause().getMessage();
         }
         view.write("Ошибка! Причина: " + massage);
-        view.write("Повтори попытку!");
+        view.write("Введи команду или 'help' для помощи:");
     }
 }
 

@@ -32,8 +32,9 @@ public class Delete implements Command {
         try {
             dbManager.delete(nameTable, columnName, columnValue);
             view.write("Record " + nameTable + " was successfully deleted!");
+
         } catch (SQLException e) {
-            view.write(String.format("Ошибка удаления записи в таблице %s, по причине: %s", nameTable, e.getMessage()));
+            throw new RuntimeException(String.format("Ошибка удаления записи в таблице %s, по причине: %s", nameTable, e.getMessage()));
         }
     }
 

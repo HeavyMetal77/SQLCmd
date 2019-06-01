@@ -45,7 +45,7 @@ public class Find implements Command {
             PrintTable printTable = new PrintTable(view);
             printTable.printTable(arrWidthAttribute, tableSize, attributes, dataSets);
         } catch (SQLException e) {
-            view.write(String.format(e.getMessage()));
+            throw new RuntimeException(String.format(e.getMessage()));
         }
     }
 

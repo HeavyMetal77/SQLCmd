@@ -29,7 +29,7 @@ public class Drop implements Command {
             dbManager.drop(nameTable);
             view.write("TABLE " + nameTable + " was successfully deleted!");
         } catch (Exception e) {
-            view.write(String.format("Ошибка удаления таблицы %s, по причине: %s", nameTable, e.getMessage()));
+            throw new RuntimeException(String.format("Ошибка удаления таблицы %s, по причине: %s", nameTable, e.getMessage()));
         }
     }
 

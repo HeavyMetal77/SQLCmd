@@ -25,7 +25,7 @@ public class Tables implements Command {
         try {
             view.write(dbManager.getTables().toString());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getCause());
         }
     }
 

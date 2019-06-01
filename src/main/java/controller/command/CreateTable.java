@@ -20,9 +20,6 @@ public class CreateTable implements Command {
     @Override
     public void process(String command) {
         String[] commandWithParam = command.split("[|]");
-        //commandWithParam содержит: 1-й аргумент - команда создать таблицу,
-        // 2-й название таблицы, 3-й и последующие - названия столбцов
-        //проверяем есть ли хотя-бы название таблицы
         if (commandWithParam.length < 2) {
             view.write("Количество параметров не соответствует шаблону!");
             return;
@@ -38,7 +35,7 @@ public class CreateTable implements Command {
             dbManager.createTable(requestSql);
             view.write("TABLE " + nameTable + " was successfully created!");
         } catch (Exception e) {
-            view.write(String.format("Ошибка создания таблицы %s, по причине: %s", nameTable, e.getMessage()));
+            throw new RuntimeException(String.format("Ошибка создания таблицы %s, по причине: %s", nameTable, e.getMessage()));
         }
     }
 

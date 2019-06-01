@@ -173,7 +173,7 @@ public class JDBCDBManager implements DBManager {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(insertRequestSql);
         } catch (SQLException e) {
-            throw new SQLException("Данные не вставлены!");
+            throw new SQLException(e.getCause());
         }
     }
 

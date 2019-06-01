@@ -34,7 +34,7 @@ public class Connect implements Command {
             dbManager.connect(database, user, password);
             view.write("Подключение к базе выполнено успешно!");
         } catch (Exception e) {
-            view.printError(e);
+            throw new RuntimeException("Ошибка подключения к базе данных!");
         }
     }
 
