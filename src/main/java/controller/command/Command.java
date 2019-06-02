@@ -8,8 +8,12 @@ public interface Command {
     void process(String command);
 
     //формат команды
-    String formatCommand();
+    default String formatCommand() {
+        return null;
+    }
 
     //описание команды
-    String describeCommand();
+    default String describeCommand() {
+        return null;
+    }
 }

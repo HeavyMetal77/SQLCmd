@@ -29,14 +29,4 @@ public class Help implements Command {
             }
         }
     }
-
-    @Override
-    public String formatCommand() {
-        return null;
-    }
-
-    @Override
-    public String describeCommand() {
-        return null;
-    }
 }

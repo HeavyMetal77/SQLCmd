@@ -20,7 +20,7 @@ public class CreateTable implements Command {
     @Override
     public void process(String command) {
         String[] commandWithParam = command.split("[|]");
-        if (commandWithParam.length < 2) {
+        if (commandWithParam.length < 3 || commandWithParam.length % 2 != 0) {
             view.write("Количество параметров не соответствует шаблону!");
             return;
         }
@@ -51,7 +51,7 @@ public class CreateTable implements Command {
 
     private String getRequest(String nameTable, String[] nameColumns) {
         String requestSql = "CREATE TABLE IF NOT EXISTS " +
-                nameTable + " (ID INT PRIMARY KEY NOT NULL,";
+                nameTable + " (ID INT PRIMARY KEY NOT NULL,"; //TODO hardcode delete
         String textNameColumn = "";
         for (String text : nameColumns) {
             textNameColumn += " " + text + " TEXT NOT NULL,";

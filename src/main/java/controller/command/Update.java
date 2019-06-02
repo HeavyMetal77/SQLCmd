@@ -3,9 +3,13 @@ package controller.command;
 import model.DBManager;
 import model.DataSet;
 import model.DataSetImpl;
+import view.PrintTable;
 import view.View;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class Update implements Command {
     private DBManager dbManager;
@@ -26,8 +30,8 @@ public class Update implements Command {
         //получаем массив параметров команды
         String[] commandWithParam = command.split("[|]");
         //порверяем достаточно ли параметров в команде
-        if (commandWithParam.length < 6 && commandWithParam.length % 2 == 1) {
-            view.write("Количество параметров не соответствует шаблону!"); //TODO кинуть исключение?
+        if (commandWithParam.length < 6 || commandWithParam.length % 2 == 1) {
+            view.write("Количество параметров не соответствует шаблону!");
             return;
         }
         String nameTable = commandWithParam[1];
@@ -42,8 +46,21 @@ public class Update implements Command {
         try {
             dbManager.update(nameTable, column1, value1, dataSets);
             view.write("Данные успешно обновлены!");
+            //Согласно ТЗ - Формат вывода: табличный, как при find со ????старыми значениями удаляемых записей.
+            //список с размерами (шириной) каждого атрибута таблицы
+            ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
+            //количество кортежей таблицы //TODO потом посмотреть - возможно достаточно датасетов
+            int tableSize = dbManager.getSize(nameTable);
+            //список датасетов таблицы
+            List<DataSet> dataSets2 = dbManager.getDataSetTable(nameTable);
+            //коллекция атрибутов (названий колонок) таблицы
+            Set<String> attributes = dbManager.getAtribute(nameTable);
+            //вывод всей таблицы
+            PrintTable printTable = new PrintTable(view);
+            printTable.printTable(arrWidthAttribute, tableSize, attributes, dataSets2);
         } catch (SQLException e) {
-            throw new RuntimeException(e.getCause());
+            throw new RuntimeException(String.format("Ошибка обновления данных в таблице %s, " +
+                    "по причине: %s", nameTable, e.getMessage()));
         }
     }
 
@@ -58,16 +75,3 @@ public class Update implements Command {
                 "для которой соблюдается условие column1 = value1";
     }
 }
-
-/*
-Команда обновит запись, установив значение column2 = value2, для которой соблюдается условие column1 = value1
-Формат: update | tableName | column1 | value1 | column2 | value2
-где: tableName - имя таблицы
-column1 - имя столбца записи которое проверяется
-value1 - значение которому должен соответствовать столбец column1 для обновляемой записи
-column2 - имя обновляемого столбца записи
-value2 - значение обновляемого столбца записи
-columnN - имя n-го обновляемого столбца записи
-valueN - значение n-го обновляемого столбца записи
-Формат вывода: табличный, как при find со старыми значениями обновленных записей.
- */

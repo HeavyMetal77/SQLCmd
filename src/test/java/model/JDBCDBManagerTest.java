@@ -24,7 +24,7 @@ public class JDBCDBManagerTest {
     @Test
     public void testGetAllTableNames() throws SQLException {
         Set<String> tablesNames = manager.getTables();
-        assertEquals("[category, test1, contact_type, contact_value, contact, test2, test]",
+        assertEquals("[category, contact_type, contact_value, contact]",
                 tablesNames.toString());
     }
 }

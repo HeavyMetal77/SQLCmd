@@ -11,9 +11,10 @@ import java.util.ArrayList;
 public class MainController {
     private View view;
     private ArrayList<Command> commands;
-    private ConnectionManager connectionManager;
     private Connection connection;
     private DBManager dbManager;
+    String enterCommandOrHelp = "Введи команду или 'help' для помощи:";
+
 
     public MainController(View view, DBManager dbManager) {
         this.view = view;
@@ -32,7 +33,7 @@ public class MainController {
 
     private void doWork() {
         view.write("Привет пользователь!");
-        connectionManager = new ConnectionManager();
+        ConnectionManager connectionManager = new ConnectionManager();
         try {
             connection = connectionManager.getConnection();
         } catch (Exception e) {
@@ -42,7 +43,7 @@ public class MainController {
             view.write("Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
                     "\n'connect|database|user|password' \nили 'help' для получения помощи");
         } else {
-            view.write("Введи команду или 'help' для помощи:");
+            view.write(enterCommandOrHelp);
         }
 
         while (true) {
@@ -60,7 +61,7 @@ public class MainController {
                         break;
                     }
                 }
-                view.write("Введи команду или 'help' для помощи:");
+                view.write(enterCommandOrHelp);
             } catch (Exception e) {
                 if (e instanceof ExitException) {
                     throw new ExitException();
@@ -92,7 +93,7 @@ public class MainController {
             massage += " " + e.getCause().getMessage();
         }
         view.write("Ошибка! Причина: " + massage);
-        view.write("Введи команду или 'help' для помощи:");
+        view.write(enterCommandOrHelp);
     }
 }
 

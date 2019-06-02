@@ -10,18 +10,44 @@ import java.io.UnsupportedEncodingException;
 
 import static org.junit.Assert.assertEquals;
 
-
 public class IntegrationTest {
     private ConfigurableInputStream in;
     private ByteArrayOutputStream out;
+    private String connectLogin = "connect|sqlcmd|sqlcmd|sqlcmd";
+    private String listTables = "[category, contact_type, contact_value, contact]";
+    private String listTablesAfterTest = "[category, contact_type, contact_value, contact, testtable]";
 
     @Before
     public void setup() {
         out = new ByteArrayOutputStream();
         in = new ConfigurableInputStream();
-
         System.setIn(in);
         System.setOut(new PrintStream(out));
+    }
+
+    @Test
+    public void testNullInsertAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("\n");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //null
+                "Команды '' не существует!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
     }
 
     @Test
@@ -73,8 +99,6 @@ public class IntegrationTest {
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
-
-        //getData().trim().replace("", ""));
         //https://stackoverflow.com/questions/36324452/assertequalsstring-string-comparisonfailure-when-contents-are-identical
     }
 
@@ -97,9 +121,9 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testFindTestWithoutConnect() {
+    public void testConnectWithNotEnoughParameters() {
         //given
-        in.add("find|test");
+        in.add("connect|sqlcmd");
         in.add("exit");
 
         //when
@@ -111,8 +135,85 @@ public class IntegrationTest {
                 "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
                 "'connect|database|user|password' \n" +
                 "или 'help' для получения помощи\r\n" +
-                //find|test
-                "Вы не можете пользоваться командой 'find|test', " +
+                //connect|sqlcmd
+                "Неверное количество параметров: ожидается: 4, введено: 2\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+
+    @Test
+    public void testCreateTableAfterConnectWithNotEnoughParameters() {
+        //given
+        in.add(connectLogin);
+        in.add("createTable|");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //createTable|
+                "Количество параметров не соответствует шаблону!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testCreateTableErrorAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("createTable|DISTINCT|test|value");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //create
+                "Ошибка! Причина: Ошибка создания таблицы DISTINCT, по причине: " +
+                "ERROR: syntax error at or near \"DISTINCT\"\n" +
+                "  Position: 28\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testTablesWithoutConnect() {
+        //given
+        in.add("tables");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //tables
+                "Вы не можете пользоваться командой 'tables', " +
                 "пока не подключитесь к базе данных " +
                 "командой connect|database|login|password\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
@@ -147,7 +248,7 @@ public class IntegrationTest {
     @Test
     public void testUnsupportedAfterConnect() {
         //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
+        in.add(connectLogin);
         in.add("unsupported");
         in.add("exit");
 
@@ -171,101 +272,9 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testFindTableWithoutAttributeAfterConnect() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("find|test1");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //find|test1 - (TableWithoutAttribute)
-                "Ошибка! Причина: В таблице не создано ни одного атрибута!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testFindTableAfterConnect() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("find|contact_value");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //find|contact_value
-                "+-----------+-----------+---------------+--------------------------------------------------+----------------------+----------------------+------+\r\n" +
-                "+id         +id_contact +id_contact_type+value                                             +created               +updated               +active+\r\n" +
-                "+-----------+-----------+---------------+--------------------------------------------------+----------------------+----------------------+------+\r\n" +
-                "+-----------+-----------+---------------+--------------------------------------------------+----------------------+----------------------+------+\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testCreateTableFindTableWithDataAfterConnect() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("drop|testdataset");
-        in.add("createTable|testdataset|name|surname");
-        in.add("insert|testdataset|id|1|name|Will|surname|Smith");
-        in.add("find|testdataset");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                "TABLE testdataset was successfully deleted!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                "TABLE testdataset was successfully created!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                "Данные успешно вставлены!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+1          +Will                                              +Smith                                             +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                "Программа завершила работу\r\n", getData());
-    }
-
-
-    @Test
     public void testFindWithErrorAfterConnect() {
         //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
+        in.add(connectLogin);
         in.add("find|nonexist");
         in.add("exit");
 
@@ -289,253 +298,9 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testFindWithNotEnoughParametersAfterConnect() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("find|");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //find|
-                "Количество параметров не соответствует шаблону!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testClearAfterConnect() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("clear|test1");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //clear|test1
-                "TABLE test1 was successfully clear!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testClearAfterConnectWithNotEnoughParameters() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("clear|");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //clear|
-                "Количество параметров не соответствует шаблону!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testConnectWithNotEnoughParameters() {
-        //given
-        in.add("connect|sqlcmd");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect|sqlcmd
-                "Неверное количество параметров: ожидается: 4, введено: 2\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testCreateTableAfterConnectWithNotEnoughParameters() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("createTable|");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //createTable|
-                "Количество параметров не соответствует шаблону!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testCreateAndDropTableAfterConnect() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("createTable|test3|test3|");
-        in.add("drop|test3");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //createTable|test3|test3|
-                "TABLE test3 was successfully created!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //drop|test3
-                "TABLE test3 was successfully deleted!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testDropTableAfterConnectWithNotEnoughParameters() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("createTable|test3|test3|");
-        in.add("drop|");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //createTable|test3|test3|
-                "TABLE test3 was successfully created!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //drop|
-                "Количество параметров не соответствует шаблону!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testTablesWithoutConnect() {
-        //given
-        in.add("tables");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //tables
-                "Вы не можете пользоваться командой 'tables', " +
-                "пока не подключитесь к базе данных " +
-                "командой connect|database|login|password\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
-    public void testTablesAfterConnect() {
-        //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("drop|test3");
-        in.add("drop|testdataset");
-        in.add("tables");
-        in.add("exit");
-
-        //when
-        Main.main(new String[0]);
-
-        //then
-        assertEquals("Привет пользователь!\r\n" +
-                "Файл конфигурации не загружен!\r\n" +
-                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
-                "'connect|database|user|password' \n" +
-                "или 'help' для получения помощи\r\n" +
-                //connect
-                "Подключение к базе выполнено успешно!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //drop|test3
-                "TABLE test3 was successfully deleted!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //drop|testdataset
-                "TABLE testdataset was successfully deleted!\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //tables
-                "[category, test1, contact_type, contact_value, contact, test2, test]\r\n" +
-                "Введи команду или 'help' для помощи:\r\n" +
-                //exit
-                "Программа завершила работу\r\n", getData());
-    }
-
-    @Test
     public void testInsertAfterConnectWithNotEnoughParameters() {
         //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
+        in.add(connectLogin);
         in.add("insert|");
         in.add("exit");
 
@@ -559,10 +324,16 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testInsertErrorAfterConnect() {
+    public void testDropCreateInsertFindTableAfterConnect() {
         //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("insert|test2|id|9|nametest2|test177|field1|test818");
+        in.add(connectLogin);
+        in.add("drop|testtable");
+        in.add("createTable|testtable|name|surname");
+        in.add("insert|testtable|id|1|name|Will|surname|Smith");
+        in.add("find|testtable");
+        in.add("drop|testtable");
+        in.add("tables");
+
         in.add("exit");
 
         //when
@@ -577,8 +348,254 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //insert|test2|id|9|nametest2|test177|field1|test818
-                "Ошибка! Причина: Данные в таблицу test2 не вставлены, по причине: null\r\n" +
+                //drop
+                "TABLE testtable was successfully deleted!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //create
+                "TABLE testtable was successfully created!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //insert
+                "Данные успешно вставлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //find
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+1          +Will                                              +Smith                                             +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //drop
+                "TABLE testtable was successfully deleted!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //tables
+                listTables + "\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testCreateTableFindTableWithoutDataAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("drop|testtable");
+        in.add("createTable|testtable|name|surname");
+        in.add("find|testtable");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "TABLE testtable was successfully deleted!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "TABLE testtable was successfully created!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testFindWithNotEnoughParametersAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("find|");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //find|
+                "Количество параметров не соответствует шаблону!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testClearAfterConnectWithNotEnoughParameters() {
+        //given
+        in.add(connectLogin);
+        in.add("clear|");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //clear|
+                "Количество параметров не соответствует шаблону!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testClearAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("drop|testtable");
+        in.add("createTable|testtable|name|surname");
+        in.add("insert|testtable|id|1|name|Will|surname|Smith");
+        in.add("find|testtable");
+        in.add("clear|testtable");
+        in.add("find|testtable");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //drop
+                "TABLE testtable was successfully deleted!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //create
+                "TABLE testtable was successfully created!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //insert
+                "Данные успешно вставлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //find
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+1          +Will                                              +Smith                                             +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //clear
+                "TABLE testtable was successfully clear!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //find
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testCreateAndDropTableAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("createTable|testtable|name|surname");
+        in.add("drop|testtable");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //createTable
+                "TABLE testtable was successfully created!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //drop
+                "TABLE testtable was successfully deleted!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testDropTableAfterConnectWithNotEnoughParameters() {
+        //given
+        in.add(connectLogin);
+        in.add("drop|");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //drop|
+                "Количество параметров не соответствует шаблону!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testTablesAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("drop|testtable");
+        in.add("createTable|testtable|name|surname");
+        in.add("tables");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //drop
+                "TABLE testtable was successfully deleted!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //create
+                "TABLE testtable was successfully created!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //tables
+                listTablesAfterTest + "\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -587,8 +604,11 @@ public class IntegrationTest {
     @Test
     public void testInsertSuccessAfterConnect() {
         //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("insert|test|test1|111|test2|222");
+        in.add(connectLogin);
+        in.add("createTable|testtable|name|surname");
+        in.add("insert|testtable|id|1|name|Herbert|surname|Schildt");
+        in.add("find|testtable");
+        in.add("drop|testtable");
         in.add("exit");
 
         //when
@@ -603,18 +623,33 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //insert|test|test1|111|test2|222
+                //create
+                "TABLE testtable was successfully created!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //insert
                 "Данные успешно вставлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //find
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+1          +Herbert                                           +Schildt                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //drop
+                "TABLE testtable was successfully deleted!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
 
+
     @Test
-    public void testNullInsertAfterConnect() {
+    public void testInsertErrorAfterConnect() {
         //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("\n");
+        in.add(connectLogin);
+        in.add("insert|testnonexist|id|9|nametest2|test177|field1|test818");
+        in.add("exit");
 
         //when
         Main.main(new String[0]);
@@ -628,8 +663,10 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //null
-                "Команды '' не существует!\r\n" +
+                //insert
+                "Ошибка! Причина: Данные в таблицу testnonexist не вставлены, по причине: " +
+                "ERROR: relation \"testnonexist\" does not exist\n" +
+                "  Position: 13\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -638,8 +675,12 @@ public class IntegrationTest {
     @Test
     public void testUpdateAfterConnect() {
         //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("update|test|test1|555|test2|666");
+        in.add(connectLogin);
+        in.add("createTable|testtable|name|surname");
+        in.add("insert|testtable|id|1|name|Herbert|surname|Schildt");
+        in.add("find|testtable");
+        in.add("update|testtable|id|1|name|Cay|surname|Horstmann");
+        in.add("drop|testtable");
 
         //when
         Main.main(new String[0]);
@@ -653,8 +694,29 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //update|test|test1|555|test2|666
+                //create
+                "TABLE testtable was successfully created!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //insert
+                "Данные успешно вставлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //find
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+1          +Herbert                                           +Schildt                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //update
                 "Данные успешно обновлены!\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+1          +Cay                                               +Horstmann                                         +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //delete
+                "TABLE testtable was successfully deleted!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -663,8 +725,8 @@ public class IntegrationTest {
     @Test
     public void testUpdateErrorAfterConnect() {
         //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
-        in.add("update|test|test1|777|test3|888");
+        in.add(connectLogin);
+        in.add("update|nonexist|test1|777|test3|888");
 
         //when
         Main.main(new String[0]);
@@ -678,8 +740,10 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //update|test|test1|777|test3|888
-                "Ошибка! Причина: Данные не обновлены!\r\n" +
+                //update
+                "Ошибка! Причина: Ошибка обновления данных в таблице nonexist, по причине: " +
+                "ERROR: relation \"nonexist\" does not exist\n" +
+                "  Position: 8\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -688,7 +752,7 @@ public class IntegrationTest {
     @Test
     public void testUpdateWithNotEnoughParameters() {
         //given
-        in.add("connect|sqlcmd|sqlcmd|sqlcmd");
+        in.add(connectLogin);
         in.add("update|test|test1");
 
         //when
@@ -703,8 +767,109 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                //update|test|test1
+                //update
                 "Количество параметров не соответствует шаблону!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testDeleteWithNotEnoughParameters() {
+        //given
+        in.add(connectLogin);
+        in.add("delete|testtable|id");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //delete
+                "Количество параметров не соответствует шаблону!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testDeleteErrorAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("createTable|testtable|name|surname");
+        in.add("insert|testtable|id|1|name|Herbert|surname|Schildt");
+        in.add("find|testtable");
+        in.add("delete|testtable|id|1");
+        in.add("drop|testtable");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //create
+                "TABLE testtable was successfully created!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //insert
+                "Данные успешно вставлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //find
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+1          +Herbert                                           +Schildt                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //delete
+                "Record testtable was successfully deleted!\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+id         +name                                              +surname                                           +\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //drop
+                "TABLE testtable was successfully deleted!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testDeleteAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("delete|nonexist|test1|777");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //delete
+                "Ошибка! Причина: Ошибка удаления записи в таблице nonexist, по причине: " +
+                "ERROR: relation \"nonexist\" does not exist\n" +
+                "  Position: 13\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());

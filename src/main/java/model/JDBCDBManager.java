@@ -21,8 +21,8 @@ public class JDBCDBManager implements DBManager {
     public void setConnection(ConnectionManager connectionManager) throws Exception {
         try {
             this.connection = connectionManager.getConnection();
-        } catch (Exception e) {
-            throw new Exception(e);
+        } finally {
+            connection.close();
         }
     }
 
@@ -101,13 +101,11 @@ public class JDBCDBManager implements DBManager {
 
     //возвращает размер таблицы
     @Override
-    public int getSize(String tableName) {
+    public int getSize(String tableName) throws SQLException {
         try (Statement stmt = connection.createStatement();
              ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName)) {
             rsCount.next();
             return rsCount.getInt(1);
-        } catch (SQLException e) {
-            return 0;
         }
     }
 
@@ -152,8 +150,6 @@ public class JDBCDBManager implements DBManager {
     @Override
     public List<DataSet> getDataSetTable(String nameTable) throws SQLException {
         ResultSet resultSet = getResultSet(nameTable);
-        //размер таблицы
-        int size = getSize(nameTable);
         //количество атрибутов таблицы
         int columnCount = resultSet.getMetaData().getColumnCount();
         List<DataSet> dataSets = new LinkedList<>();
@@ -172,14 +168,12 @@ public class JDBCDBManager implements DBManager {
     public void insert(String insertRequestSql) throws SQLException {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(insertRequestSql);
-        } catch (SQLException e) {
-            throw new SQLException(e.getCause());
         }
     }
 
     //обновить данные в существующей таблице
     @Override
-    public void update(String nameTable, String column1, String value1, DataSet dataSet) {
+    public void update(String nameTable, String column1, String value1, DataSet dataSet) throws SQLException {
         //создаем строку запроса
         String dataRequest = "";
         Set<String> columns = dataSet.getNames();
@@ -190,12 +184,8 @@ public class JDBCDBManager implements DBManager {
 
         String updateRequestSql = "UPDATE " + nameTable + " SET " + dataRequest + " WHERE "
                 + column1 + " = '" + value1 + "'";
-        //TODO вывод на консоль не соответствует техзаданию
-        //TODO - 30 records
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(updateRequestSql);
-        } catch (SQLException e) {
-            throw new RuntimeException("Данные не обновлены!");
         }
     }
 
@@ -205,8 +195,6 @@ public class JDBCDBManager implements DBManager {
         String sql = "DELETE FROM " + nameTable + " WHERE " + columnName + " = '" + columnValue + "'";
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
-        } catch (SQLException e) {
-            throw new SQLException("Данные не удалены!");
         }
     }
 }
