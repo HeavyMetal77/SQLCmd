@@ -15,7 +15,7 @@ public class PrintTable {
     }
 
     //вывод всей таблицы
-    public void printTable(ArrayList<Integer> arrWidthAttribute, int tableSize, Set<String> attributes, List<DataSet> dataSets) {
+    public void printTable(ArrayList<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
         //рисуем верхнюю границу таблицы(+--+--+)
         printLineTable(arrWidthAttribute);
 
@@ -26,7 +26,7 @@ public class PrintTable {
         printLineTable(arrWidthAttribute);
 
         //выводим содержимое кортежей таблицы
-        dataCortege(arrWidthAttribute, tableSize, attributes, dataSets);
+        dataCortege(arrWidthAttribute, attributes, dataSets);
 
         //рисуем нижнюю границу всей таблицы (+--+--+)
         printLineTable(arrWidthAttribute);
@@ -65,8 +65,8 @@ public class PrintTable {
     }
 
     //выводим содержимое кортежей таблицы
-    private void dataCortege(ArrayList<Integer> arrWidthAttribute, int tableSize, Set<String> attributes, List<DataSet> dataSets) {
-        for (int j = 0; j < tableSize; j++) {
+    private void dataCortege(ArrayList<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
+        for (int j = 0; j < dataSets.size(); j++) {
             String str = "+";
             Object valueData = new Object();
             Iterator<String> iteratorAttributes = attributes.iterator();

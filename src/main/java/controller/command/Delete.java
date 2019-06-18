@@ -37,18 +37,15 @@ public class Delete implements Command {
         try {
             dbManager.delete(nameTable, columnName, columnValue);
             view.write("Record " + nameTable + " was successfully deleted!");
-            //Согласно ТЗ - Формат вывода: табличный, как при find со ????старыми значениями удаляемых записей.
             //список с размерами (шириной) каждого атрибута таблицы
             ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
-            //количество кортежей таблицы //TODO потом посмотреть - возможно достаточно датасетов
-            int tableSize = dbManager.getSize(nameTable);
             //список датасетов таблицы
             List<DataSet> dataSets = dbManager.getDataSetTable(nameTable);
             //коллекция атрибутов (названий колонок) таблицы
             Set<String> attributes = dbManager.getAtribute(nameTable);
             //вывод всей таблицы
             PrintTable printTable = new PrintTable(view);
-            printTable.printTable(arrWidthAttribute, tableSize, attributes, dataSets);
+            printTable.printTable(arrWidthAttribute, attributes, dataSets);
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Ошибка удаления записи в таблице %s, по причине: %s", nameTable, e.getMessage()));
         }
@@ -61,6 +58,6 @@ public class Delete implements Command {
 
     @Override
     public String describeCommand() {
-        return "Удаление записи в таблице";
+        return "Удаление записи в таблице tableName, где columnName = columnValue";
     }
 }

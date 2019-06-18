@@ -26,10 +26,8 @@ public class ClearTest {
 
     @Test
     public void testClearTable() {
-
         //when
         command.process("clear|test");
-
         //then
         try {
             Mockito.verify(dbManager).clear("test");
@@ -40,28 +38,25 @@ public class ClearTest {
     }
 
     @Test
-    public void testCantProcessWithParameters() {
+    public void testCanProcessWithParameters() {
         //when
         boolean canProcess = command.canProcess("clear|test");
-
         //then
         assertTrue(canProcess);
     }
 
     @Test
-    public void testCantProcessWithoutParameters() {
+    public void testCanProcessWithoutParameters() {
         //when
         boolean canProcess = command.canProcess("clear");
-
         //then
         assertFalse(canProcess);
     }
 
     @Test
-    public void testCantProcessNonexistCommand() {
+    public void testCanProcessNonexistCommand() {
         //when
         boolean canProcess = command.canProcess("cleardtdkhg|test");
-
         //then
         assertFalse(canProcess);
     }

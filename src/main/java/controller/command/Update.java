@@ -49,15 +49,13 @@ public class Update implements Command {
             //Согласно ТЗ - Формат вывода: табличный, как при find со ????старыми значениями удаляемых записей.
             //список с размерами (шириной) каждого атрибута таблицы
             ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
-            //количество кортежей таблицы //TODO потом посмотреть - возможно достаточно датасетов
-            int tableSize = dbManager.getSize(nameTable);
             //список датасетов таблицы
             List<DataSet> dataSets2 = dbManager.getDataSetTable(nameTable);
             //коллекция атрибутов (названий колонок) таблицы
             Set<String> attributes = dbManager.getAtribute(nameTable);
             //вывод всей таблицы
             PrintTable printTable = new PrintTable(view);
-            printTable.printTable(arrWidthAttribute, tableSize, attributes, dataSets2);
+            printTable.printTable(arrWidthAttribute, attributes, dataSets2);
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Ошибка обновления данных в таблице %s, " +
                     "по причине: %s", nameTable, e.getMessage()));

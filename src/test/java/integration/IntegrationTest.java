@@ -94,7 +94,7 @@ public class IntegrationTest {
                 "\t\tОчистка содержимого таблицы 'tableName'\r\n" +
                 "\r\n" +
                 "\tdelete|tableName|columnName|columnValue\r\n" +
-                "\t\tУдаление записи в таблице\r\n" +
+                "\t\tУдаление записи в таблице tableName, где columnName = columnValue\r\n" +
                 "\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit

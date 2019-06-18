@@ -35,15 +35,13 @@ public class Find implements Command {
         try {
             //список с размерами (шириной) каждого атрибута таблицы
             ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
-            //количество кортежей таблицы //TODO потом посмотреть - возможно достаточно датасетов
-            int tableSize = dbManager.getSize(nameTable);
             //список датасетов таблицы
             List<DataSet> dataSets = dbManager.getDataSetTable(nameTable);
             //коллекция атрибутов (названий колонок) таблицы
             Set<String> attributes = dbManager.getAtribute(nameTable);
             //вывод всей таблицы
             PrintTable printTable = new PrintTable(view);
-            printTable.printTable(arrWidthAttribute, tableSize, attributes, dataSets);
+            printTable.printTable(arrWidthAttribute, attributes, dataSets);
         } catch (SQLException e) {
             throw new RuntimeException(String.format(e.getMessage()));
         }

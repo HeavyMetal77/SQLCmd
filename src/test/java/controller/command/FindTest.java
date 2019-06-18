@@ -19,7 +19,6 @@ public class FindTest {
     private DBManager dbManager;
     private Command command;
 
-
     @Before
     public void setup() {
         dbManager = Mockito.mock(DBManager.class);
@@ -124,7 +123,7 @@ public class FindTest {
         String nameTable = "test";
 
         LinkedList<DataSet> dataSets = new LinkedList<>();
-        Set<String> attributes = new LinkedHashSet<String>(Arrays.asList("id", "nametest2", "field1"));
+        Set<String> attributes = new LinkedHashSet<>(Arrays.asList("id", "nametest2", "field1"));
 
         ArrayList<Integer> list = new ArrayList<>();
         list.add(5);

@@ -19,7 +19,6 @@ public class ExitUnitTest {
         assertTrue(canProcess);
     }
 
-
     @Test
     public void testCantProcessExitFailCommand() {
         //given
@@ -31,7 +30,6 @@ public class ExitUnitTest {
         //then
         assertFalse(canProcess);
     }
-
 
     @Test
     public void testCanProcessExit_throwsExitException() {
@@ -46,7 +44,6 @@ public class ExitUnitTest {
         } catch (ExitException e) {
 
         }
-
 
         //then
         assertEquals("Программа завершила работу\n", view.getContent());
