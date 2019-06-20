@@ -17,28 +17,29 @@ public class PrintTable {
     //вывод всей таблицы
     public void printTable(ArrayList<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
         //рисуем верхнюю границу таблицы(+--+--+)
-        printLineTable(arrWidthAttribute);
+        printLineTable(arrWidthAttribute, dataSets);
 
         //рисуем заглавие таблицы
-        printTitleTable(arrWidthAttribute, attributes);
+        printTitleTable(arrWidthAttribute, attributes, dataSets);
 
         //рисуем нижнюю границу заглавия таблицы (+--+--+)
-        printLineTable(arrWidthAttribute);
+        printLineTable(arrWidthAttribute, dataSets);
 
         //выводим содержимое кортежей таблицы
         dataCortege(arrWidthAttribute, attributes, dataSets);
 
         //рисуем нижнюю границу всей таблицы (+--+--+)
-        printLineTable(arrWidthAttribute);
+        printLineTable(arrWidthAttribute, dataSets);
     }
 
     //рисуем верхнюю/нижнюю границу таблицы (+--+--+)
-    public void printLineTable(ArrayList<Integer> arrWidthAttribute) {
+    public void printLineTable(ArrayList<Integer> arrWidthAttribute, List<DataSet> dataSets) {
         String str = "+";
         for (int i = 0; i < arrWidthAttribute.size(); i++) {
             //ширина колонки
             int lengthColumn = arrWidthAttribute.get(i);
             if (lengthColumn > 0) {
+                lengthColumn += 2;
                 str += String.format("%0" + lengthColumn + "d", 0).replace("0", "-") + "+";
             }
         }
@@ -46,11 +47,11 @@ public class PrintTable {
     }
 
     //рисуем заглавие таблицы
-    public void printTitleTable(ArrayList<Integer> arrWidthAttribute, Set<String> attributes) {
+    public void printTitleTable(ArrayList<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
         String str = "+";
         int count = 0;
         for (String stringIterator : attributes) {
-            str += stringIterator;
+            str += " " + stringIterator + " ";
             //ширина колонки
             int lengthColumn = arrWidthAttribute.get(count++);
             //остаток пробелов
@@ -74,7 +75,7 @@ public class PrintTable {
                 if (dataSets.size() != 0 && iteratorAttributes.hasNext()) {
                     valueData = (dataSets.get(j).get(iteratorAttributes.next()));
                 }
-                str += valueData;
+                str += " " + valueData + " ";
                 //ширина колонки
                 int lengthColumn = arrWidthAttribute.get(i);
                 int countSpace = 0;//кол-во пробелов

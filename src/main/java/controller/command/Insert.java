@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.Set;
 
 public class Insert implements Command {
-
-
     private DBManager dbManager;
     private View view;
 

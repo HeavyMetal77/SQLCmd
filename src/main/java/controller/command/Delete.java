@@ -35,19 +35,25 @@ public class Delete implements Command {
         String columnName = commandWithParam[2];
         String columnValue = commandWithParam[3];
         try {
+            List<DataSet> dataSetsBefore = dbManager.getDataSetTable(nameTable);
             dbManager.delete(nameTable, columnName, columnValue);
-            view.write("Record " + nameTable + " was successfully deleted!");
+            List<DataSet> dataSetsAfter = dbManager.getDataSetTable(nameTable);
+            if (dataSetsBefore.size() - 1 == dataSetsAfter.size()) {
+                view.write("Запись в таблице " + nameTable + " со значением " +
+                        columnName + " = " + columnValue + "  была успешно удалена!");
+            } else if (dataSetsBefore.size() == dataSetsAfter.size()) {
+                view.write("Удаление не произведено!");
+            }
             //список с размерами (шириной) каждого атрибута таблицы
             ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
-            //список датасетов таблицы
-            List<DataSet> dataSets = dbManager.getDataSetTable(nameTable);
             //коллекция атрибутов (названий колонок) таблицы
             Set<String> attributes = dbManager.getAtribute(nameTable);
             //вывод всей таблицы
             PrintTable printTable = new PrintTable(view);
-            printTable.printTable(arrWidthAttribute, attributes, dataSets);
+            printTable.printTable(arrWidthAttribute, attributes, dataSetsAfter);
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("Ошибка удаления записи в таблице %s, по причине: %s", nameTable, e.getMessage()));
+            throw new RuntimeException(String.format("Ошибка удаления записи в таблице %s, по причине: %s",
+                    nameTable, e.getMessage()));
         }
     }
 
@@ -58,6 +64,6 @@ public class Delete implements Command {
 
     @Override
     public String describeCommand() {
-        return "Удаление записи в таблице tableName, где columnName = columnValue";
+        return "Удаление записи в таблице 'tableName', где columnName = columnValue";
     }
 }

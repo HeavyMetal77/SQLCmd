@@ -4,6 +4,7 @@ import model.DBManager;
 import view.View;
 
 import java.sql.SQLException;
+import java.util.Set;
 
 public class Tables implements Command {
 
@@ -23,7 +24,14 @@ public class Tables implements Command {
     @Override
     public void process(String command) {
         try {
-            view.write(dbManager.getTables().toString());
+            Set<String> set = dbManager.getTables();
+            if (!set.isEmpty()) {
+                String tables = set.toString();
+                String result = tables.substring(1, tables.length() - 1);
+                view.write(String.format("База данных содержит таблицы: %s", result));
+            } else {
+                view.write("В базе данных таблицы отсутствуют");
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e.getCause());
         }

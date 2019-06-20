@@ -14,8 +14,8 @@ public class IntegrationTest {
     private ConfigurableInputStream in;
     private ByteArrayOutputStream out;
     private String connectLogin = "connect|sqlcmd|sqlcmd|sqlcmd";
-    private String listTables = "[category, contact_type, contact_value, contact]";
-    private String listTablesAfterTest = "[category, contact_type, contact_value, contact, testtable]";
+    private String listTables = "База данных содержит таблицы: category, contact_type, contact_value, contact";
+    private String listTablesAfterTest = "База данных содержит таблицы: category, contact_type, contact_value, contact, testtable";
 
     @Before
     public void setup() {
@@ -79,7 +79,7 @@ public class IntegrationTest {
                 "\t\tВывод содержимого таблицы 'tableName'\r\n" +
                 "\r\n" +
                 "\tcreateTable|tableName|column1|column2|...|columnN\r\n" +
-                "\t\tСоздать таблицу 'tableName' с колонками 'column1'...'columnN'\r\n" +
+                "\t\tСоздать таблицу 'tableName' с колонками 'column1'...'columnN', при этом автоматически создается колонка id с автоинкрементом\r\n" +
                 "\r\n" +
                 "\tinsert|tableName|column1|value1|column2|value2|...\r\n" +
                 "\t\tвставить данные в таблицу 'tableName': 'column1|value1|column2|value2'...\r\n" +
@@ -94,7 +94,7 @@ public class IntegrationTest {
                 "\t\tОчистка содержимого таблицы 'tableName'\r\n" +
                 "\r\n" +
                 "\tdelete|tableName|columnName|columnValue\r\n" +
-                "\t\tУдаление записи в таблице tableName, где columnName = columnValue\r\n" +
+                "\t\tУдаление записи в таблице 'tableName', где columnName = columnValue\r\n" +
                 "\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
@@ -142,6 +142,27 @@ public class IntegrationTest {
                 "Программа завершила работу\r\n", getData());
     }
 
+    @Test
+    public void testConnectWithWrongParameters() {
+        //given
+        in.add("connect|sqlcmd|wrongLogin|wrongPassword");
+        in.add("exit");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect|sqlcmd
+                "Ошибка! Причина: Ошибка подключения к базе данных!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
 
     @Test
     public void testCreateTableAfterConnectWithNotEnoughParameters() {
@@ -329,11 +350,10 @@ public class IntegrationTest {
         in.add(connectLogin);
         in.add("drop|testtable");
         in.add("createTable|testtable|name|surname");
-        in.add("insert|testtable|id|1|name|Will|surname|Smith");
+        in.add("insert|testtable|name|Will|surname|Smith");
         in.add("find|testtable");
         in.add("drop|testtable");
         in.add("tables");
-
         in.add("exit");
 
         //when
@@ -349,23 +369,23 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //drop
-                "TABLE testtable was successfully deleted!\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //create
-                "TABLE testtable was successfully created!\r\n" +
+                "Таблица testtable была успешно создана!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //insert
                 "Данные успешно вставлены!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //find
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+1          +Will                                              +Smith                                             +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+----+------+---------+\r\n" +
+                "+ id + name + surname +\r\n" +
+                "+----+------+---------+\r\n" +
+                "+ 1  + Will + Smith   +\r\n" +
+                "+----+------+---------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //drop
-                "TABLE testtable was successfully deleted!\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //tables
                 listTables + "\r\n" +
@@ -394,14 +414,14 @@ public class IntegrationTest {
                 "или 'help' для получения помощи\r\n" +
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                "TABLE testtable was successfully deleted!\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                "TABLE testtable was successfully created!\r\n" +
+                "Таблица testtable была успешно создана!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+----+------+---------+\r\n" +
+                "+ id + name + surname +\r\n" +
+                "+----+------+---------+\r\n" +
+                "+----+------+---------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 "Программа завершила работу\r\n", getData());
     }
@@ -464,7 +484,7 @@ public class IntegrationTest {
         in.add(connectLogin);
         in.add("drop|testtable");
         in.add("createTable|testtable|name|surname");
-        in.add("insert|testtable|id|1|name|Will|surname|Smith");
+        in.add("insert|testtable|name|Will|surname|Smith");
         in.add("find|testtable");
         in.add("clear|testtable");
         in.add("find|testtable");
@@ -483,29 +503,29 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //drop
-                "TABLE testtable was successfully deleted!\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //create
-                "TABLE testtable was successfully created!\r\n" +
+                "Таблица testtable была успешно создана!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //insert
                 "Данные успешно вставлены!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //find
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+1          +Will                                              +Smith                                             +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+----+------+---------+\r\n" +
+                "+ id + name + surname +\r\n" +
+                "+----+------+---------+\r\n" +
+                "+ 1  + Will + Smith   +\r\n" +
+                "+----+------+---------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //clear
                 "TABLE testtable was successfully clear!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //find
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+----+------+---------+\r\n" +
+                "+ id + name + surname +\r\n" +
+                "+----+------+---------+\r\n" +
+                "+----+------+---------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -532,10 +552,10 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //createTable
-                "TABLE testtable was successfully created!\r\n" +
+                "Таблица testtable была успешно создана!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //drop
-                "TABLE testtable was successfully deleted!\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -589,10 +609,10 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //drop
-                "TABLE testtable was successfully deleted!\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //create
-                "TABLE testtable was successfully created!\r\n" +
+                "Таблица testtable была успешно создана!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //tables
                 listTablesAfterTest + "\r\n" +
@@ -605,8 +625,9 @@ public class IntegrationTest {
     public void testInsertSuccessAfterConnect() {
         //given
         in.add(connectLogin);
+        in.add("drop|testtable");
         in.add("createTable|testtable|name|surname");
-        in.add("insert|testtable|id|1|name|Herbert|surname|Schildt");
+        in.add("insert|testtable|name|Herbert|surname|Schildt");
         in.add("find|testtable");
         in.add("drop|testtable");
         in.add("exit");
@@ -623,21 +644,24 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
+                //drop
+                "Таблица testtable была успешно удалена!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
                 //create
-                "TABLE testtable was successfully created!\r\n" +
+                "Таблица testtable была успешно создана!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //insert
                 "Данные успешно вставлены!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //find
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+1          +Herbert                                           +Schildt                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+----+---------+---------+\r\n" +
+                "+ id + name    + surname +\r\n" +
+                "+----+---------+---------+\r\n" +
+                "+ 1  + Herbert + Schildt +\r\n" +
+                "+----+---------+---------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //drop
-                "TABLE testtable was successfully deleted!\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -648,7 +672,7 @@ public class IntegrationTest {
     public void testInsertErrorAfterConnect() {
         //given
         in.add(connectLogin);
-        in.add("insert|testnonexist|id|9|nametest2|test177|field1|test818");
+        in.add("insert|testnonexist|nametest2|test177|field1|test818");
         in.add("exit");
 
         //when
@@ -677,7 +701,7 @@ public class IntegrationTest {
         //given
         in.add(connectLogin);
         in.add("createTable|testtable|name|surname");
-        in.add("insert|testtable|id|1|name|Herbert|surname|Schildt");
+        in.add("insert|testtable|name|Herbert|surname|Schildt");
         in.add("find|testtable");
         in.add("update|testtable|id|1|name|Cay|surname|Horstmann");
         in.add("drop|testtable");
@@ -695,28 +719,28 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //create
-                "TABLE testtable was successfully created!\r\n" +
+                "Таблица testtable была успешно создана!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //insert
                 "Данные успешно вставлены!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //find
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+1          +Herbert                                           +Schildt                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+----+---------+---------+\r\n" +
+                "+ id + name    + surname +\r\n" +
+                "+----+---------+---------+\r\n" +
+                "+ 1  + Herbert + Schildt +\r\n" +
+                "+----+---------+---------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //update
                 "Данные успешно обновлены!\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+1          +Cay                                               +Horstmann                                         +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+----+------+-----------+\r\n" +
+                "+ id + name + surname   +\r\n" +
+                "+----+------+-----------+\r\n" +
+                "+ 1  + Cay  + Horstmann +\r\n" +
+                "+----+------+-----------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //delete
-                "TABLE testtable was successfully deleted!\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -804,7 +828,7 @@ public class IntegrationTest {
         //given
         in.add(connectLogin);
         in.add("createTable|testtable|name|surname");
-        in.add("insert|testtable|id|1|name|Herbert|surname|Schildt");
+        in.add("insert|testtable|name|Herbert|surname|Schildt");
         in.add("find|testtable");
         in.add("delete|testtable|id|1");
         in.add("drop|testtable");
@@ -822,27 +846,27 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //create
-                "TABLE testtable was successfully created!\r\n" +
+                "Таблица testtable была успешно создана!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //insert
                 "Данные успешно вставлены!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //find
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+1          +Herbert                                           +Schildt                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "+----+---------+---------+\r\n" +
+                "+ id + name    + surname +\r\n" +
+                "+----+---------+---------+\r\n" +
+                "+ 1  + Herbert + Schildt +\r\n" +
+                "+----+---------+---------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //delete
-                "Record testtable was successfully deleted!\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+id         +name                                              +surname                                           +\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
-                "+-----------+--------------------------------------------------+--------------------------------------------------+\r\n" +
+                "Запись в таблице testtable со значением id = 1  была успешно удалена!\r\n" +
+                "+----+------+---------+\r\n" +
+                "+ id + name + surname +\r\n" +
+                "+----+------+---------+\r\n" +
+                "+----+------+---------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //drop
-                "TABLE testtable was successfully deleted!\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -868,8 +892,7 @@ public class IntegrationTest {
                 "Введи команду или 'help' для помощи:\r\n" +
                 //delete
                 "Ошибка! Причина: Ошибка удаления записи в таблице nonexist, по причине: " +
-                "ERROR: relation \"nonexist\" does not exist\n" +
-                "  Position: 13\r\n" +
+                "Таблицы nonexist не существует!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());

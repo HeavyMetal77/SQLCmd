@@ -40,7 +40,7 @@ public class CreateTable implements Command {
         String requestSql = getRequest(nameTable, nameColumns);
         try {
             dbManager.createTable(requestSql);
-            view.write("TABLE " + nameTable + " was successfully created!");
+            view.write("Таблица " + nameTable + " была успешно создана!");
         } catch (Exception e) {
             throw new RuntimeException(String.format("Ошибка создания таблицы %s, по причине: %s", nameTable, e.getMessage()));
         }
@@ -53,12 +53,13 @@ public class CreateTable implements Command {
 
     @Override
     public String describeCommand() {
-        return "Создать таблицу 'tableName' с колонками 'column1'...'columnN'";
+        return "Создать таблицу 'tableName' с колонками 'column1'...'columnN', " +
+                "при этом автоматически создается колонка id с автоинкрементом";
     }
 
     private String getRequest(String nameTable, String[] nameColumns) {
         String requestSql = "CREATE TABLE IF NOT EXISTS " +
-                nameTable + " (ID INT PRIMARY KEY NOT NULL,"; //TODO hardcode delete
+                nameTable + " (ID SERIAL PRIMARY KEY,";
         String textNameColumn = "";
         for (String text : nameColumns) {
             textNameColumn += " " + text + " TEXT NOT NULL,";

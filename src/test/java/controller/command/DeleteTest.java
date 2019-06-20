@@ -44,4 +44,18 @@ public class DeleteTest {
         //then
         assertFalse(canProcess);
     }
+
+    @Test
+    public void testProcessWithLessThenNeedParameters() {
+        //when
+        command.process("delete|tableName|columnName");
+        Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
+    }
+
+    @Test
+    public void testProcessWithWrongNameTable() {
+        //when
+        command.process("delete|nonExistTableName|columnName|columnValue");
+        Mockito.verify(view).write("Удаление не произведено!");
+    }
 }

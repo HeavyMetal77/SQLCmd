@@ -19,11 +19,7 @@ public class JDBCDBManager implements DBManager {
     }
 
     public void setConnection(ConnectionManager connectionManager) throws Exception {
-        try {
             this.connection = connectionManager.getConnection();
-        } finally {
-            connection.close();
-        }
     }
 
     //получить соединение с БД
@@ -34,6 +30,16 @@ public class JDBCDBManager implements DBManager {
             connection = connectionManager.getConnection();
         } else {
             connection = connectionManager.getConnectionWithAuthorization(database, login, password);
+        }
+    }
+
+    public void closeOpenedConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                throw new RuntimeException();
+            }
         }
     }
 
@@ -109,31 +115,43 @@ public class JDBCDBManager implements DBManager {
         }
     }
 
-    //возвращает массив значений ширины каждого аттрибута
+    //возвращает список значений ширины каждого аттрибута
     @Override
     public ArrayList<Integer> getWidthAtribute(String nameTable) throws SQLException {
-        ResultSet resultSet = getResultSet(nameTable);
-        //количество атрибутов таблицы
-        int columnCount = resultSet.getMetaData().getColumnCount();
-        //создаю массив, который содержит размеры (ширину) всех атрибутов таблицы
-        //атрибуты нумеруются в БД начиная с 1, поэтом i=1
-        ArrayList<Integer> arrWidthAttribute = new ArrayList<>(columnCount);
-        for (int i = 1; i <= columnCount; i++) {
-            int lengthColumn = resultSet.getMetaData().getColumnDisplaySize(i);
-            //если ширина колонки больше 50 установить ее в 50
-            if (lengthColumn > 50) {
-                lengthColumn = 50;
+        List<DataSet> dataSets = getDataSetTable(nameTable);
+        ArrayList<Integer> arrWidthAttribute = new ArrayList<>();
+        if (!dataSets.isEmpty()) {
+            Set<String> names = dataSets.get(0).getNames();
+            for (String name : names) {
+                arrWidthAttribute.add(name.length());
             }
-            //если ширина колонки меньше чем длинна ее заголовка - увеличить ширину
-            if (lengthColumn < resultSet.getMetaData().getColumnName(i).length())
-                lengthColumn = resultSet.getMetaData().getColumnName(i).length();
-            //ширина колонки
-            arrWidthAttribute.add(lengthColumn);
+            for (int i = 0; i < dataSets.size(); i++) {
+                List<Object> values = dataSets.get(i).getValues();
+                for (int j = 0; j < arrWidthAttribute.size(); j++) {
+                    int lengthAttr = arrWidthAttribute.get(j);
+                    if (!(values.get(j) == null)) {
+                        int lengthValue = values.get(j).toString().length();
+                        if (lengthAttr < lengthValue) {
+                            lengthAttr = lengthValue;
+                        }
+                    } else {
+                        if (lengthAttr < 4) {
+                            lengthAttr = 4;
+                        }
+                    }
+                    arrWidthAttribute.set(j, lengthAttr);
+                }
+            }
+        } else {
+            Set<String> atribute = getAtribute(nameTable);
+            for (String atr : atribute) {
+                arrWidthAttribute.add(atr.length());
+            }
         }
         return arrWidthAttribute;
     }
 
-    //вовзращает массив атрибутов таблицы
+    //вовзращает множество (список) атрибутов таблицы
     @Override
     public Set<String> getAtribute(String nameTable) throws SQLException {
         ResultSet resultSet = getResultSet(nameTable);

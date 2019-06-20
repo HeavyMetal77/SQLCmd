@@ -64,7 +64,12 @@ public class MainController {
                 view.write(enterCommandOrHelp);
             } catch (Exception e) {
                 if (e instanceof ExitException) {
-                    throw new ExitException();
+                    try {
+                        dbManager.closeOpenedConnection();
+                        break;
+                    } catch (Exception ex) {
+                        throw new ExitException();
+                    }
                 }
                 printError(e);
             }

@@ -46,7 +46,7 @@ public class Update implements Command {
         try {
             dbManager.update(nameTable, column1, value1, dataSets);
             view.write("Данные успешно обновлены!");
-            //Согласно ТЗ - Формат вывода: табличный, как при find со ????старыми значениями удаляемых записей.
+            //Согласно ТЗ - Формат вывода: табличный
             //список с размерами (шириной) каждого атрибута таблицы
             ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
             //список датасетов таблицы

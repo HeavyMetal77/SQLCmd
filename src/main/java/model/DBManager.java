@@ -54,4 +54,6 @@ public interface DBManager {
 
     //удаление записи в таблице
     void delete(String nameTable, String columnName, String columnValue) throws SQLException;
+
+    void closeOpenedConnection();
 }

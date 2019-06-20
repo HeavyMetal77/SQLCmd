@@ -38,7 +38,6 @@ public class ExitUnitTest {
 
         //when
         try {
-
             command.process("exit");
             fail("Expected ExitException");
         } catch (ExitException e) {

@@ -9,7 +9,7 @@ import view.View;
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
-public class ConnectTest {
+public class DropTest {
     private View view;
     private DBManager dbManager;
     private Command command;
@@ -18,13 +18,13 @@ public class ConnectTest {
     public void setup() {
         dbManager = Mockito.mock(DBManager.class);
         view = Mockito.mock(View.class);
-        command = new Connect(dbManager, view);
+        command = new Drop(dbManager, view);
     }
 
     @Test
     public void testCanProcessWithParameters() {
         //when
-        boolean canProcess = command.canProcess("connect|sqlcmd|sqlcmd|sqlcmd");
+        boolean canProcess = command.canProcess("drop|tableName");
         //then
         assertTrue(canProcess);
     }
@@ -32,7 +32,7 @@ public class ConnectTest {
     @Test
     public void testCanProcessWithoutParameters() {
         //when
-        boolean canProcess = command.canProcess("connect");
+        boolean canProcess = command.canProcess("drop");
         //then
         assertFalse(canProcess);
     }
@@ -40,22 +40,8 @@ public class ConnectTest {
     @Test
     public void testCanProcessNonExistCommand() {
         //when
-        boolean canProcess = command.canProcess("connectdtdkhg|test");
+        boolean canProcess = command.canProcess("droptdkhg|tableName");
         //then
         assertFalse(canProcess);
-    }
-
-    @Test
-    public void testProcessWithMoreThenNeedParameters() {
-        //when
-        command.process("connect|sqlcmd|sqlcmd|sqlcmd|sqlcmd");
-        Mockito.verify(view).write("Неверное количество параметров: ожидается: 4, введено: 5");
-    }
-
-    @Test
-    public void testProcessWithLessThenNeedParameters() {
-        //when
-        command.process("connect|sqlcmd");
-        Mockito.verify(view).write("Неверное количество параметров: ожидается: 4, введено: 2");
     }
 }
