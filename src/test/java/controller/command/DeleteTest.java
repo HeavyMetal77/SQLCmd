@@ -6,8 +6,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import view.View;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 public class DeleteTest {
     private View view;
@@ -49,6 +48,7 @@ public class DeleteTest {
     public void testProcessWithLessThenNeedParameters() {
         //when
         command.process("delete|tableName|columnName");
+        //then
         Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
     }
 
@@ -56,6 +56,23 @@ public class DeleteTest {
     public void testProcessWithWrongNameTable() {
         //when
         command.process("delete|nonExistTableName|columnName|columnValue");
+        //then
         Mockito.verify(view).write("Удаление не произведено!");
+    }
+
+    @Test
+    public void formatCommand() {
+        //when
+        String format = command.formatCommand();
+        //then
+        assertEquals("delete|tableName|columnName|columnValue", format);
+    }
+
+    @Test
+    public void describeCommand() {
+        //when
+        String format = command.describeCommand();
+        //then
+        assertEquals("Удаление записи в таблице 'tableName', где columnName = columnValue", format);
     }
 }

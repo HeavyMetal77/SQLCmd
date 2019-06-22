@@ -2,15 +2,10 @@ package model;
 
 import model.configuration.ConnectionManager;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 public class JDBCDBManager implements DBManager {
-    public static final String JDBC_POSTGRESQL_LOCALHOST = "jdbc:postgresql://localhost:5432/";
-    private static final String JDBC_POSTGRESQL_DRIVER = "org.postgresql.Driver";
     private Connection connection;
     private ConnectionManager connectionManager;
 
@@ -41,6 +36,32 @@ public class JDBCDBManager implements DBManager {
                 throw new RuntimeException();
             }
         }
+    }
+
+    //создать базу данных
+    @Override
+    public void createDatabase(String databaseName) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("CREATE DATABASE " + databaseName);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getCause());
+        }
+    }
+
+    @Override
+    public Set<String> getDatabases() {
+        Set<String> list = new LinkedHashSet<>();
+
+        try (PreparedStatement ps = connection.prepareStatement(
+                "SELECT datname FROM pg_database WHERE datistemplate = false;");
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            list = null;
+        }
+        return list;
     }
 
     //получить названия всех таблиц БД

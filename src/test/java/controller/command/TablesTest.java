@@ -1,5 +1,6 @@
 package controller.command;
 
+import junit.framework.TestCase;
 import model.DBManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,6 +62,22 @@ public class TablesTest {
         }
         command.process(("tables"));
         shouldPrint("[В базе данных таблицы отсутствуют]");
+    }
+
+    @Test
+    public void formatCommand() {
+        //when
+        String format = command.formatCommand();
+        //then
+        TestCase.assertEquals("tables", format);
+    }
+
+    @Test
+    public void describeCommand() {
+        //when
+        String format = command.describeCommand();
+        //then
+        TestCase.assertEquals("Вывод списка всех таблиц", format);
     }
 
     private void shouldPrint(String expected) {

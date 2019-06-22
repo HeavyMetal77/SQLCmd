@@ -1,5 +1,6 @@
 package controller.command;
 
+import junit.framework.TestCase;
 import model.DBManager;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,5 +49,21 @@ public class InsertTest {
         command.process("insert|user|name");
         //then
         verify(view).write("Количество параметров не соответствует шаблону!");
+    }
+
+    @Test
+    public void formatCommand() {
+        //when
+        String format = command.formatCommand();
+        //then
+        TestCase.assertEquals("insert|tableName|column1|value1|column2|value2|...", format);
+    }
+
+    @Test
+    public void describeCommand() {
+        //when
+        String format = command.describeCommand();
+        //then
+        TestCase.assertEquals("Вставить данные в таблицу 'tableName': 'column1|value1|column2|value2'...", format);
     }
 }

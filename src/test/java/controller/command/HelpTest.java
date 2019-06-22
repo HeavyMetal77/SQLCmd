@@ -7,8 +7,7 @@ import view.View;
 
 import java.util.ArrayList;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 public class HelpTest {
     private View view;
@@ -42,5 +41,21 @@ public class HelpTest {
         command.process("help");
         //then
         Mockito.verify(view).write("Существующие команды:");
+    }
+
+    @Test
+    public void formatCommand() {
+        //when
+        String format = command.formatCommand();
+        //then
+        assertEquals(null, format);
+    }
+
+    @Test
+    public void describeCommand() {
+        //when
+        String format = command.describeCommand();
+        //then
+        assertEquals(null, format);
     }
 }

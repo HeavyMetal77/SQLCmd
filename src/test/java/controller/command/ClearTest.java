@@ -8,14 +8,13 @@ import view.View;
 
 import java.sql.SQLException;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
+import static org.mockito.Mockito.verify;
 
 public class ClearTest {
-    private View view;
     private DBManager dbManager;
     private Command command;
-
+    private View view;
 
     @Before
     public void setup() {
@@ -30,11 +29,11 @@ public class ClearTest {
         command.process("clear|test");
         //then
         try {
-            Mockito.verify(dbManager).clear("test");
+            verify(dbManager).clear("test");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Mockito.verify(view).write("TABLE test was successfully clear!");
+        verify(view).write("Таблица test была успешно очищена!");
     }
 
     @Test
@@ -65,13 +64,30 @@ public class ClearTest {
     public void testProcessWithMoreThen2Parameters() {
         //when
         command.process("clear|test|morethen2");
-        Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
+        verify(view).write("Количество параметров не соответствует шаблону!");
     }
 
     @Test
     public void testProcessWithLessThen2Parameters() {
         //when
         command.process("clear");
-        Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
+        //then
+        verify(view).write("Количество параметров не соответствует шаблону!");
+    }
+
+    @Test
+    public void formatCommand() {
+        //when
+        String format = command.formatCommand();
+        //then
+        assertEquals("clear|tableName", format);
+    }
+
+    @Test
+    public void describeCommand() {
+        //when
+        String format = command.describeCommand();
+        //then
+        assertEquals("Очистка содержимого таблицы 'tableName'", format);
     }
 }

@@ -6,8 +6,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import view.View;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 public class CreateTableTest {
     private View view;
@@ -49,6 +48,7 @@ public class CreateTableTest {
     public void testProcessWithLessThenNeedParameters() {
         //when
         command.process("createTabledtdkhg|tableName");
+        //then
         Mockito.verify(view).write("Количество параметров не соответствует шаблону!");
     }
 
@@ -56,6 +56,7 @@ public class CreateTableTest {
     public void testProcessWithWrongNameTable() {
         //when
         command.process("createTable|1tableName|column1|column2");
+        //then
         Mockito.verify(view).write("Таблица не может называться 1tableName!");
         Mockito.verify(view).write("Имя таблицы должно начинаться только с буквы, длинной не меньше 3 символов!");
     }
@@ -64,7 +65,25 @@ public class CreateTableTest {
     public void testProcessWithWrongNameTableNotEnoughLetters() {
         //when
         command.process("createTable|ta|column1|column2");
+        //then
         Mockito.verify(view).write("Таблица не может называться ta!");
         Mockito.verify(view).write("Имя таблицы должно начинаться только с буквы, длинной не меньше 3 символов!");
+    }
+
+    @Test
+    public void formatCommand() {
+        //when
+        String format = command.formatCommand();
+        //then
+        assertEquals("createTable|tableName|column1|column2|...|columnN", format);
+    }
+
+    @Test
+    public void describeCommand() {
+        //when
+        String format = command.describeCommand();
+        //then
+        assertEquals("Создать таблицу 'tableName' с колонками 'column1'...'columnN', " +
+                "при этом автоматически создается колонка id с автоинкрементом", format);
     }
 }

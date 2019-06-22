@@ -78,7 +78,6 @@ public class FindTest {
     public void testCantProcessWithParameters() {
         //when
         boolean canProcess = command.canProcess("find|contact");
-
         //then
         assertTrue(canProcess);
     }
@@ -87,7 +86,6 @@ public class FindTest {
     public void testCantProcessWithoutParameters() {
         //when
         boolean canProcess = command.canProcess("find");
-
         //then
         assertFalse(canProcess);
     }
@@ -112,7 +110,6 @@ public class FindTest {
     public void testCantProcessNonexistCommand() {
         //when
         boolean canProcess = command.canProcess("findkhg|contact");
-
         //then
         assertFalse(canProcess);
     }
@@ -121,7 +118,6 @@ public class FindTest {
     public void testPrintTableDataFromEmptyTable() {
         //given
         String nameTable = "test";
-
         LinkedList<DataSet> dataSets = new LinkedList<>();
         Set<String> attributes = new LinkedHashSet<>(Arrays.asList("id", "nametest2", "field1"));
 
@@ -129,7 +125,6 @@ public class FindTest {
         list.add(5);
         list.add(20);
         list.add(20);
-
         try {
             Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(list);
             Mockito.when(dbManager.getSize(nameTable)).thenReturn(0);
@@ -138,10 +133,8 @@ public class FindTest {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         //when
         command.process("find|test");
-
         //then
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         Mockito.verify(view, Mockito.atLeastOnce()).write(captor.capture());
@@ -151,5 +144,21 @@ public class FindTest {
                         "+-------+----------------------+----------------------+, " +
                         "+-------+----------------------+----------------------+]",
                 captor.getAllValues().toString());
+    }
+
+    @Test
+    public void formatCommand() {
+        //when
+        String format = command.formatCommand();
+        //then
+        assertEquals("find|tableName", format);
+    }
+
+    @Test
+    public void describeCommand() {
+        //when
+        String format = command.describeCommand();
+        //then
+        assertEquals("Вывод содержимого таблицы 'tableName'", format);
     }
 }

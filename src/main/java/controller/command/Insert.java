@@ -56,7 +56,7 @@ public class Insert implements Command {
 
     @Override
     public String describeCommand() {
-        return "вставить данные в таблицу 'tableName': 'column1|value1|column2|value2'...";
+        return "Вставить данные в таблицу 'tableName': 'column1|value1|column2|value2'...";
     }
 
     private String getRequest(String nameTable, DataSet dataSet) {

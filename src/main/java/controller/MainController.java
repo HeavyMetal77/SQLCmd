@@ -81,6 +81,8 @@ public class MainController {
         commands.add(new Help(view, commands));
         commands.add(new Exit(view));
         commands.add(new IsConnected(dbManager, view));
+        commands.add(new CreateDatabase(dbManager, view));
+        commands.add(new Databases(dbManager, view));
         commands.add(new Tables(dbManager, view));
         commands.add(new Find(dbManager, view));
         commands.add(new CreateTable(dbManager, view));

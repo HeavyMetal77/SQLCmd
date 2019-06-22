@@ -72,6 +72,12 @@ public class IntegrationTest {
                 "\texit\r\n" +
                 "\t\tВыход из программы\r\n" +
                 "\r\n" +
+                "\tcreateDB|databaseName\r\n" +
+                "\t\tСоздание новой базы данных (Имя базы должно начинаться с буквы).\r\n" +
+                "\r\n" +
+                "\tdatabases\r\n" +
+                "\t\tПолучение списка баз данных.\r\n" +
+                "\r\n" +
                 "\ttables\r\n" +
                 "\t\tВывод списка всех таблиц\r\n" +
                 "\r\n" +
@@ -82,7 +88,7 @@ public class IntegrationTest {
                 "\t\tСоздать таблицу 'tableName' с колонками 'column1'...'columnN', при этом автоматически создается колонка id с автоинкрементом\r\n" +
                 "\r\n" +
                 "\tinsert|tableName|column1|value1|column2|value2|...\r\n" +
-                "\t\tвставить данные в таблицу 'tableName': 'column1|value1|column2|value2'...\r\n" +
+                "\t\tВставить данные в таблицу 'tableName': 'column1|value1|column2|value2'...\r\n" +
                 "\r\n" +
                 "\tupdate|tableName|column1|value1|column2|value2\r\n" +
                 "\t\tКоманда обновит запись, установив значение column2 = value2, для которой соблюдается условие column1 = value1\r\n" +
@@ -519,7 +525,7 @@ public class IntegrationTest {
                 "+----+------+---------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //clear
-                "TABLE testtable was successfully clear!\r\n" +
+                "Таблица testtable была успешно очищена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //find
                 "+----+------+---------+\r\n" +
@@ -594,6 +600,7 @@ public class IntegrationTest {
         in.add("drop|testtable");
         in.add("createTable|testtable|name|surname");
         in.add("tables");
+        in.add("drop|testtable");
         in.add("exit");
 
         //when
@@ -616,6 +623,8 @@ public class IntegrationTest {
                 "Введи команду или 'help' для помощи:\r\n" +
                 //tables
                 listTablesAfterTest + "\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -893,6 +902,48 @@ public class IntegrationTest {
                 //delete
                 "Ошибка! Причина: Ошибка удаления записи в таблице nonexist, по причине: " +
                 "Таблицы nonexist не существует!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testGetSizeTable() {
+        //given
+        in.add(connectLogin);
+        in.add("drop|testGetSizeTable");
+        in.add("createTable|testGetSizeTable|name|surname");
+        in.add("insert|testGetSizeTable|name|Arun|surname|Gupta");
+        in.add("insert|testGetSizeTable|name|Cay|surname|Horstmann");
+        in.add("find|testGetSizeTable");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //delete
+                "Таблица testGetSizeTable была успешно удалена!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "Таблица testGetSizeTable была успешно создана!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "Данные успешно вставлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "Данные успешно вставлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                "+----+------+-----------+\r\n" +
+                "+ id + name + surname   +\r\n" +
+                "+----+------+-----------+\r\n" +
+                "+ 1  + Arun + Gupta     +\r\n" +
+                "+ 2  + Cay  + Horstmann +\r\n" +
+                "+----+------+-----------+\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
