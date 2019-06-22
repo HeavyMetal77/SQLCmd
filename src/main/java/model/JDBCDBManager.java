@@ -64,6 +64,21 @@ public class JDBCDBManager implements DBManager {
         return list;
     }
 
+    //удаление базы данных
+    @Override
+    public void dropDatabase(String databaseName) {
+        Set<String> listDatabases = getDatabases();
+        if (listDatabases.contains(databaseName)) {
+            try (Statement statement = connection.createStatement()) {
+                statement.executeUpdate("DROP DATABASE " + databaseName);
+            } catch (SQLException e) {
+                throw new RuntimeException(e.getMessage() + " База данных не удалена! Перед удалением, закройте все соединения с ней!");
+            }
+        } else {
+            throw new RuntimeException("Базы данных с таким названием не существует!");
+        }
+    }
+
     //получить названия всех таблиц БД
     @Override
     public Set<String> getTables() throws SQLException {

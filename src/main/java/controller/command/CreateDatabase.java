@@ -33,7 +33,7 @@ public class CreateDatabase implements Command {
 
         String databaseName = commandWithParam[1];
         dbManager.createDatabase(databaseName);
-        view.write(String.format("Database '%s' успешно создана.", databaseName));
+        view.write(String.format("База данных '%s' успешно создана.", databaseName));
 
     }
 

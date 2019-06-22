@@ -96,6 +96,9 @@ public class IntegrationTest {
                 "\tdrop|tableName\r\n" +
                 "\t\tУдалить таблицу 'tableName'\r\n" +
                 "\r\n" +
+                "\tdropDB|databaseName\r\n" +
+                "\t\tУдаление базы данных 'databaseName'. Перед удалением закрыть все соединения!\r\n" +
+                "\r\n" +
                 "\tclear|tableName\r\n" +
                 "\t\tОчистка содержимого таблицы 'tableName'\r\n" +
                 "\r\n" +
@@ -948,6 +951,50 @@ public class IntegrationTest {
                 //exit
                 "Программа завершила работу\r\n", getData());
     }
+
+    @Test
+    public void testCreateDatabaseAfterConnect() {
+        //given
+        in.add(connectLogin);
+        in.add("createDB|databasename");
+        in.add("databases");
+        in.add("createDB|databasename");
+        in.add("dropDB|databasenameWrong");
+        in.add("dropDB|databasename");
+        in.add("exit");
+
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //createDB
+                "База данных 'databasename' успешно создана.\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //databases
+                "Существующие базы данных: postgres, sqlcmd, databasetest, databasename\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //createDB Error
+                "Ошибка! Причина: null\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //dropDB|databasenameWrong
+                "Ошибка! Причина: Базы данных с таким названием не существует!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //dropDB
+                "База данных 'databasename' успешно удалена.\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
 
     private String getData() {
         try {

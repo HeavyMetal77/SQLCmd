@@ -24,13 +24,11 @@ public class CreateTable implements Command {
             view.write("Количество параметров не соответствует шаблону!");
             return;
         }
-
         if (!commandWithParam[1].matches("[a-zA-Z]{3,}")) {
             view.write("Таблица не может называться " + commandWithParam[1] + "!");
             view.write("Имя таблицы должно начинаться только с буквы, длинной не меньше 3 символов!");
             return;
         }
-
         String nameTable = commandWithParam[1];
         //создаем массив названий столбцов (короче на 2 параметра - минус команда и название табл
         String[] nameColumns = new String[commandWithParam.length - 2];

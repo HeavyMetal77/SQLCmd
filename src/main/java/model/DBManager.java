@@ -63,4 +63,7 @@ public interface DBManager {
 
     //получить список всех баз данных
     Set<String> getDatabases();
+
+    //удалить базу данных
+    void dropDatabase(String databaseName);
 }
