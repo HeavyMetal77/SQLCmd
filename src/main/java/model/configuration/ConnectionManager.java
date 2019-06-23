@@ -54,7 +54,6 @@ public class ConnectionManager {
             } catch (Exception e) {
                 throw new Exception("Отсутствует драйвер базы данных!", e);
             }
-
             connection = DriverManager.getConnection(
                     JDBC_POSTGRESQL_LOCALHOST + database, login, password);
         }

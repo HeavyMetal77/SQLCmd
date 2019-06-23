@@ -7,7 +7,6 @@ public class IsConnected implements Command {
     private DBManager dbManager;
     private View view;
 
-
     public IsConnected(DBManager dbManager, View view) {
         this.dbManager = dbManager;
         this.view = view;

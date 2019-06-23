@@ -35,7 +35,6 @@ public class Update implements Command {
         String nameTable = commandWithParam[1];
         String column1 = commandWithParam[2];
         String value1 = commandWithParam[3];
-
         int lengthData = (commandWithParam.length - 4) / 2;
         DataSet dataSets = new DataSetImpl();
         for (int i = 0, j = 4; i < lengthData; i++, j += 2) {

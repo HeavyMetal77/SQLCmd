@@ -20,7 +20,7 @@ public class JDBCDBManagerTest {
     public void setup() {
         manager = new JDBCDBManager();
         try {
-            manager.connect("sqlcmd", "sqlcmd", "");
+            manager.connect("databasetest", "sqlcmd", "");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,7 +54,7 @@ public class JDBCDBManagerTest {
         //when
         Set<String> tablesNames = manager.getTables();
         //then
-        assertEquals("[category, contact_type, contact_value, contact, testgetsizetable]",
+        assertEquals("[testgetsizetable]",
                 tablesNames.toString());
     }
 

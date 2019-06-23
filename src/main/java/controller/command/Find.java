@@ -31,14 +31,14 @@ public class Find implements Command {
         }
         String nameTable = commandWithParam[1];
         //список с размерами (шириной) каждого атрибута таблицы
-            List<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
-            //список датасетов таблицы
-            List<DataSet> dataSets = dbManager.getDataSetTable(nameTable);
-            //коллекция атрибутов (названий колонок) таблицы
-            Set<String> attributes = dbManager.getAtribute(nameTable);
-            //вывод всей таблицы
-            PrintTable printTable = new PrintTable(view);
-            printTable.printTable(arrWidthAttribute, attributes, dataSets);
+        List<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
+        //список датасетов таблицы
+        List<DataSet> dataSets = dbManager.getDataSetTable(nameTable);
+        //коллекция атрибутов (названий колонок) таблицы
+        Set<String> attributes = dbManager.getAtribute(nameTable);
+        //вывод всей таблицы
+        PrintTable printTable = new PrintTable(view);
+        printTable.printTable(arrWidthAttribute, attributes, dataSets);
     }
 
     @Override

@@ -13,9 +13,9 @@ import static org.junit.Assert.assertEquals;
 public class IntegrationTest {
     private ConfigurableInputStream in;
     private ByteArrayOutputStream out;
-    private String connectLogin = "connect|sqlcmd|sqlcmd|sqlcmd";
-    private String listTables = "База данных содержит таблицы: category, contact_type, contact_value, contact";
-    private String listTablesAfterTest = "База данных содержит таблицы: category, contact_type, contact_value, contact, testtable";
+    private String connectLogin = "connect|databasetest|sqlcmd|sqlcmd";
+    private String listTables = "В базе данных таблицы отсутствуют";
+    private String listTablesAfterTest = "База данных содержит таблицы: testtable";
 
     @Before
     public void setup() {
@@ -986,6 +986,47 @@ public class IntegrationTest {
                 "Введи команду или 'help' для помощи:\r\n" +
                 //dropDB
                 "База данных 'databasename' успешно удалена.\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //exit
+                "Программа завершила работу\r\n", getData());
+    }
+
+    @Test
+    public void testPrintTableAfterConnectWithSmallColumn() {
+        //given
+        in.add(connectLogin);
+        in.add("createTable|testtable|name|b");
+        in.add("insert|testtable|name|Herbert|b|true");
+        in.add("find|testtable");
+        in.add("drop|testtable");
+
+        //when
+        Main.main(new String[0]);
+
+        //then
+        assertEquals("Привет пользователь!\r\n" +
+                "Файл конфигурации не загружен!\r\n" +
+                "Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: \n" +
+                "'connect|database|user|password' \n" +
+                "или 'help' для получения помощи\r\n" +
+                //connect
+                "Подключение к базе выполнено успешно!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //create
+                "Таблица testtable была успешно создана!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //insert
+                "Данные успешно вставлены!\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //find
+                "+----+---------+------+\r\n" +
+                "+ id + name    + b    +\r\n" +
+                "+----+---------+------+\r\n" +
+                "+ 1  + Herbert + true +\r\n" +
+                "+----+---------+------+\r\n" +
+                "Введи команду или 'help' для помощи:\r\n" +
+                //delete
+                "Таблица testtable была успешно удалена!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());

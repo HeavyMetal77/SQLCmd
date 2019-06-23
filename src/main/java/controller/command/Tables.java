@@ -22,14 +22,14 @@ public class Tables implements Command {
 
     @Override
     public void process(String command) {
-            Set<String> set = dbManager.getTables();
-            if (!set.isEmpty()) {
-                String tables = set.toString();
-                String result = tables.substring(1, tables.length() - 1);
-                view.write(String.format("База данных содержит таблицы: %s", result));
-            } else {
-                view.write("В базе данных таблицы отсутствуют");
-            }
+        Set<String> set = dbManager.getTables();
+        if (!set.isEmpty()) {
+            String tables = set.toString();
+            String result = tables.substring(1, tables.length() - 1);
+            view.write(String.format("База данных содержит таблицы: %s", result));
+        } else {
+            view.write("В базе данных таблицы отсутствуют");
+        }
     }
 
     @Override

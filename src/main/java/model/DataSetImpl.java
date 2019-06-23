@@ -3,7 +3,6 @@ package model;
 import java.util.*;
 
 public class DataSetImpl implements DataSet {
-
     private Map<String, Object> data = new LinkedHashMap<>();
 
     @Override

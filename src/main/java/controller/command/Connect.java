@@ -29,7 +29,6 @@ public class Connect implements Command {
         String database = data[1];
         String user = data[2];
         String password = data[3];
-
         try {
             dbManager.connect(database, user, password);
             view.write("Подключение к базе выполнено успешно!");

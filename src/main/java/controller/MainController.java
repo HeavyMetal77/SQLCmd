@@ -15,7 +15,6 @@ public class MainController {
     private DBManager dbManager;
     String enterCommandOrHelp = "Введи команду или 'help' для помощи:";
 
-
     public MainController(View view, DBManager dbManager) {
         this.view = view;
         this.dbManager = dbManager;
