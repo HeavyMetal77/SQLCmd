@@ -124,10 +124,10 @@ public class JDBCDBManager implements DBManager {
     @Override
     public ResultSet getResultSet(String nameTable) throws SQLException {
         String requestSql = "SELECT * FROM " + nameTable;
-        Statement stmt = null;
-        stmt = connection.createStatement();
         ResultSet resultSet;
+        Statement stmt = null;
         try {
+            stmt = connection.createStatement();
             resultSet = stmt.executeQuery(requestSql);
         } catch (SQLException e) {
             throw new SQLException(String.format("Таблицы %s не существует!", nameTable));
@@ -153,26 +153,26 @@ public class JDBCDBManager implements DBManager {
 
     //возвращает список значений ширины каждого аттрибута
     @Override
-    public ArrayList<Integer> getWidthAtribute(String nameTable) throws SQLException {
+    public List<Integer> getWidthAtribute(String nameTable) throws SQLException {
         List<DataSet> dataSets = getDataSetTable(nameTable);
-        ArrayList<Integer> arrWidthAttribute = new ArrayList<>();
+        List<Integer> arrWidthAttribute = new ArrayList<>();
         if (!dataSets.isEmpty()) {
             Set<String> names = dataSets.get(0).getNames();
             for (String name : names) {
                 arrWidthAttribute.add(name.length());
             }
-            for (int i = 0; i < dataSets.size(); i++) {
-                List<Object> values = dataSets.get(i).getValues();
+            for (DataSet dataSet : dataSets) {
+                List<Object> values = dataSet.getValues();
                 for (int j = 0; j < arrWidthAttribute.size(); j++) {
                     int lengthAttr = arrWidthAttribute.get(j);
-                    if (!(values.get(j) == null)) {
+                    if (values.get(j) == null) {
+                        if (lengthAttr < 4) {
+                            lengthAttr = 4;
+                        }
+                    } else {
                         int lengthValue = values.get(j).toString().length();
                         if (lengthAttr < lengthValue) {
                             lengthAttr = lengthValue;
-                        }
-                    } else {
-                        if (lengthAttr < 4) {
-                            lengthAttr = 4;
                         }
                     }
                     arrWidthAttribute.set(j, lengthAttr);

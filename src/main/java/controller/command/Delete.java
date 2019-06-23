@@ -6,7 +6,6 @@ import view.PrintTable;
 import view.View;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -45,7 +44,7 @@ public class Delete implements Command {
                 view.write("Удаление не произведено!");
             }
             //список с размерами (шириной) каждого атрибута таблицы
-            ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
+            List<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
             //коллекция атрибутов (названий колонок) таблицы
             Set<String> attributes = dbManager.getAtribute(nameTable);
             //вывод всей таблицы

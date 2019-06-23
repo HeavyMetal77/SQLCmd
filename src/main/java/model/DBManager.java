@@ -5,7 +5,6 @@ import model.configuration.ConnectionManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -32,7 +31,7 @@ public interface DBManager {
     int getSize(String tableName) throws SQLException;
 
     //возвращает массив значений ширины каждого аттрибута
-    ArrayList<Integer> getWidthAtribute(String nameTable) throws SQLException;
+    List<Integer> getWidthAtribute(String nameTable) throws SQLException;
 
     //вовзращает массив атрибутов таблицы
     Set<String> getAtribute(String nameTable) throws SQLException;

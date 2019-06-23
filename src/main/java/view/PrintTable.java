@@ -2,7 +2,6 @@ package view;
 
 import model.DataSet;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +14,7 @@ public class PrintTable {
     }
 
     //вывод всей таблицы
-    public void printTable(ArrayList<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
+    public void printTable(List<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
         //рисуем верхнюю границу таблицы(+--+--+)
         printLineTable(arrWidthAttribute, dataSets);
 
@@ -33,7 +32,7 @@ public class PrintTable {
     }
 
     //рисуем верхнюю/нижнюю границу таблицы (+--+--+)
-    public void printLineTable(ArrayList<Integer> arrWidthAttribute, List<DataSet> dataSets) {
+    public void printLineTable(List<Integer> arrWidthAttribute, List<DataSet> dataSets) {
         String str = "+";
         for (int i = 0; i < arrWidthAttribute.size(); i++) {
             //ширина колонки
@@ -47,7 +46,7 @@ public class PrintTable {
     }
 
     //рисуем заглавие таблицы
-    public void printTitleTable(ArrayList<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
+    public void printTitleTable(List<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
         String str = "+";
         int count = 0;
         for (String stringIterator : attributes) {
@@ -66,7 +65,7 @@ public class PrintTable {
     }
 
     //выводим содержимое кортежей таблицы
-    private void dataCortege(ArrayList<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
+    private void dataCortege(List<Integer> arrWidthAttribute, Set<String> attributes, List<DataSet> dataSets) {
         for (int j = 0; j < dataSets.size(); j++) {
             String str = "+";
             Object valueData = new Object();

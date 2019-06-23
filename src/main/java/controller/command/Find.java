@@ -6,7 +6,6 @@ import view.PrintTable;
 import view.View;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -34,7 +33,7 @@ public class Find implements Command {
         String nameTable = commandWithParam[1];
         try {
             //список с размерами (шириной) каждого атрибута таблицы
-            ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
+            List<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
             //список датасетов таблицы
             List<DataSet> dataSets = dbManager.getDataSetTable(nameTable);
             //коллекция атрибутов (названий колонок) таблицы

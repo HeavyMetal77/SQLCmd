@@ -7,7 +7,6 @@ import view.PrintTable;
 import view.View;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +47,7 @@ public class Update implements Command {
             view.write("Данные успешно обновлены!");
             //Согласно ТЗ - Формат вывода: табличный
             //список с размерами (шириной) каждого атрибута таблицы
-            ArrayList<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
+            List<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
             //список датасетов таблицы
             List<DataSet> dataSets2 = dbManager.getDataSetTable(nameTable);
             //коллекция атрибутов (названий колонок) таблицы
