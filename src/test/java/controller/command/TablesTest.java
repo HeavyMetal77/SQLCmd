@@ -8,7 +8,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import view.View;
 
-import java.sql.SQLException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -39,14 +38,10 @@ public class TablesTest {
     @Test
     public void testProcess() {
         //given
-        try {
-            Set<String> listTables = new LinkedHashSet<>();
-            listTables.add("test1");
-            listTables.add("test2");
-            when(dbManager.getTables()).thenReturn(listTables);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Set<String> listTables = new LinkedHashSet<>();
+        listTables.add("test1");
+        listTables.add("test2");
+        when(dbManager.getTables()).thenReturn(listTables);
         //when
         command.process("tables");
         //then
@@ -55,12 +50,11 @@ public class TablesTest {
 
     @Test
     public void testPrintEmptyTableData() {
-        try {
-            when(dbManager.getTables()).thenReturn(new LinkedHashSet<>());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        //given
+        when(dbManager.getTables()).thenReturn(new LinkedHashSet<>());
+        //when
         command.process(("tables"));
+        //then
         shouldPrint("[В базе данных таблицы отсутствуют]");
     }
 

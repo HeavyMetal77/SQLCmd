@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import view.View;
 
-import java.sql.SQLException;
-
 import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.verify;
 
@@ -65,11 +63,7 @@ public class DropTest {
     public void testDropTableSuccessful() {
         //when
         command.process("drop|contact");
-        try {
-            verify(dbManager).drop("contact");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        verify(dbManager).drop("contact");
         //then
         verify(view).write("Таблица contact была успешно удалена!");
     }

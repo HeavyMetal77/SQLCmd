@@ -6,7 +6,6 @@ import model.DataSetImpl;
 import view.PrintTable;
 import view.View;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -42,23 +41,18 @@ public class Update implements Command {
         for (int i = 0, j = 4; i < lengthData; i++, j += 2) {
             dataSets.put(commandWithParam[j], commandWithParam[j + 1]);
         }
-        try {
-            dbManager.update(nameTable, column1, value1, dataSets);
-            view.write("Данные успешно обновлены!");
-            //Согласно ТЗ - Формат вывода: табличный
-            //список с размерами (шириной) каждого атрибута таблицы
-            List<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
-            //список датасетов таблицы
-            List<DataSet> dataSets2 = dbManager.getDataSetTable(nameTable);
-            //коллекция атрибутов (названий колонок) таблицы
-            Set<String> attributes = dbManager.getAtribute(nameTable);
-            //вывод всей таблицы
-            PrintTable printTable = new PrintTable(view);
-            printTable.printTable(arrWidthAttribute, attributes, dataSets2);
-        } catch (SQLException e) {
-            throw new RuntimeException(String.format("Ошибка обновления данных в таблице %s, " +
-                    "по причине: %s", nameTable, e.getMessage()));
-        }
+        dbManager.update(nameTable, column1, value1, dataSets);
+        view.write("Данные успешно обновлены!");
+        //Согласно ТЗ - Формат вывода: табличный
+        //список с размерами (шириной) каждого атрибута таблицы
+        List<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
+        //список датасетов таблицы
+        List<DataSet> dataSets2 = dbManager.getDataSetTable(nameTable);
+        //коллекция атрибутов (названий колонок) таблицы
+        Set<String> attributes = dbManager.getAtribute(nameTable);
+        //вывод всей таблицы
+        PrintTable printTable = new PrintTable(view);
+        printTable.printTable(arrWidthAttribute, attributes, dataSets2);
     }
 
     @Override

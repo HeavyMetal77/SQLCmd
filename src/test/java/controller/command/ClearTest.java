@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import view.View;
 
-import java.sql.SQLException;
-
 import static junit.framework.TestCase.*;
 import static org.mockito.Mockito.verify;
 
@@ -28,11 +26,7 @@ public class ClearTest {
         //when
         command.process("clear|test");
         //then
-        try {
-            verify(dbManager).clear("test");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        verify(dbManager).clear("test");
         verify(view).write("Таблица test была успешно очищена!");
     }
 

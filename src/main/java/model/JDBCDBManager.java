@@ -13,18 +13,26 @@ public class JDBCDBManager implements DBManager {
         return connection;
     }
 
-    public void setConnection(ConnectionManager connectionManager) throws Exception {
+    public void setConnection(ConnectionManager connectionManager) {
+        try {
             this.connection = connectionManager.getConnection();
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
     //получить соединение с БД
     @Override
-    public void connect(String database, String login, String password) throws Exception {
+    public void connect(String database, String login, String password) {
         connectionManager = new ConnectionManager();
-        if (connectionManager.isConnected()) {
-            connection = connectionManager.getConnection();
-        } else {
-            connection = connectionManager.getConnectionWithAuthorization(database, login, password);
+        try {
+            if (connectionManager.isConnected()) {
+                connection = connectionManager.getConnection();
+            } else {
+                connection = connectionManager.getConnectionWithAuthorization(database, login, password);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -33,7 +41,7 @@ public class JDBCDBManager implements DBManager {
             try {
                 connection.close();
             } catch (SQLException e) {
-                throw new RuntimeException();
+                throw new RuntimeException(e.getMessage());
             }
         }
     }
@@ -51,7 +59,6 @@ public class JDBCDBManager implements DBManager {
     @Override
     public Set<String> getDatabases() {
         Set<String> list = new LinkedHashSet<>();
-
         try (PreparedStatement ps = connection.prepareStatement(
                 "SELECT datname FROM pg_database WHERE datistemplate = false;");
              ResultSet rs = ps.executeQuery()) {
@@ -81,7 +88,7 @@ public class JDBCDBManager implements DBManager {
 
     //получить названия всех таблиц БД
     @Override
-    public Set<String> getTables() throws SQLException {
+    public Set<String> getTables() {
         String request = "SELECT * FROM information_schema.tables " +
                 "WHERE table_schema='public' AND table_type='BASE TABLE'";
         Set<String> list = new LinkedHashSet<>();
@@ -90,49 +97,60 @@ public class JDBCDBManager implements DBManager {
             while (resultSet.next()) {
                 list.add(resultSet.getString("table_name"));
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
         }
         return list;
     }
 
     //создать таблицу с названием nameTable
     @Override
-    public void createTable(String requestSql) throws SQLException {
+    public void createTable(String requestSql) {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     //удалить таблицу
     @Override
-    public void drop(String nameTable) throws SQLException {
+    public void drop(String nameTable) {
         String requestSql = "DROP TABLE IF EXISTS " + nameTable;
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
+        } catch (SQLException e) {
+            throw new RuntimeException(String.format("Ошибка удаления таблицы %s, по причине: %s",
+                    nameTable, e.getMessage()));
         }
     }
 
     //очистить таблицу
     @Override
-    public void clear(String nameTable) throws SQLException {
+    public void clear(String nameTable) {
         String requestSql = "DELETE FROM " + nameTable;
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     //возвращает размер таблицы
     @Override
-    public int getSize(String tableName) throws SQLException {
+    public int getSize(String tableName) {
         try (Statement stmt = connection.createStatement();
              ResultSet rsCount = stmt.executeQuery("SELECT COUNT(*) FROM public." + tableName)) {
             rsCount.next();
             return rsCount.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     //возвращает список значений ширины каждого аттрибута
     @Override
-    public List<Integer> getWidthAtribute(String nameTable) throws SQLException {
+    public List<Integer> getWidthAtribute(String nameTable) {
         List<DataSet> dataSets = getDataSetTable(nameTable);
         List<Integer> arrWidthAttribute = new ArrayList<>();
         if (!dataSets.isEmpty()) {
@@ -168,7 +186,7 @@ public class JDBCDBManager implements DBManager {
 
     //вовзращает множество (список) атрибутов таблицы
     @Override
-    public Set<String> getAtribute(String nameTable) throws SQLException {
+    public Set<String> getAtribute(String nameTable) {
         Set<String> arrAtribute;
         String requestSql = "SELECT * FROM " + nameTable;
         try (Statement stmt = connection.createStatement();
@@ -181,17 +199,17 @@ public class JDBCDBManager implements DBManager {
                     arrAtribute.add(resultSet.getMetaData().getColumnName(i));
                 }
             } else {
-                throw new SQLException("В таблице не создано ни одного атрибута!");
+                throw new RuntimeException("В таблице не создано ни одного атрибута!");
             }
         } catch (SQLException e) {
-            throw new SQLException(String.format("Таблицы %s не существует!", nameTable));
+            throw new RuntimeException(String.format("Таблицы %s не существует!", nameTable));
         }
         return arrAtribute;
     }
 
     //возвращает лист Датасетов содержащий данные из указанной таблицы
     @Override
-    public List<DataSet> getDataSetTable(String nameTable) throws SQLException {
+    public List<DataSet> getDataSetTable(String nameTable) {
         List<DataSet> dataSets = null;
         String requestSql = "SELECT * FROM " + nameTable;
         try (Statement stmt = connection.createStatement();
@@ -207,22 +225,46 @@ public class JDBCDBManager implements DBManager {
                 }
             }
         } catch (SQLException e) {
-            throw new SQLException(String.format("Таблицы %s не существует!", nameTable));
+            throw new RuntimeException(String.format("Таблицы %s не существует!", nameTable));
         }
         return dataSets;
     }
 
     //вставить данные в таблицу
     @Override
-    public void insert(String insertRequestSql) throws SQLException {
+    public void insert(String nameTable, DataSet dataSet) {
+        Set<String> tables = getTables();
+        if (!tables.contains(nameTable.toLowerCase())) {
+            throw new RuntimeException(String.format("Таблицы '%s' не существует! Проверьте правильность названия таблицы!", nameTable));
+        }
+        //строка запроса, содержащая атрибуты таблицы
+        String dataRequestColumn = "";
+        //строка запроса, содержащая значения таблицы
+        String dataRequestValue = "";
+        //формируем запрос для атрибутов таблицы и значений кортежей таблицы
+        Set<String> columns = dataSet.getNames();
+        for (String name : columns) {
+            dataRequestColumn += name + ", ";
+            dataRequestValue += "'" + dataSet.get(name) + "'" + ", ";
+        }
+        //удаляем последнюю запятую и пробел
+        dataRequestColumn = dataRequestColumn.substring(0, dataRequestColumn.length() - 2);
+        //удаляем последнюю запятую и пробел
+        dataRequestValue = dataRequestValue.substring(0, dataRequestValue.length() - 2);
+        //пример запроса INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);
+        String insertRequestSql = "INSERT INTO " + nameTable + " (" + dataRequestColumn + ")"
+                + " VALUES (" + dataRequestValue + ")";
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(insertRequestSql);
+        } catch (SQLException e) {
+            throw new RuntimeException(String.format("Данные в таблицу '%s' не вставлены, по причине: %s",
+                    nameTable, e.getMessage()));
         }
     }
 
     //обновить данные в существующей таблице
     @Override
-    public void update(String nameTable, String column1, String value1, DataSet dataSet) throws SQLException {
+    public void update(String nameTable, String column1, String value1, DataSet dataSet) {
         //создаем строку запроса
         String dataRequest = "";
         Set<String> columns = dataSet.getNames();
@@ -230,20 +272,25 @@ public class JDBCDBManager implements DBManager {
             dataRequest += name + " = '" + dataSet.get(name) + "', ";
         }
         dataRequest = dataRequest.substring(0, dataRequest.length() - 2);
-
         String updateRequestSql = "UPDATE " + nameTable + " SET " + dataRequest + " WHERE "
                 + column1 + " = '" + value1 + "'";
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(updateRequestSql);
+        } catch (SQLException e) {
+            throw new RuntimeException(String.format("Ошибка обновления данных в таблице %s, " +
+                    "по причине: %s", nameTable, e.getMessage()));
         }
     }
 
     //удалить запись в таблице
     @Override
-    public void delete(String nameTable, String columnName, String columnValue) throws SQLException {
+    public void delete(String nameTable, String columnName, String columnValue) {
         String sql = "DELETE FROM " + nameTable + " WHERE " + columnName + " = '" + columnValue + "'";
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(String.format("Ошибка удаления записи в таблице %s, по причине: %s",
+                    nameTable, e.getMessage()));
         }
     }
 }

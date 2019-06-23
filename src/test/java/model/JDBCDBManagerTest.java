@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -33,12 +32,8 @@ public class JDBCDBManagerTest {
         manager = mock(JDBCDBManager.class);
         int sizeTable = 0;
         //when
-        try {
-            when(manager.getSize("contact")).thenReturn(5);
-            sizeTable = manager.getSize("contact");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        when(manager.getSize("contact")).thenReturn(5);
+        sizeTable = manager.getSize("contact");
         //then
         assertEquals(sizeTable, 5);
     }
@@ -48,30 +43,17 @@ public class JDBCDBManagerTest {
         //given
         int sizeTable = 0;
         //when
-        try {
-            sizeTable = manager.getSize("testGetSizeTable");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        sizeTable = manager.getSize("testGetSizeTable");
         //then
         assertEquals(sizeTable, 2);
-
-        //when
-        try {
-            manager.drop("testGetSizeTable");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        manager.drop("testGetSizeTable");
     }
 
     @Test
     public void testGetAllTableNames() {
-        Set<String> tablesNames = null;
-        try {
-            tablesNames = manager.getTables();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        //when
+        Set<String> tablesNames = manager.getTables();
+        //then
         assertEquals("[category, contact_type, contact_value, contact, testgetsizetable]",
                 tablesNames.toString());
     }

@@ -5,7 +5,6 @@ import model.DataSet;
 import view.PrintTable;
 import view.View;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +30,7 @@ public class Find implements Command {
             return;
         }
         String nameTable = commandWithParam[1];
-        try {
-            //список с размерами (шириной) каждого атрибута таблицы
+        //список с размерами (шириной) каждого атрибута таблицы
             List<Integer> arrWidthAttribute = dbManager.getWidthAtribute(nameTable);
             //список датасетов таблицы
             List<DataSet> dataSets = dbManager.getDataSetTable(nameTable);
@@ -41,9 +39,6 @@ public class Find implements Command {
             //вывод всей таблицы
             PrintTable printTable = new PrintTable(view);
             printTable.printTable(arrWidthAttribute, attributes, dataSets);
-        } catch (SQLException e) {
-            throw new RuntimeException(String.format(e.getMessage()));
-        }
     }
 
     @Override

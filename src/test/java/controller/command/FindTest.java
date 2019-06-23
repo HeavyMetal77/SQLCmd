@@ -9,7 +9,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import view.View;
 
-import java.sql.SQLException;
 import java.util.*;
 
 import static junit.framework.TestCase.*;
@@ -50,15 +49,10 @@ public class FindTest {
         list.add(50);
 
         Set<String> attributes = new LinkedHashSet<String>(Arrays.asList("id", "nametest2", "field1"));
-        try {
-            Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(list);
-            Mockito.when(dbManager.getSize(nameTable)).thenReturn(2);
-            Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(dataSets);
-            Mockito.when(dbManager.getAtribute(nameTable)).thenReturn(attributes);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(list);
+        Mockito.when(dbManager.getSize(nameTable)).thenReturn(2);
+        Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(dataSets);
+        Mockito.when(dbManager.getAtribute(nameTable)).thenReturn(attributes);
         //when
         command.process("find|test");
 
@@ -125,14 +119,10 @@ public class FindTest {
         list.add(5);
         list.add(20);
         list.add(20);
-        try {
-            Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(list);
-            Mockito.when(dbManager.getSize(nameTable)).thenReturn(0);
-            Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(dataSets);
-            Mockito.when(dbManager.getAtribute(nameTable)).thenReturn(attributes);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Mockito.when(dbManager.getWidthAtribute(nameTable)).thenReturn(list);
+        Mockito.when(dbManager.getSize(nameTable)).thenReturn(0);
+        Mockito.when(dbManager.getDataSetTable(nameTable)).thenReturn(dataSets);
+        Mockito.when(dbManager.getAtribute(nameTable)).thenReturn(attributes);
         //when
         command.process("find|test");
         //then

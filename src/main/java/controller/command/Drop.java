@@ -25,13 +25,8 @@ public class Drop implements Command {
             return;
         }
         String nameTable = commandWithParam[1];
-        try {
-            dbManager.drop(nameTable);
-            view.write("Таблица " + nameTable + " была успешно удалена!");
-        } catch (Exception e) {
-            throw new RuntimeException(String.format("Ошибка удаления таблицы %s, по причине: %s",
-                    nameTable, e.getMessage()));
-        }
+        dbManager.drop(nameTable);
+        view.write("Таблица " + nameTable + " была успешно удалена!");
     }
 
     @Override

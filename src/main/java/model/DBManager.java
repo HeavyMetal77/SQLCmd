@@ -3,52 +3,51 @@ package model;
 import model.configuration.ConnectionManager;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
 public interface DBManager {
     //получить соединение с БД
-    void connect(String database, String login, String password) throws Exception;
+    void connect(String database, String login, String password);
 
     //возвращает список таблиц БД
-    Set<String> getTables() throws SQLException;
+    Set<String> getTables();
 
     //создать таблицу с названием nameTable
-    void createTable(String requestSql) throws SQLException;
+    void createTable(String requestSql);
 
     //удалить таблицу с названием nameTable
-    void drop(String nameTable) throws SQLException;
+    void drop(String nameTable);
 
     //очистить таблицу с названием nameTable
-    void clear(String nameTable) throws SQLException;
+    void clear(String nameTable);
 
     //возвращает размер таблицы
-    int getSize(String tableName) throws SQLException;
+    int getSize(String tableName);
 
     //возвращает массив значений ширины каждого аттрибута
-    List<Integer> getWidthAtribute(String nameTable) throws SQLException;
+    List<Integer> getWidthAtribute(String nameTable);
 
     //вовзращает массив атрибутов таблицы
-    Set<String> getAtribute(String nameTable) throws SQLException;
+    Set<String> getAtribute(String nameTable);
 
     //возвращает массив Датасетов содержащий данные из указанной таблицы
-    List<DataSet> getDataSetTable(String nameTable) throws SQLException;
+    List<DataSet> getDataSetTable(String nameTable);
 
     //вставить данные в таблицу
-    void insert(String insertRequestSql) throws SQLException;
+    void insert(String nameTable, DataSet dataSet);
 
     //обновить данные в таблице с названием nameTable
-    void update(String nameTable, String column1, String value1, DataSet dataSet) throws SQLException;
+    void update(String nameTable, String column1, String value1, DataSet dataSet);
 
     //установить connection из ConnectionManager
-    void setConnection(ConnectionManager connectionManager) throws Exception;
+    void setConnection(ConnectionManager connectionManager);
 
     //получить connection
     Connection getConnection();
 
     //удаление записи в таблице
-    void delete(String nameTable, String columnName, String columnValue) throws SQLException;
+    void delete(String nameTable, String columnName, String columnValue);
 
     //закрыть Connection
     void closeOpenedConnection();

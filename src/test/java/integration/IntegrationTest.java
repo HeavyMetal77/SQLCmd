@@ -679,7 +679,6 @@ public class IntegrationTest {
                 "Программа завершила работу\r\n", getData());
     }
 
-
     @Test
     public void testInsertErrorAfterConnect() {
         //given
@@ -700,9 +699,7 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //insert
-                "Ошибка! Причина: Данные в таблицу testnonexist не вставлены, по причине: " +
-                "ERROR: relation \"testnonexist\" does not exist\n" +
-                "  Position: 13\r\n" +
+                "Ошибка! Причина: Таблицы 'testnonexist' не существует! Проверьте правильность названия таблицы!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());
@@ -903,8 +900,7 @@ public class IntegrationTest {
                 "Подключение к базе выполнено успешно!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //delete
-                "Ошибка! Причина: Ошибка удаления записи в таблице nonexist, по причине: " +
-                "Таблицы nonexist не существует!\r\n" +
+                "Ошибка! Причина: Таблицы nonexist не существует!\r\n" +
                 "Введи команду или 'help' для помощи:\r\n" +
                 //exit
                 "Программа завершила работу\r\n", getData());

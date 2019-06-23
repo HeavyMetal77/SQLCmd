@@ -3,8 +3,6 @@ package controller.command;
 import model.DBManager;
 import view.View;
 
-import java.sql.SQLException;
-
 public class Clear implements Command {
     private DBManager dbManager;
     private View view;
@@ -27,12 +25,8 @@ public class Clear implements Command {
             return;
         }
         String nameTable = commandWithParam[1];
-        try {
-            dbManager.clear(nameTable);
-            view.write("Таблица " + nameTable + " была успешно очищена!");
-        } catch (SQLException e) {
-            throw new RuntimeException(String.format("Ошибка очистки таблицы %s, по причине: %s", nameTable, e.getMessage()));
-        }
+        dbManager.clear(nameTable);
+        view.write("Таблица " + nameTable + " была успешно очищена!");
     }
 
     @Override

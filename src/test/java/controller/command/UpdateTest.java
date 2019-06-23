@@ -10,7 +10,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import view.View;
 
-import java.sql.SQLException;
 import java.util.*;
 
 import static junit.framework.TestCase.assertTrue;
@@ -48,12 +47,10 @@ public class UpdateTest {
         List<DataSet> dataSets = new ArrayList<>();
         dataSets.add(dataSet);
 
-        try {
-            when(dbManager.getAtribute("testtable")).thenReturn(attributes);
-            when(dbManager.getWidthAtribute("testtable")).thenReturn(arrWidthAttribute);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+        when(dbManager.getAtribute("testtable")).thenReturn(attributes);
+        when(dbManager.getWidthAtribute("testtable")).thenReturn(arrWidthAttribute);
+
 
         //when
         command.process("update|testtable|name|Roman|surname|Petrov|");
