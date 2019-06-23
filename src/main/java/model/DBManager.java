@@ -3,7 +3,6 @@ package model;
 import model.configuration.ConnectionManager;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
@@ -23,9 +22,6 @@ public interface DBManager {
 
     //очистить таблицу с названием nameTable
     void clear(String nameTable) throws SQLException;
-
-    //получить ResultSet у таблицы с названием nameTable
-    ResultSet getResultSet(String nameTable) throws SQLException;
 
     //возвращает размер таблицы
     int getSize(String tableName) throws SQLException;

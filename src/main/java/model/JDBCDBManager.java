@@ -120,27 +120,6 @@ public class JDBCDBManager implements DBManager {
         }
     }
 
-    //получение содержимого указанной таблицы
-    @Override
-    public ResultSet getResultSet(String nameTable) throws SQLException {
-        String requestSql = "SELECT * FROM " + nameTable;
-        ResultSet resultSet;
-        Statement stmt = null;
-        try {
-            stmt = connection.createStatement();
-            resultSet = stmt.executeQuery(requestSql);
-        } catch (SQLException e) {
-            throw new SQLException(String.format("Таблицы %s не существует!", nameTable));
-        }
-        //количество атрибутов таблицы
-        int columnCount = resultSet.getMetaData().getColumnCount();
-        if (columnCount != 0) {
-            return resultSet;
-        } else {
-            throw new SQLException("В таблице не создано ни одного атрибута!");
-        }
-    }
-
     //возвращает размер таблицы
     @Override
     public int getSize(String tableName) throws SQLException {
@@ -190,12 +169,22 @@ public class JDBCDBManager implements DBManager {
     //вовзращает множество (список) атрибутов таблицы
     @Override
     public Set<String> getAtribute(String nameTable) throws SQLException {
-        ResultSet resultSet = getResultSet(nameTable);
-        //количество атрибутов таблицы
-        int columnCount = resultSet.getMetaData().getColumnCount();
-        Set<String> arrAtribute = new LinkedHashSet<>(columnCount);
-        for (int i = 1; i <= columnCount; i++) {
-            arrAtribute.add(resultSet.getMetaData().getColumnName(i));
+        Set<String> arrAtribute;
+        String requestSql = "SELECT * FROM " + nameTable;
+        try (Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(requestSql);) {
+            //количество атрибутов таблицы
+            int columnCount = resultSet.getMetaData().getColumnCount();
+            arrAtribute = new LinkedHashSet<>(columnCount);
+            if (columnCount != 0) {
+                for (int i = 1; i <= columnCount; i++) {
+                    arrAtribute.add(resultSet.getMetaData().getColumnName(i));
+                }
+            } else {
+                throw new SQLException("В таблице не создано ни одного атрибута!");
+            }
+        } catch (SQLException e) {
+            throw new SQLException(String.format("Таблицы %s не существует!", nameTable));
         }
         return arrAtribute;
     }
@@ -203,16 +192,22 @@ public class JDBCDBManager implements DBManager {
     //возвращает лист Датасетов содержащий данные из указанной таблицы
     @Override
     public List<DataSet> getDataSetTable(String nameTable) throws SQLException {
-        ResultSet resultSet = getResultSet(nameTable);
-        //количество атрибутов таблицы
-        int columnCount = resultSet.getMetaData().getColumnCount();
-        List<DataSet> dataSets = new LinkedList<>();
-        while (resultSet.next()) {
-            DataSet dataSet = new DataSetImpl();
-            dataSets.add(dataSet);
-            for (int i = 1; i <= columnCount; i++) {
-                dataSet.put(resultSet.getMetaData().getColumnName(i), resultSet.getObject(i));
+        List<DataSet> dataSets = null;
+        String requestSql = "SELECT * FROM " + nameTable;
+        try (Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(requestSql);) {
+            //количество атрибутов таблицы
+            int columnCount = resultSet.getMetaData().getColumnCount();
+            dataSets = new LinkedList<>();
+            while (resultSet.next()) {
+                DataSet dataSet = new DataSetImpl();
+                dataSets.add(dataSet);
+                for (int i = 1; i <= columnCount; i++) {
+                    dataSet.put(resultSet.getMetaData().getColumnName(i), resultSet.getObject(i));
+                }
             }
+        } catch (SQLException e) {
+            throw new SQLException(String.format("Таблицы %s не существует!", nameTable));
         }
         return dataSets;
     }
