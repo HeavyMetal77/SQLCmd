@@ -36,12 +36,8 @@ public class CreateTable implements Command {
             nameColumns[j++] = commandWithParam[i];
         }
         String requestSql = getRequest(nameTable, nameColumns);
-        try {
-            dbManager.createTable(requestSql);
-            view.write("Таблица " + nameTable + " была успешно создана!");
-        } catch (Exception e) {
-            throw new RuntimeException(String.format("Ошибка создания таблицы %s, по причине: %s", nameTable, e.getMessage()));
-        }
+        dbManager.createTable(requestSql, nameTable);
+        view.write("Таблица " + nameTable + " была успешно создана!");
     }
 
     @Override

@@ -14,7 +14,7 @@ public interface DBManager {
     Set<String> getTables();
 
     //создать таблицу с названием nameTable
-    void createTable(String requestSql);
+    void createTable(String requestSql, String nameTable);
 
     //удалить таблицу с названием nameTable
     void drop(String nameTable);

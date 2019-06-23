@@ -105,11 +105,11 @@ public class JDBCDBManager implements DBManager {
 
     //создать таблицу с названием nameTable
     @Override
-    public void createTable(String requestSql) {
+    public void createTable(String requestSql, String nameTable) {
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(requestSql);
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(String.format("Ошибка создания таблицы %s, по причине: %s", nameTable, e.getMessage()));
         }
     }
 
