@@ -3,17 +3,18 @@ package model.configuration;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertiesLoader {
     public static final String CONFIG_SQLCMD_PROPERTIES = "src/main/resources/config/sqlcmd.properties";
-    private Properties properties;
+    private Properties prop;
 
     public PropertiesLoader() throws Exception {
-        properties = new Properties();
+        prop = new Properties();
         File fileProperties = new File(CONFIG_SQLCMD_PROPERTIES);
-        try (FileInputStream fileInputStream = new FileInputStream(fileProperties)) {
-            properties.load(fileInputStream);
+        try (InputStream input = new FileInputStream(fileProperties)) {
+            prop.load(input);
         } catch (Exception e) {
             throw new FileNotFoundException("Ошибка при загрузке конфигурации: "
                     + fileProperties.getAbsolutePath());
@@ -32,26 +33,26 @@ public class PropertiesLoader {
     }
 
     private String getServerName() {
-        return properties.getProperty("database.server.name");
+        return prop.getProperty("database.server.name");
     }
 
     private String getDatabaseName() {
-        return properties.getProperty("database.name");
+        return prop.getProperty("database.name");
     }
 
     private String getPort() {
-        return properties.getProperty("database.port");
+        return prop.getProperty("database.port");
     }
 
     private String getDriver() {
-        return properties.getProperty("database.jdbc.driver");
+        return prop.getProperty("database.jdbc.driver");
     }
 
     private String getUserName() {
-        return properties.getProperty("database.user.name");
+        return prop.getProperty("database.user.name");
     }
 
     private String getPassword() {
-        return properties.getProperty("database.user.password");
+        return prop.getProperty("database.user.password");
     }
 }

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class ConnectionManager {
-    public static final String JDBC_POSTGRESQL_LOCALHOST = "jdbc:postgresql://localhost:5432/";
+    private static final String JDBC_POSTGRESQL_LOCALHOST = "jdbc:postgresql://localhost:5432/";
     private static final String JDBC_POSTGRESQL_DRIVER = "org.postgresql.Driver";
     private Connection connection;
     private PropertiesLoader propertiesLoader;
@@ -26,15 +26,11 @@ public class ConnectionManager {
         }
         if (connection == null) {
             try {
-                String url = String.format("%s%s:%s/%s",
-                        configuration.getDriver(),
-                        configuration.getServerName(),
-                        configuration.getPortNumber(),
-                        configuration.getDatabaseName());
-
-                connection = DriverManager.getConnection(url,
-                        configuration.getUserName(),
-                        configuration.getPassword());
+                if (configuration != null) {
+                    connection = DriverManager.getConnection(configuration.getUrl(),
+                            configuration.getUserName(),
+                            configuration.getPassword());
+                }
             } catch (Exception e) {
                 throw new Exception(e.getClass().getName() + ": " + e.getMessage());
             }

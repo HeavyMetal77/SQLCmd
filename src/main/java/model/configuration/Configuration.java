@@ -65,4 +65,8 @@ public final class Configuration {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getUrl() {
+        return String.format("%s%s:%s/%s", driver, serverName, portNumber, databaseName);
+    }
 }

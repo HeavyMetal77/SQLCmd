@@ -237,25 +237,17 @@ public class JDBCDBManager implements DBManager {
         if (!tables.contains(nameTable.toLowerCase())) {
             throw new RuntimeException(String.format("Таблицы '%s' не существует! Проверьте правильность названия таблицы!", nameTable));
         }
-        //строка запроса, содержащая атрибуты таблицы
-        String dataRequestColumn = "";
-        //строка запроса, содержащая значения таблицы
-        String dataRequestValue = "";
-        //формируем запрос для атрибутов таблицы и значений кортежей таблицы
+        StringBuilder requestColumn = new StringBuilder("");
+        StringBuilder requestValue = new StringBuilder("");
         Set<String> columns = dataSet.getNames();
         for (String name : columns) {
-            dataRequestColumn += name + ", ";
-            dataRequestValue += "'" + dataSet.get(name) + "'" + ", ";
+            requestColumn.append(name).append(", ");
+            requestValue.append("'").append(dataSet.get(name)).append("'").append(", ");
         }
-        //удаляем последнюю запятую и пробел
-        dataRequestColumn = dataRequestColumn.substring(0, dataRequestColumn.length() - 2);
-        //удаляем последнюю запятую и пробел
-        dataRequestValue = dataRequestValue.substring(0, dataRequestValue.length() - 2);
-        //пример запроса INSERT INTO nameTable (column1, column2, ...) VALUES(value1, value2, ...);
-        String insertRequestSql = "INSERT INTO " + nameTable + " (" + dataRequestColumn + ")"
-                + " VALUES (" + dataRequestValue + ")";
+        String request = "INSERT INTO " + nameTable + " (" + requestColumn.substring(0, requestColumn.length() - 2) + ")"
+                + " VALUES (" + requestValue.substring(0, requestValue.length() - 2) + ")";
         try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate(insertRequestSql);
+            stmt.executeUpdate(request);
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Данные в таблицу '%s' не вставлены, по причине: %s",
                     nameTable, e.getMessage()));
@@ -264,18 +256,18 @@ public class JDBCDBManager implements DBManager {
 
     //обновить данные в существующей таблице
     @Override
-    public void update(String nameTable, String column1, String value1, DataSet dataSet) {
+    public void update(String nameTable, String column, String value, DataSet dataSet) {
         //создаем строку запроса
-        String dataRequest = "";
+        String request = "";
         Set<String> columns = dataSet.getNames();
         for (String name : columns) {
-            dataRequest += name + " = '" + dataSet.get(name) + "', ";
+            request += name + " = '" + dataSet.get(name) + "', ";
         }
-        dataRequest = dataRequest.substring(0, dataRequest.length() - 2);
-        String updateRequestSql = "UPDATE " + nameTable + " SET " + dataRequest + " WHERE "
-                + column1 + " = '" + value1 + "'";
+        request = request.substring(0, request.length() - 2);
+        String updateRequest = "UPDATE " + nameTable + " SET " + request + " WHERE "
+                + column + " = '" + value + "'";
         try (Statement stmt = connection.createStatement()) {
-            stmt.executeUpdate(updateRequestSql);
+            stmt.executeUpdate(updateRequest);
         } catch (SQLException e) {
             throw new RuntimeException(String.format("Ошибка обновления данных в таблице %s, " +
                     "по причине: %s", nameTable, e.getMessage()));
