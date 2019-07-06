@@ -7,17 +7,20 @@ import view.View;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainController {
     private View view;
-    private ArrayList<Command> commands;
+    private List<Command> commands;
     private Connection connection;
     private DBManager dbManager;
-    String enterCommandOrHelp = "Введи команду или 'help' для помощи:";
+    private ConnectionManager connectionManager;
+    private String enterCommandOrHelp = "Введи команду или 'help' для помощи:";
 
     public MainController(View view, DBManager dbManager) {
         this.view = view;
         this.dbManager = dbManager;
+        connectionManager = new ConnectionManager();
         this.commands = new ArrayList<>();
         createCommandList();
     }
@@ -26,13 +29,12 @@ public class MainController {
         try {
             doWork();
         } catch (ExitException e) {
-            //do nothing
+
         }
     }
 
     private void doWork() {
         view.write("Привет пользователь!");
-        ConnectionManager connectionManager = new ConnectionManager();
         try {
             connection = connectionManager.getConnection();
         } catch (Exception e) {

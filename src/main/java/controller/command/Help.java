@@ -3,19 +3,20 @@ package controller.command;
 import view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Help implements Command {
     private View view;
-    private ArrayList<Command> commands;
+    private List<Command> commands;
 
-    public Help(View view, ArrayList<Command> commands) {
+    public Help(View view, List<Command> commands) {
         this.view = view;
         this.commands = commands;
     }
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals("help");
+        return "help".equals(command);
     }
 
     @Override
