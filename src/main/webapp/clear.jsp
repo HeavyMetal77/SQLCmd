@@ -11,7 +11,7 @@
     <table>
         <tr>
             <td>Введите название таблицы:</td>
-            <td><input type="text" name="dbname"/></td>
+            <td><input type="text" name="nameTable"/></td>
         </tr>
         <tr>
             <td></td>

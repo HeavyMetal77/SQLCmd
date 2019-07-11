@@ -11,4 +11,6 @@ public interface Service {
     List<List<String>> find(String databaseName);
 
     void clear(String databaseName);
+
+    void delete(String nameTable, String columnName, String columnValue);
 }

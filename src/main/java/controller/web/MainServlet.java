@@ -36,6 +36,8 @@ public class MainServlet extends HttpServlet {
             req.getRequestDispatcher("find.jsp").forward(req, resp);
         } else if (action.startsWith("/clear")) {
             req.getRequestDispatcher("clear.jsp").forward(req, resp);
+        }else if (action.startsWith("/delete")) {
+            req.getRequestDispatcher("delete.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
@@ -62,12 +64,19 @@ public class MainServlet extends HttpServlet {
                 req.getRequestDispatcher("error.jsp").forward(req, resp);
             }
         } else if (action.startsWith("/find")) {
-            String tableName = req.getParameter("dbname");
-            req.setAttribute("listdataset", service.find(tableName));
+            String nameTable = req.getParameter("nameTable");
+            req.setAttribute("listdataset", service.find(nameTable));
             req.getRequestDispatcher("findResult.jsp").forward(req, resp);
         } else if (action.startsWith("/clear")) {
-            String tableName = req.getParameter("dbname");
+            String tableName = req.getParameter("nameTable");
             service.clear(tableName);
+            req.setAttribute("listdataset", service.find(tableName));
+            req.getRequestDispatcher("findResult.jsp").forward(req, resp);
+        }else if (action.startsWith("/delete")) {
+            String tableName = req.getParameter("nameTable");
+            String columnName = req.getParameter("columnName");
+            String columnValue = req.getParameter("columnValue");
+            service.delete(tableName, columnName, columnValue);
             req.setAttribute("listdataset", service.find(tableName));
             req.getRequestDispatcher("findResult.jsp").forward(req, resp);
         }

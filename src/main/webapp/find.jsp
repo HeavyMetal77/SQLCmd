@@ -9,8 +9,8 @@
 <form action="find" method="post">
     <table>
         <tr>
-            <td>Database name</td>
-            <td><input type="text" name="dbname"/></td>
+            <td>Имя таблицы</td>
+            <td><input type="text" name="nameTable"/></td>
         </tr>
         <tr>
             <td></td>

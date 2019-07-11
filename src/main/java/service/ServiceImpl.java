@@ -24,6 +24,7 @@ public class ServiceImpl implements Service {
         list.add("menu");
         list.add("find");
         list.add("clear");
+        list.add("delete");
         return list;
     }
 
@@ -33,10 +34,10 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public List<List<String>> find(String databaseName) {
+    public List<List<String>> find(String nameTable) {
         List<List<String>> result = new LinkedList<>();
-        List<String> columns = new LinkedList<>(dbManager.getAtribute(databaseName));
-        List<DataSet> tableData = dbManager.getDataSetTable(databaseName);
+        List<String> columns = new LinkedList<>(dbManager.getAtribute(nameTable));
+        List<DataSet> tableData = dbManager.getDataSetTable(nameTable);
         result.add(columns);
         for (DataSet dataSet : tableData) {
             List<String> row = new ArrayList<>(columns.size());
@@ -54,7 +55,12 @@ public class ServiceImpl implements Service {
     }
 
     @Override
-    public void clear(String databaseName) {
-        dbManager.clear(databaseName);
+    public void clear(String nameTable) {
+        dbManager.clear(nameTable);
+    }
+
+    @Override
+    public void delete(String nameTable, String columnName, String columnValue) {
+        dbManager.delete(nameTable, columnName, columnValue);
     }
 }
