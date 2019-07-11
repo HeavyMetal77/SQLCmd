@@ -19,4 +19,12 @@
         <servlet-name>menu</servlet-name>
         <url-pattern>/start-jsp</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>find</servlet-name>
+        <jsp-file>/find.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>find</servlet-name>
+        <url-pattern>/find-jsp</url-pattern>
+    </servlet-mapping>
 </web-app>

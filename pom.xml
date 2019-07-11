@@ -104,8 +104,6 @@
             </plugins>
         </pluginManagement>
     </build>
-
-
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>

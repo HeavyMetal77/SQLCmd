@@ -3,10 +3,10 @@
 
 <html>
 <head>
-    <title>Menu</title>
+    <title>Error</title>
 </head>
 <body>
 <p>ERROR! ${message}</p><br>
-<a href="/menu">Menu</a> <br>
+<a href="menu">Menu</a> <br>
 </body>
 </html>

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface DBManager {
     //получить соединение с БД
-    void connect(String database, String login, String password);
+    Connection connect(String database, String login, String password);
 
     //возвращает список таблиц БД
     Set<String> getTables();

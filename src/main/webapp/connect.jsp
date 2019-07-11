@@ -29,8 +29,8 @@
         </tr>
     </table>
 </form>
+<a href="help">Help</a> <br>
 
-<a href="/menu">Menu</a> <br>
 
 </body>
 </html>

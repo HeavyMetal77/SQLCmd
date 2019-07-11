@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
 
 public class MainServlet extends HttpServlet {
-
     private Service service;
 
     @Override
@@ -20,20 +20,26 @@ public class MainServlet extends HttpServlet {
     }
 
     @Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("list", service.commands());
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = getAction(req);
+        if (req.getSession().getAttribute("connection") == null || action.startsWith("/connect")) {
+            req.getRequestDispatcher("connect.jsp").forward(req, resp);
+        }
+
+        req.setAttribute("list", service.commands());
 
         if (action.startsWith("/menu") || action.equals("/")) {
-			req.getRequestDispatcher("menu.jsp").forward(req, resp);
-		} else if (action.startsWith("/help")) {
+            req.getRequestDispatcher("menu.jsp").forward(req, resp);
+        } else if (action.startsWith("/help")) {
             req.getRequestDispatcher("help.jsp").forward(req, resp);
-        } else if (action.startsWith("/connect")) {
-            req.getRequestDispatcher("connect.jsp").forward(req, resp);
+        } else if (action.startsWith("/find")) {
+            req.getRequestDispatcher("find.jsp").forward(req, resp);
+        } else if (action.startsWith("/clear")) {
+            req.getRequestDispatcher("clear.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
-	}
+    }
 
     private String getAction(HttpServletRequest req) {
         String requestURI = req.getRequestURI();
@@ -41,22 +47,29 @@ public class MainServlet extends HttpServlet {
     }
 
     @Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = getAction(req);
-
         if (action.startsWith("/connect")) {
             String databaseName = req.getParameter("dbname");
             String userName = req.getParameter("username");
             String password = req.getParameter("password");
-
             try {
-                service.connect(databaseName, userName, password);
+                Connection connection = service.connect(databaseName, userName, password);
+                req.getSession().setAttribute("connection", connection);
                 resp.sendRedirect(resp.encodeRedirectURL("menu"));
             } catch (Exception e) {
                 req.setAttribute("message", e.getMessage());
                 req.getRequestDispatcher("error.jsp").forward(req, resp);
             }
+        } else if (action.startsWith("/find")) {
+            String tableName = req.getParameter("dbname");
+            req.setAttribute("listdataset", service.find(tableName));
+            req.getRequestDispatcher("findResult.jsp").forward(req, resp);
+        } else if (action.startsWith("/clear")) {
+            String tableName = req.getParameter("dbname");
+            service.clear(tableName);
+            req.setAttribute("listdataset", service.find(tableName));
+            req.getRequestDispatcher("findResult.jsp").forward(req, resp);
         }
-	}
-
+    }
 }
