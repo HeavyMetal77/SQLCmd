@@ -25,9 +25,7 @@ public class MainServlet extends HttpServlet {
         if (req.getSession().getAttribute("connection") == null || action.startsWith("/connect")) {
             req.getRequestDispatcher("connect.jsp").forward(req, resp);
         }
-
         req.setAttribute("list", service.commands());
-
         if (action.startsWith("/menu") || action.equals("/")) {
             req.getRequestDispatcher("menu.jsp").forward(req, resp);
         } else if (action.startsWith("/help")) {
@@ -38,7 +36,13 @@ public class MainServlet extends HttpServlet {
             req.getRequestDispatcher("clear.jsp").forward(req, resp);
         }else if (action.startsWith("/delete")) {
             req.getRequestDispatcher("delete.jsp").forward(req, resp);
-        } else {
+        }else if (action.startsWith("/drop")) {
+            req.getRequestDispatcher("drop.jsp").forward(req, resp);
+        } else if (action.startsWith("/tables")) {
+            service.tables();
+            req.setAttribute("listtable", service.tables());
+            req.getRequestDispatcher("tables.jsp").forward(req, resp);
+        }else {
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
     }
@@ -79,6 +83,11 @@ public class MainServlet extends HttpServlet {
             service.delete(tableName, columnName, columnValue);
             req.setAttribute("listdataset", service.find(tableName));
             req.getRequestDispatcher("findResult.jsp").forward(req, resp);
+        }else if (action.startsWith("/drop")) {
+            String tableName = req.getParameter("nameTable");
+            service.drop(tableName);
+            req.setAttribute("listtable", service.tables());
+            req.getRequestDispatcher("tables.jsp").forward(req, resp);
         }
     }
 }

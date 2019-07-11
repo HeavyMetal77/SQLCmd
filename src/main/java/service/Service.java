@@ -2,6 +2,7 @@ package service;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Set;
 
 public interface Service {
     List<String> commands();
@@ -13,4 +14,8 @@ public interface Service {
     void clear(String databaseName);
 
     void delete(String nameTable, String columnName, String columnValue);
+
+    void drop(String nameTable);
+
+    Set<String> tables();
 }

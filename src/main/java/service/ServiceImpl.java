@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class ServiceImpl implements Service {
     private DBManager dbManager;
@@ -22,9 +23,11 @@ public class ServiceImpl implements Service {
         list.add("connect");
         list.add("help");
         list.add("menu");
+        list.add("tables");
         list.add("find");
         list.add("clear");
         list.add("delete");
+        list.add("drop");
         return list;
     }
 
@@ -62,5 +65,15 @@ public class ServiceImpl implements Service {
     @Override
     public void delete(String nameTable, String columnName, String columnValue) {
         dbManager.delete(nameTable, columnName, columnValue);
+    }
+
+    @Override
+    public void drop(String nameTable) {
+        dbManager.drop(nameTable);
+    }
+
+    @Override
+    public Set<String> tables() {
+        return dbManager.getTables();
     }
 }
