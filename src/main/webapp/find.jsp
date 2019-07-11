@@ -14,7 +14,7 @@
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="connect"/></td>
+            <td><input type="submit" value="find"/></td>
         </tr>
     </table>
 </form>

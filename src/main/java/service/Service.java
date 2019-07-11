@@ -18,4 +18,8 @@ public interface Service {
     void drop(String nameTable);
 
     Set<String> tables();
+
+    void createDataBase(String databaseName);
+
+    Set<String> databases();
 }

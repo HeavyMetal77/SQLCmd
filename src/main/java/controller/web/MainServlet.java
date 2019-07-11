@@ -42,6 +42,11 @@ public class MainServlet extends HttpServlet {
             service.tables();
             req.setAttribute("listtable", service.tables());
             req.getRequestDispatcher("tables.jsp").forward(req, resp);
+        }else if (action.startsWith("/databases")) {
+            req.setAttribute("listdatabases", service.databases());
+            req.getRequestDispatcher("databases.jsp").forward(req, resp);
+        }else if (action.startsWith("/createDB")) {
+            req.getRequestDispatcher("createDB.jsp").forward(req, resp);
         }else {
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
@@ -88,6 +93,11 @@ public class MainServlet extends HttpServlet {
             service.drop(tableName);
             req.setAttribute("listtable", service.tables());
             req.getRequestDispatcher("tables.jsp").forward(req, resp);
+        }else if (action.startsWith("/createDB")) {
+            String databaseName = req.getParameter("databaseName");
+            service.createDataBase(databaseName);
+            req.setAttribute("listdatabases", service.databases());
+            req.getRequestDispatcher("databases.jsp").forward(req, resp);
         }
     }
 }

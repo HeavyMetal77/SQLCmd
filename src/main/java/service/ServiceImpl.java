@@ -28,6 +28,8 @@ public class ServiceImpl implements Service {
         list.add("clear");
         list.add("delete");
         list.add("drop");
+        list.add("databases");
+        list.add("createDB");
         return list;
     }
 
@@ -75,5 +77,15 @@ public class ServiceImpl implements Service {
     @Override
     public Set<String> tables() {
         return dbManager.getTables();
+    }
+
+    @Override
+    public void createDataBase(String databaseName) {
+        dbManager.createDatabase(databaseName);
+    }
+
+    @Override
+    public Set<String> databases() {
+        return dbManager.getDatabases();
     }
 }
