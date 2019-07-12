@@ -27,26 +27,14 @@ public class MainController {
 
     public void run() {
         try {
-            doWork();
+            welcome();
+            executeCommand();
         } catch (ExitException e) {
 
         }
     }
 
-    private void doWork() {
-        view.write("Привет пользователь!");
-        try {
-            connection = connectionManager.getConnection();
-        } catch (Exception e) {
-            view.write("Файл конфигурации не загружен!");
-        }
-        if (connection == null) {
-            view.write("Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
-                    "\n'connect|database|user|password' \nили 'help' для получения помощи");
-        } else {
-            view.write(enterCommandOrHelp);
-        }
-
+    private void executeCommand() {
         while (true) {
             String input = view.read();
             if (input == null) {
@@ -74,6 +62,21 @@ public class MainController {
                 }
                 printError(e);
             }
+        }
+    }
+
+    private void welcome() {
+        view.write("Привет пользователь!");
+        try {
+            connection = connectionManager.getConnection();
+        } catch (Exception e) {
+            view.write("Файл конфигурации не загружен!");
+        }
+        if (connection == null) {
+            view.write("Введи, пожалуйста, имя базы данных, имя пользователя и пароль в формате: " +
+                    "\n'connect|database|user|password' \nили 'help' для получения помощи");
+        } else {
+            view.write(enterCommandOrHelp);
         }
     }
 

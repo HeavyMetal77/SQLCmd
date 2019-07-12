@@ -20,7 +20,8 @@ public class Clear implements Command {
     @Override
     public void process(String command) {
         String[] commandWithParam = command.split("[|]");
-        if (commandWithParam.length != 2) {
+        int countCommandParameters = formatCommand().split("\\|").length;
+        if (commandWithParam.length != countCommandParameters) {
             view.write("Количество параметров не соответствует шаблону!");
             return;
         }

@@ -19,16 +19,16 @@ public class Connect implements Command {
 
     @Override
     public void process(String command) {
-        String[] data = command.split("[|]");
+        String[] commandWithParam = command.split("[|]");
         int countCommandParameters = formatCommand().split("\\|").length;
-        if (data.length != countCommandParameters) {
+        if (commandWithParam.length != countCommandParameters) {
             view.write(String.format("Неверное количество параметров: " +
-                    "ожидается: %s, введено: %s", countCommandParameters, data.length));
+                    "ожидается: %s, введено: %s", countCommandParameters, commandWithParam.length));
             return;
         }
-        String database = data[1];
-        String user = data[2];
-        String password = data[3];
+        String database = commandWithParam[1];
+        String user = commandWithParam[2];
+        String password = commandWithParam[3];
         try {
             dbManager.connect(database, user, password);
             view.write("Подключение к базе выполнено успешно!");

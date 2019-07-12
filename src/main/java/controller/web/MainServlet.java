@@ -34,20 +34,20 @@ public class MainServlet extends HttpServlet {
             req.getRequestDispatcher("find.jsp").forward(req, resp);
         } else if (action.startsWith("/clear")) {
             req.getRequestDispatcher("clear.jsp").forward(req, resp);
-        }else if (action.startsWith("/delete")) {
+        } else if (action.startsWith("/delete")) {
             req.getRequestDispatcher("delete.jsp").forward(req, resp);
-        }else if (action.startsWith("/drop")) {
+        } else if (action.startsWith("/drop")) {
             req.getRequestDispatcher("drop.jsp").forward(req, resp);
         } else if (action.startsWith("/tables")) {
             service.tables();
             req.setAttribute("listtable", service.tables());
             req.getRequestDispatcher("tables.jsp").forward(req, resp);
-        }else if (action.startsWith("/databases")) {
+        } else if (action.startsWith("/databases")) {
             req.setAttribute("listdatabases", service.databases());
             req.getRequestDispatcher("databases.jsp").forward(req, resp);
-        }else if (action.startsWith("/createDB")) {
+        } else if (action.startsWith("/createDB")) {
             req.getRequestDispatcher("createDB.jsp").forward(req, resp);
-        }else {
+        } else {
             req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
     }
@@ -81,19 +81,19 @@ public class MainServlet extends HttpServlet {
             service.clear(tableName);
             req.setAttribute("listdataset", service.find(tableName));
             req.getRequestDispatcher("findResult.jsp").forward(req, resp);
-        }else if (action.startsWith("/delete")) {
+        } else if (action.startsWith("/delete")) {
             String tableName = req.getParameter("nameTable");
             String columnName = req.getParameter("columnName");
             String columnValue = req.getParameter("columnValue");
             service.delete(tableName, columnName, columnValue);
             req.setAttribute("listdataset", service.find(tableName));
             req.getRequestDispatcher("findResult.jsp").forward(req, resp);
-        }else if (action.startsWith("/drop")) {
+        } else if (action.startsWith("/drop")) {
             String tableName = req.getParameter("nameTable");
             service.drop(tableName);
             req.setAttribute("listtable", service.tables());
             req.getRequestDispatcher("tables.jsp").forward(req, resp);
-        }else if (action.startsWith("/createDB")) {
+        } else if (action.startsWith("/createDB")) {
             String databaseName = req.getParameter("databaseName");
             service.createDataBase(databaseName);
             req.setAttribute("listdatabases", service.databases());

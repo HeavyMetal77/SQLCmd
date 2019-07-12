@@ -6,6 +6,7 @@ import view.View;
 public class CreateTable implements Command {
     private DBManager dbManager;
     private View view;
+    private static final int LENGTH_PARAM = 3;
 
     public CreateTable(DBManager dbManager, View view) {
         this.dbManager = dbManager;
@@ -20,7 +21,7 @@ public class CreateTable implements Command {
     @Override
     public void process(String command) {
         String[] commandWithParam = command.split("[|]");
-        if (commandWithParam.length < 3 || commandWithParam.length % 2 != 0) {
+        if (commandWithParam.length < LENGTH_PARAM || commandWithParam.length % 2 != 0) {
             view.write("Количество параметров не соответствует шаблону!");
             return;
         }

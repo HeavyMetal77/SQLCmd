@@ -12,6 +12,7 @@ import java.util.Set;
 public class Update implements Command {
     private DBManager dbManager;
     private View view;
+    private static final int LENGTH_PARAM = 6;
 
     public Update(DBManager dbManager, View view) {
         this.dbManager = dbManager;
@@ -28,7 +29,7 @@ public class Update implements Command {
         //получаем массив параметров команды
         String[] commandWithParam = command.split("[|]");
         //порверяем достаточно ли параметров в команде
-        if (commandWithParam.length < 6 || commandWithParam.length % 2 == 1) {
+        if (commandWithParam.length < LENGTH_PARAM || commandWithParam.length % 2 == 1) {
             view.write("Количество параметров не соответствует шаблону!");
             return;
         }

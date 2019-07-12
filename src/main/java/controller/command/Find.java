@@ -11,6 +11,7 @@ import java.util.Set;
 public class Find implements Command {
     private DBManager dbManager;
     private View view;
+    private static final int LENGTH_PARAM = 2;
 
     public Find(DBManager dbManager, View view) {
         this.dbManager = dbManager;
@@ -25,7 +26,7 @@ public class Find implements Command {
     @Override
     public void process(String command) {
         String[] commandWithParam = command.split("[|]");
-        if (commandWithParam.length != 2) {
+        if (commandWithParam.length != LENGTH_PARAM) {
             view.write("Количество параметров не соответствует шаблону!");
             return;
         }

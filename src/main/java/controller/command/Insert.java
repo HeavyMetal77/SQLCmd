@@ -8,6 +8,7 @@ import view.View;
 public class Insert implements Command {
     private DBManager dbManager;
     private View view;
+    private static final int LENGTH_PARAM = 4;
 
     public Insert(DBManager dbManager, View view) {
         this.dbManager = dbManager;
@@ -26,7 +27,7 @@ public class Insert implements Command {
         //0-й элемент - непосредственно команда
         //1-й элемент - имя таблицы nameTable
         //порверяем достаточно ли параметров в команде
-        if (commandWithParam.length < 4 && commandWithParam.length % 2 == 1) {
+        if (commandWithParam.length < LENGTH_PARAM && commandWithParam.length % 2 == 1) {
             view.write("Количество параметров не соответствует шаблону!");
             return;
         }
